@@ -1,0 +1,166 @@
+{
+ "book": {
+  "children": "book-meta front-matter book-body book-back",
+  "attributes": {
+   "dtd-version": "1.0",
+   "xml:lang": "en"
+  },
+  "namespaces": {
+   "mml": "http://www.w3.org/1998/Math/MathML",
+   "xlink": "http://www.w3.org/1999/xlink",
+   "xsi": "http://www.w3.org/2001/XMLSchema-instance",
+   "xi": "http://www.w3.org/2001/XInclude"
+  }
+ },
+ "book-meta": {
+  "children": "book-id[publisher-id] book-title-group contrib-group pub-date isbn publisher edition supplementary-material[cover] supplementary-material[thumbnail] permissions"
+ },
+ "book-part": {
+  "types": {
+   "chapter": 278,
+   "part": 23
+  },
+  "children": "book-part-meta (front-matter/toc)? body back?",
+  "meta": "book-part-id[publisher-id] title-group(label?, title) fpage lpage",
+  "label_shapes": {
+   "#": 191,
+   "CAPÍTULO #": 20,
+   "CHAPTER #": 15,
+   "I": 2,
+   "II": 2,
+   "III": 2,
+   "A": 2,
+   "B": 2,
+   "C": 2,
+   "Apéndice A": 1,
+   "Apéndice B": 1,
+   "UNIT ONE": 1,
+   "UNIT TWO": 1,
+   "UNIT THREE": 1,
+   "SECCIÓN I": 1,
+   "SECCIÓN II": 1,
+   "SECCIÓN III": 1,
+   "SECCIÓN IV": 1,
+   "SECCIÓN V": 1,
+   "SECCIÓN VI": 1,
+   "SECCIÓN VII": 1,
+   "SECCIÓN VIII": 1,
+   "SECCIÓN IX": 1,
+   "APÉNDICE I": 1,
+   "APÉNDICE II": 1,
+   "APÉNDICE III": 1,
+   "APÉNDICE IV": 1,
+   "APÉNDICE V": 1,
+   "D": 1,
+   "IV": 1,
+   "V": 1
+  },
+  "seq": "@seq = order in book"
+ },
+ "appendix": "book-part[@book-part-type=chapter] in book-back (vendor spec: no <app>, no <glossary>)",
+ "sec": {
+  "disp-level": {
+   "3": 6668,
+   "2": 4140,
+   "1": 1897,
+   "4": 450,
+   "<none>": 117,
+   "5": 47
+  },
+  "sec-type": "not used",
+  "children_patterns": {
+   "title p": 6575,
+   "title p sec": 1450,
+   "title list": 725,
+   "title sec": 712,
+   "title p list": 470,
+   "title": 331,
+   "title p fig": 272,
+   "title p fig p": 249
+  }
+ },
+ "p": "every p carries @id; pagenum <target> inserted at the page-break position",
+ "front-matter": {
+  "children": {
+   "toc": 74,
+   "front-matter-part[title page]": 7,
+   "dedication": 7,
+   "preface": 7,
+   "front-matter-part[how to use this book]": 2,
+   "front-matter-part[revisores page]": 1,
+   "front-matter-part[agradecimientos page]": 1,
+   "ack": 1,
+   "front-matter-part[memoriam page]": 1,
+   "front-matter-part[colaboradores page]": 1,
+   "front-matter-part[Agradecimientos page]": 1,
+   "front-matter-part[agradecimientos]": 1,
+   "front-matter-part[colaboradores]": 1,
+   "front-matter-part[al lector]": 1,
+   "front-matter-part[abreviaturas]": 1,
+   "front-matter-part[valores normales de laboratorio]": 1,
+   "front-matter-part[cómo escribir una nota soap]": 1,
+   "front-matter-part[Colaboradores page]": 1,
+   "front-matter-part[Prólogo page]": 1,
+   "front-matter-part[Abreviaturas page]": 1,
+   "front-matter-part[contributing editors page]": 1,
+   "front-matter-part[acerca de los autores]": 1
+  }
+ },
+ "toc": {
+  "book_level": "front-matter/toc: title-group + toc-entry(label?, title, nav-pointer[pagenum])",
+  "chapter_level": "book-part/front-matter/toc: toc-entry(label(xref[section]), title(xref[section])) — only some books"
+ },
+ "index": {
+  "location": "book-back/index",
+  "children": "title-group p? index-div(title-group/title=letter, index-entry+)",
+  "entry": "term, nav-pointer-group?, index-entry* (nested sub-entries)",
+  "see": "see-entry / see-also-entry",
+  "depths": {
+   "0": 11211,
+   "1": 10647,
+   "2": 3011,
+   "3": 316,
+   "4": 58,
+   "5": 2
+  }
+ },
+ "back": {
+  "children": "ref-list(title, ref+)",
+  "ref": "label? mixed-citation[@publication-type]",
+  "publication-types": {
+   "journal": 4109,
+   "book": 811,
+   "web": 74,
+   "report": 7,
+   "conference": 5,
+   "other": 2,
+   "thesis": 2
+  }
+ },
+ "fn": {
+  "parents": {
+   "fn-group": 265,
+   "table-wrap-foot": 113
+  },
+  "chapter_notes": "back/fn-group or table-wrap-foot/fn-group"
+ },
+ "target": {
+  "target-type": "pagenum",
+  "parents": {
+   "p": 3745,
+   "title": 795,
+   "td": 174,
+   "label": 148,
+   "mixed-citation": 57,
+   "bold": 27,
+   "term": 17,
+   "italic": 15,
+   "license-p": 8,
+   "th": 5,
+   "xref": 2,
+   "kwd": 1,
+   "uri": 1,
+   "string-name": 1
+  }
+ }
+}

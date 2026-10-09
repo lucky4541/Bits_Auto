@@ -1,0 +1,36 @@
+{
+ "list-types": {
+  "bullet": 2527,
+  "simple": 828,
+  "alpha-lower": 467,
+  "number": 418,
+  "alpha-upper": 133,
+  "roman-upper": 6,
+  "roman-lower": 2,
+  "loweralpha": 1
+ },
+ "nested": {
+  "alpha-lower": 424,
+  "simple": 321,
+  "bullet": 221,
+  "alpha-upper": 120,
+  "number": 64,
+  "roman-lower": 2,
+  "loweralpha": 1
+ },
+ "label_rule": "label only for list-type=simple (vendor spec)",
+ "evidence_label": {
+  "False:bullet": 2526,
+  "True:simple": 813,
+  "False:alpha-lower": 467,
+  "False:number": 415,
+  "False:alpha-upper": 133,
+  "False:simple": 15,
+  "False:roman-upper": 6,
+  "True:number": 3,
+  "False:roman-lower": 2,
+  "True:bullet": 1,
+  "False:loweralpha": 1
+ },
+ "item": "list-item(label?, p+, list?)"
+}

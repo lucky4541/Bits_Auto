@@ -1,0 +1,24 @@
+{
+ "structure": "table-wrap[@specific-use=inline](label?, caption?(title), table, table-wrap-foot?(fn-group(fn(label, p))))",
+ "child_patterns": {
+  "label caption table": 484,
+  "table": 271,
+  "label caption table table-wrap-foot": 267,
+  "table table-wrap-foot": 9,
+  "caption table table-wrap-foot": 2,
+  "caption table": 1
+ },
+ "label_shapes": {
+  "Tabla #-#": 578,
+  "TABLA #-#": 124,
+  "Table #.#": 32,
+  "Tabla IV-#": 6,
+  "Tabla A-#": 5,
+  "Tabla II-#": 2,
+  "Tabla C-#": 2,
+  "Tabla III-#": 1,
+  "Tabla B-#": 1
+ },
+ "cells": "th in thead, td in tbody; @align, @valign; cell text wrapped in <p id> in most books",
+ "fallback": "table-wrap(graphic) when structure cannot be recovered (evidence: 3 samples use graphic tables)"
+}

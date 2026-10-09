@@ -1,0 +1,253 @@
+{
+ "mapping_version": "1.0",
+ "prefix": {
+  "rule": "first book-level contributor surname, lowercased, ASCII-folded",
+  "source": "vendor spec 'AuthorLastName-partid-sectionid'; samples: Wineski, boland, brenner, buckway, gartner, hamill, uzelac, white",
+  "fallback": "short-name alt-title"
+ },
+ "part_ids": {
+  "front-matter": "fm{n:03d}",
+  "chapter": "ch{n:03d}",
+  "part": "pt{n:03d}",
+  "appendix": "app{n:03d}",
+  "back-matter": "bm{n:03d}",
+  "index": "index{n:03d}",
+  "evidence": {
+   "{P}-ch{N3}": 264,
+   "{P}-sec{N3}": 20,
+   "{P}-app{N3}": 13,
+   "{P}-pt{N3}": 3,
+   "{P}-bm{N3}": 1
+  }
+ },
+ "element_codes": {
+  "p": {
+   "code": "p",
+   "dominant_pattern": "{P}-ch{N3}-p{N3}",
+   "evidence": "56057/69321"
+  },
+  "list": {
+   "code": "list",
+   "dominant_pattern": "{P}-ch{N3}-list{N3}",
+   "evidence": "4165/4382"
+  },
+  "fig": {
+   "code": "fig",
+   "dominant_pattern": "{P}-ch{N3}-fig{N4}",
+   "evidence": "1000/2172"
+  },
+  "table-wrap": {
+   "code": "tbl",
+   "dominant_pattern": "{P}-ch{N3}-tbl{N3}",
+   "evidence": "498/772"
+  },
+  "caption": {
+   "code": "cap",
+   "dominant_pattern": "{P}-ch{N3}-cap{N3}",
+   "evidence": "3349/3536"
+  },
+  "graphic": {
+   "code": "gr",
+   "dominant_pattern": "{P}-ch{N3}-gr{N3}",
+   "evidence": "2214/2318"
+  },
+  "inline-graphic": {
+   "code": "ig",
+   "dominant_pattern": null,
+   "evidence": "0/0"
+  },
+  "sec": {
+   "code": "sec",
+   "dominant_pattern": "{P}-ch{N3}-sec{N3}",
+   "evidence": "9919/12980"
+  },
+  "ref": {
+   "code": "bib",
+   "dominant_pattern": "ch{N3}-bib{N3}",
+   "evidence": "2277/5010"
+  },
+  "ref-list": {
+   "code": "r",
+   "dominant_pattern": "{P}-ch{N3}-ref{N3}",
+   "evidence": "101/194"
+  },
+  "disp-formula": {
+   "code": "eq",
+   "dominant_pattern": null,
+   "evidence": "0/0"
+  },
+  "inline-formula": {
+   "code": "ieq",
+   "dominant_pattern": null,
+   "evidence": "0/0"
+  },
+  "boxed-text": {
+   "code": "sb-box",
+   "dominant_pattern": "{P}-ch{N3}-sb-box{N3}",
+   "evidence": "747/1030"
+  },
+  "question-wrap": {
+   "code": "qw",
+   "dominant_pattern": "{P}-ch{N3}-qw{N3}",
+   "evidence": "64/64"
+  },
+  "question": {
+   "code": "q",
+   "dominant_pattern": "{P}-ch{N3}-q{N3}",
+   "evidence": "64/64"
+  },
+  "answer": {
+   "code": "a",
+   "dominant_pattern": "{P}-ch{N3}-a{N3}",
+   "evidence": "257/257"
+  },
+  "answer-set": {
+   "code": "qam",
+   "dominant_pattern": "{P}-ch{N3}-qam{N3}",
+   "evidence": "64/64"
+  },
+  "aff": {
+   "code": "aff",
+   "dominant_pattern": "{P}-fm{N3}-aff{N3}",
+   "evidence": "14/16"
+  },
+  "kwd-group": {
+   "code": "kwdgroup",
+   "dominant_pattern": "{P}-ch{N3}-kwdgroup{N3}",
+   "evidence": "15/15"
+  },
+  "kwd": {
+   "code": "term",
+   "dominant_pattern": "{P}-ch{N3}-term{N3}",
+   "evidence": "354/354"
+  },
+  "def-list": {
+   "code": "deflist",
+   "dominant_pattern": null,
+   "evidence": "0/0"
+  },
+  "def-item": {
+   "code": "defitem",
+   "dominant_pattern": null,
+   "evidence": "0/0"
+  },
+  "def": {
+   "code": "def",
+   "dominant_pattern": null,
+   "evidence": "0/0"
+  },
+  "term": {
+   "code": "term",
+   "dominant_pattern": null,
+   "evidence": "0/0"
+  },
+  "toc": {
+   "code": "toc",
+   "dominant_pattern": "{P}-fm{N3}-toc{N3}",
+   "evidence": "8/8"
+  },
+  "front-matter-part": {
+   "code": "topic",
+   "dominant_pattern": "{P}-fm{N3}-topic{N3}",
+   "evidence": "25/25"
+  },
+  "dedication": {
+   "code": "dedication",
+   "dominant_pattern": "{P}-fm{N3}-dedication{N3}",
+   "evidence": "7/7"
+  },
+  "preface": {
+   "code": "preface",
+   "dominant_pattern": "{P}-fm{N3}-preface{N3}",
+   "evidence": "7/7"
+  },
+  "license-p": {
+   "code": "p",
+   "dominant_pattern": "{P}-fm{N3}-p{N3}",
+   "evidence": "251/269"
+  },
+  "index-entry": {
+   "code": "ie",
+   "dominant_pattern": "{P}-index{N3}-ie{N4}",
+   "evidence": "18591/25245"
+  },
+  "fn": {
+   "code": "fn",
+   "dominant_pattern": "{P}-ch{N3}-tbl{N3}-fn{N3}",
+   "evidence": "112/162"
+  }
+ },
+ "format": "{prefix}-{part}-{code}{n:03d}",
+ "counter_scope": "per book-part, per element code, document order (1-based, zero padded to 3, widens past 999)",
+ "fig_number_rule": "fig/table number = number in the printed label within the chapter (e.g. Figure 3.7 -> ch003-fig007); falls back to sequence when unlabeled",
+ "table_fn": "{prefix}-{part}-tbl{t:03d}-fn{n:03d}",
+ "page_target": {
+  "rule": "page{folio}",
+  "roman": "page{roman lower}",
+  "evidence": {
+   "page{N3}": 3999,
+   "page{N2}": 711,
+   "page{N4}": 93,
+   "page{N1}": 69,
+   "pageix": 8,
+   "pagevii": 7,
+   "pageviii": 7,
+   "pagexi": 7,
+   "pagev": 6,
+   "pagevi": 6,
+   "pagexv": 6,
+   "pagex": 6,
+   "pageiv": 5,
+   "pagexii": 5,
+   "pagexiii": 5,
+   "pagexiv": 5,
+   "pagexvi": 5,
+   "pagexvii": 4,
+   "pagexviii": 4,
+   "pagexix": 4,
+   "pagexx": 4,
+   "pageii": 4,
+   "pagexxi": 3,
+   "pagexxii": 3,
+   "pagexxiii": 3,
+   "pagexxiv": 3,
+   "pageiii": 3,
+   "pagexxv": 2,
+   "pagexxvi": 2,
+   "pagexxvii": 2,
+   "pagexxviii": 2,
+   "pagexxix": 2,
+   "pagexxx": 1
+  }
+ },
+ "graphic_href": {
+  "rule": "{Author}{ISBN}-{part}-f{n:03d}.jpg (inline: -i{n:03d})",
+  "evidence": {
+   "gartner{N13}-ch{N3}-f{N3}.jpg": 811,
+   "images\\Wineski{N13}-ch{N3}-f{N3}.jpg": 691,
+   "hamill{N13}-ch{N3}-f{N3}.jpg": 435,
+   "hamill{N13}-ch{N3}-eqn{N3}.jpg": 321,
+   "images\\Wineski{N13}-icon{N3}.jpg": 196,
+   "white{N13}-ch{N3}-fig{N3}.jpg": 80,
+   "brenner{N13}-ch{N3}-f{N3}.jpg": 72,
+   "buckway{N13}-ch{N3}-f{N3}.jpg": 66,
+   "boland{N13}-ch{N3}-f{N3}.jpg": 60,
+   "gartner{N13}-app{N3}-f{N3}.jpg": 49,
+   "images\\Wineski{N13}-ch{N3}-f{N2}.jpg": 26,
+   "hamill{N13}-icon{N2}.jpg": 26,
+   "hamill{N13}-app{N3}-eqn{N3}.jpg": 8,
+   "hamill{N13}-app{N3}-f{N3}.jpg": 5,
+   "images\\Wineski{N13}-ch{N3}-f{N4}.jpg": 4,
+   "gartner{N13}-fm{N3}-f{N3}.jpg": 3,
+   "uzelac{N13}-ch{N3}-eqn{N3}.jpg": 3,
+   "brenner{N13}-app{N3}-f{N3}.jpg": 1,
+   "Assets\\white{N13}-ch{N3}-fig{N3}.jpg": 1
+  }
+ },
+ "book_level": {
+  "permissions": "{prefix}-per",
+  "license": "{prefix}-license",
+  "cover": "{prefix}-cover",
+  "thumbnail": "{prefix}-thumbnail"
+ }
+}

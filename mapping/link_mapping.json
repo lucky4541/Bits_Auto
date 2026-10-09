@@ -1,0 +1,117 @@
+{
+ "xref_ref_types": {
+  "bibr": {
+   "ref": 2921
+  },
+  "boxed-text": {
+   "boxed-text": 60
+  },
+  "chapter": {
+   "book-part": 191
+  },
+  "fig": {
+   "fig": 5522,
+   "sec": 260
+  },
+  "fn": {
+   "fn": 378
+  },
+  "kwd": {
+   "kwd": 364
+  },
+  "section": {
+   "sec": 1737
+  },
+  "table-fn": {
+   "fn": 3
+  },
+  "table": {
+   "table-wrap": 922
+  }
+ },
+ "rules": {
+  "fig": {
+   "element": "xref",
+   "ref-type": "fig",
+   "target": "fig"
+  },
+  "table": {
+   "element": "xref",
+   "ref-type": "table",
+   "target": "table-wrap"
+  },
+  "bibr": {
+   "element": "xref",
+   "ref-type": "bibr",
+   "target": "ref"
+  },
+  "fn": {
+   "element": "xref",
+   "ref-type": "fn",
+   "target": "fn",
+   "text_wrapped_in": "sup"
+  },
+  "table-fn": {
+   "element": "xref",
+   "ref-type": "table-fn",
+   "target": "fn"
+  },
+  "chapter": {
+   "element": "xref",
+   "ref-type": "chapter",
+   "target": "book-part"
+  },
+  "section": {
+   "element": "xref",
+   "ref-type": "section",
+   "target": "sec"
+  },
+  "app": {
+   "element": "xref",
+   "ref-type": "app",
+   "target": "book-part"
+  },
+  "boxed-text": {
+   "element": "xref",
+   "ref-type": "boxed-text",
+   "target": "boxed-text"
+  },
+  "disp-formula": {
+   "element": "xref",
+   "ref-type": "disp-formula",
+   "target": "disp-formula"
+  },
+  "cross_part_fig_table": {
+   "element": "xref",
+   "note": "samples use xref across chapters (vendor spec mentions ext-link; samples: 0 ext-link[fig])"
+  },
+  "toc_entry": {
+   "element": "nav-pointer",
+   "specific-use": "pagenum",
+   "rid": "book-part/sec/front-matter-part id",
+   "evidence": {
+    "front-matter-part": 13,
+    "preface": 5,
+    "book-part": 300,
+    "sec": 1234,
+    "index": 8,
+    "ack": 1
+   }
+  },
+  "index_page": {
+   "element": "nav-pointer",
+   "rid": "page{folio}",
+   "specific-use": null,
+   "range": "two nav-pointers with nav-pointer-type start-of-range / end-of-range",
+   "suffix": "letters after folio (f, t, b) stay inside nav-pointer text",
+   "evidence": {
+    "target[pagenum]": 40043
+   }
+  },
+  "ranges": "first @rid of the range, whole range text inside the xref (vendor spec)",
+  "lists": "one xref per cited target ('2, 3' -> two xrefs)"
+ },
+ "evidence_stats": {
+  "resolved": 53962
+ }
+}

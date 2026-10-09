@@ -1,0 +1,562 @@
+{
+ "levels": {
+  "3": 6668,
+  "2": 4140,
+  "1": 1897,
+  "4": 450,
+  "<none>": 117,
+  "5": 47
+ },
+ "rule": "cluster heading styles by (family, size, weight, caps, colour); order by prominence; cross-check with PDF bookmarks and printed TOC",
+ "typography_evidence": {
+  "9788418563263": {
+   "part_title": {
+    "matched": 3,
+    "size_ratio_median": 3.16,
+    "size_ratio_range": [
+     1.01,
+     3.16
+    ],
+    "bold": 0.67,
+    "italic": 0.0,
+    "all_caps": 0.67,
+    "gap_before_median": -0.01,
+    "colored": 1.0,
+    "fonts": {
+     "FrutigerLTStd-Bold": 2,
+     "AGaramondPro-Regular": 1
+    }
+   },
+   "part_label": {
+    "matched": 4,
+    "size_ratio_median": 1.16,
+    "size_ratio_range": [
+     1.16,
+     1.16
+    ],
+    "bold": 1.0,
+    "italic": 0.0,
+    "all_caps": 1.0,
+    "gap_before_median": 31.13,
+    "colored": 1.0,
+    "fonts": {
+     "FrutigerLTStd-Bold": 4
+    }
+   },
+   "chapter_title": {
+    "matched": 59,
+    "size_ratio_median": 2.0,
+    "size_ratio_range": [
+     0.8,
+     2.0
+    ],
+    "bold": 0.98,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": -59.87,
+    "colored": 1.0,
+    "fonts": {
+     "FrutigerLTStd-Bold": 58,
+     "HelveticaLTStd-Roman": 1
+    }
+   },
+   "sec_level1": {
+    "matched": 289,
+    "size_ratio_median": 1.37,
+    "size_ratio_range": [
+     0.71,
+     1.37
+    ],
+    "bold": 0.76,
+    "italic": 0.0,
+    "all_caps": 0.72,
+    "gap_before_median": 1.01,
+    "colored": 1.0,
+    "fonts": {
+     "FrutigerLTStd-Black": 209,
+     "AGaramondPro-Regular": 60,
+     "FrutigerLTStd-Bold": 11
+    }
+   },
+   "sec_level2": {
+    "matched": 182,
+    "size_ratio_median": 1.16,
+    "size_ratio_range": [
+     0.84,
+     1.22
+    ],
+    "bold": 0.97,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": 0.56,
+    "colored": 1.0,
+    "fonts": {
+     "FrutigerLTStd-Bold": 176,
+     "FrutigerLTStd-Roman": 3,
+     "AGaramondPro-Regular": 2
+    }
+   },
+   "sec_level3": {
+    "matched": 33,
+    "size_ratio_median": 1.05,
+    "size_ratio_range": [
+     0.84,
+     1.16
+    ],
+    "bold": 0.91,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": 0.66,
+    "colored": 1.0,
+    "fonts": {
+     "FrutigerLTStd-Bold": 27,
+     "Bliss2-ExtraBold": 3,
+     "FrutigerLTStd-Roman": 2
+    }
+   }
+  },
+  "9788417602444": {
+   "chapter_title": {
+    "matched": 12,
+    "size_ratio_median": 3.53,
+    "size_ratio_range": [
+     0.94,
+     3.53
+    ],
+    "bold": 0.0,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": -25.44,
+    "colored": 1.0,
+    "fonts": {
+     "AvenirLTStd-Medium": 9,
+     "CheltenhamStd-Book": 3
+    }
+   },
+   "sec_level2": {
+    "matched": 400,
+    "size_ratio_median": 1.06,
+    "size_ratio_range": [
+     0.85,
+     1.18
+    ],
+    "bold": 0.13,
+    "italic": 0.01,
+    "all_caps": 0.03,
+    "gap_before_median": 0.04,
+    "colored": 1.0,
+    "fonts": {
+     "CheltenhamStd-Book": 197,
+     "Helvetica": 75,
+     "AvenirLTStd-Heavy": 54
+    }
+   },
+   "sec_level1": {
+    "matched": 137,
+    "size_ratio_median": 1.06,
+    "size_ratio_range": [
+     0.84,
+     1.18
+    ],
+    "bold": 0.67,
+    "italic": 0.01,
+    "all_caps": 0.05,
+    "gap_before_median": 1.44,
+    "colored": 1.0,
+    "fonts": {
+     "CheltenhamStd-Bold": 85,
+     "Helvetica": 20,
+     "CheltenhamStd-Book": 12
+    }
+   },
+   "sec_level3": {
+    "matched": 400,
+    "size_ratio_median": 1.12,
+    "size_ratio_range": [
+     0.84,
+     1.18
+    ],
+    "bold": 0.28,
+    "italic": 0.01,
+    "all_caps": 0.02,
+    "gap_before_median": 1.49,
+    "colored": 1.0,
+    "fonts": {
+     "AvenirLTStd-Heavy": 188,
+     "AvenirLTStd-Black": 96,
+     "Helvetica": 52
+    }
+   },
+   "sec_level4": {
+    "matched": 362,
+    "size_ratio_median": 1.06,
+    "size_ratio_range": [
+     0.81,
+     1.18
+    ],
+    "bold": 0.38,
+    "italic": 0.37,
+    "all_caps": 0.05,
+    "gap_before_median": 1.09,
+    "colored": 1.0,
+    "fonts": {
+     "CheltenhamStd-BoldItalic": 115,
+     "Helvetica": 77,
+     "CheltenhamStd-Book": 73
+    }
+   },
+   "sec_level5": {
+    "matched": 42,
+    "size_ratio_median": 0.94,
+    "size_ratio_range": [
+     0.91,
+     1.18
+    ],
+    "bold": 0.1,
+    "italic": 0.02,
+    "all_caps": 0.45,
+    "gap_before_median": 1.47,
+    "colored": 1.0,
+    "fonts": {
+     "AvenirLTStd-Medium": 16,
+     "AvenirLTStd-Heavy": 9,
+     "Helvetica": 8
+    }
+   }
+  },
+  "9788418257957": {
+   "part_title": {
+    "matched": 9,
+    "size_ratio_median": 3.33,
+    "size_ratio_range": [
+     0.93,
+     3.33
+    ],
+    "bold": 0.0,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": 3.5,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-LightCn": 6,
+     "Helvetica": 1,
+     "KeplerStd-Regular": 1
+    }
+   },
+   "part_label": {
+    "matched": 9,
+    "size_ratio_median": 3.73,
+    "size_ratio_range": [
+     1.33,
+     3.73
+    ],
+    "bold": 0.11,
+    "italic": 0.0,
+    "all_caps": 0.89,
+    "gap_before_median": -4.62,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-LightUltraCn": 8,
+     "UniversLTStd-BoldCn": 1
+    }
+   },
+   "chapter_title": {
+    "matched": 49,
+    "size_ratio_median": 1.87,
+    "size_ratio_range": [
+     0.93,
+     1.87
+    ],
+    "bold": 0.12,
+    "italic": 0.0,
+    "all_caps": 0.12,
+    "gap_before_median": -61.29,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-Cn": 43,
+     "UniversLTStd-BoldCn": 6
+    }
+   },
+   "chapter_label": {
+    "matched": 1,
+    "size_ratio_median": 1.33,
+    "size_ratio_range": [
+     1.33,
+     1.33
+    ],
+    "bold": 0.0,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": 1.28,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-Cn": 1
+    }
+   },
+   "sec_level1": {
+    "matched": 285,
+    "size_ratio_median": 1.0,
+    "size_ratio_range": [
+     1.0,
+     1.2
+    ],
+    "bold": 0.99,
+    "italic": 0.0,
+    "all_caps": 0.99,
+    "gap_before_median": 0.45,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-BoldCn": 282,
+     "KeplerStd-Regular": 2,
+     "UniversLTStd-Cn": 1
+    }
+   },
+   "sec_level2": {
+    "matched": 400,
+    "size_ratio_median": 1.0,
+    "size_ratio_range": [
+     1.0,
+     1.0
+    ],
+    "bold": 0.01,
+    "italic": 0.01,
+    "all_caps": 0.01,
+    "gap_before_median": -0.11,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-Cn": 388,
+     "KeplerStd-Regular": 6,
+     "UniversLTStd-BoldCn": 3
+    }
+   },
+   "sec_level3": {
+    "matched": 281,
+    "size_ratio_median": 1.0,
+    "size_ratio_range": [
+     1.0,
+     1.33
+    ],
+    "bold": 0.0,
+    "italic": 0.95,
+    "all_caps": 0.0,
+    "gap_before_median": 1.01,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-CnObl": 267,
+     "KeplerStd-Regular": 9,
+     "UniversLTStd-Cn": 5
+    }
+   }
+  },
+  "9781975255312": {
+   "chapter_title": {
+    "matched": 19,
+    "size_ratio_median": 1.0,
+    "size_ratio_range": [
+     1.0,
+     2.0
+    ],
+    "bold": 0.11,
+    "italic": 0.16,
+    "all_caps": 0.0,
+    "gap_before_median": -1.27,
+    "colored": 1.0,
+    "fonts": {
+     "AGaramondPro-Regular": 14,
+     "AGaramondPro-Italic": 3,
+     "UniversLTStd-BoldCn": 2
+    }
+   },
+   "chapter_label": {
+    "matched": 19,
+    "size_ratio_median": 1.4,
+    "size_ratio_range": [
+     1.2,
+     1.4
+    ],
+    "bold": 1.0,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": 0.61,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-BoldCn": 19
+    }
+   },
+   "sec_level1": {
+    "matched": 78,
+    "size_ratio_median": 1.6,
+    "size_ratio_range": [
+     0.8,
+     1.6
+    ],
+    "bold": 0.94,
+    "italic": 0.0,
+    "all_caps": 0.9,
+    "gap_before_median": 1.52,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-BoldCn": 73,
+     "AGaramondPro-Regular": 5
+    }
+   },
+   "sec_level2": {
+    "matched": 19,
+    "size_ratio_median": 1.4,
+    "size_ratio_range": [
+     0.8,
+     1.6
+    ],
+    "bold": 0.74,
+    "italic": 0.0,
+    "all_caps": 0.05,
+    "gap_before_median": 0.89,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-BoldCn": 14,
+     "AGaramondPro-Regular": 4,
+     "UniversLTStd-LightCn": 1
+    }
+   },
+   "sec_level3": {
+    "matched": 1,
+    "size_ratio_median": 0.9,
+    "size_ratio_range": [
+     0.9,
+     0.9
+    ],
+    "bold": 0.0,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": -0.08,
+    "colored": 1.0,
+    "fonts": {
+     "UniversLTStd-LightCn": 1
+    }
+   }
+  },
+  "9781975265649": {
+   "part_title": {
+    "matched": 3,
+    "size_ratio_median": 1.5,
+    "size_ratio_range": [
+     1.5,
+     1.5
+    ],
+    "bold": 0.0,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": 0.65,
+    "colored": 1.0,
+    "fonts": {
+     "MinionPro-Medium": 3
+    }
+   },
+   "chapter_title": {
+    "matched": 15,
+    "size_ratio_median": 2.5,
+    "size_ratio_range": [
+     0.8,
+     2.5
+    ],
+    "bold": 0.0,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": -46.58,
+    "colored": 1.0,
+    "fonts": {
+     "MinionPro-Medium": 13,
+     "MinionPro-Regular": 2
+    }
+   },
+   "chapter_label": {
+    "matched": 1,
+    "size_ratio_median": 1.0,
+    "size_ratio_range": [
+     1.0,
+     1.0
+    ],
+    "bold": 0.0,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": -0.15,
+    "colored": 1.0,
+    "fonts": {
+     "MinionPro-Regular": 1
+    }
+   },
+   "sec_level1": {
+    "matched": 198,
+    "size_ratio_median": 0.9,
+    "size_ratio_range": [
+     0.8,
+     1.2
+    ],
+    "bold": 0.15,
+    "italic": 0.56,
+    "all_caps": 0.03,
+    "gap_before_median": -0.13,
+    "colored": 1.0,
+    "fonts": {
+     "MinionPro-It": 111,
+     "MinionPro-Regular": 55,
+     "HelveticaNeueLTStd-Bd": 30
+    }
+   },
+   "sec_level2": {
+    "matched": 380,
+    "size_ratio_median": 1.1,
+    "size_ratio_range": [
+     0.8,
+     2.5
+    ],
+    "bold": 0.5,
+    "italic": 0.01,
+    "all_caps": 0.02,
+    "gap_before_median": 0.57,
+    "colored": 1.0,
+    "fonts": {
+     "HelveticaNeueLTStd-Bd": 190,
+     "MinionPro-Regular": 183,
+     "HelveticaNeueLTStd-Roman": 2
+    }
+   },
+   "sec_level3": {
+    "matched": 239,
+    "size_ratio_median": 1.0,
+    "size_ratio_range": [
+     0.8,
+     1.2
+    ],
+    "bold": 0.57,
+    "italic": 0.0,
+    "all_caps": 0.01,
+    "gap_before_median": 0.66,
+    "colored": 1.0,
+    "fonts": {
+     "HelveticaNeueLTStd-Bd": 136,
+     "MinionPro-Regular": 99,
+     "HelveticaNeueLTStd-Roman": 4
+    }
+   },
+   "sec_level4": {
+    "matched": 39,
+    "size_ratio_median": 0.8,
+    "size_ratio_range": [
+     0.8,
+     0.95
+    ],
+    "bold": 0.0,
+    "italic": 0.0,
+    "all_caps": 0.0,
+    "gap_before_median": -0.08,
+    "colored": 1.0,
+    "fonts": {
+     "MinionPro-Regular": 22,
+     "HelveticaNeueLTStd-Md": 16,
+     "HelveticaNeueLTStd-Roman": 1
+    }
+   }
+  }
+ }
+}

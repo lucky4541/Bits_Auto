@@ -1,0 +1,6 @@
+{
+ "display": "disp-formula(mml:math[@alttext])",
+ "inline": "inline-formula(mml:math)",
+ "evidence": {},
+ "fallback": "equation region image as graphic inside disp-formula is NOT allowed by spec; keep text + REVIEW flag"
+}

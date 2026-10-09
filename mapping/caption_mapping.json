@@ -1,0 +1,5 @@
+{
+ "figure": "label + caption/title; label text kept as printed (e.g. 'FIGURA 1-1')",
+ "table": "label + caption/title",
+ "position": "figure captions below image; table captions above table"
+}

@@ -1,0 +1,10 @@
+{
+ "bold": "bold",
+ "italic": "italic",
+ "bold-italic": "bold(italic)",
+ "superscript": "sup",
+ "subscript": "sub",
+ "small-caps": "sc",
+ "monospace": "monospace",
+ "underline": "underline"
+}

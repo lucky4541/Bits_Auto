@@ -1,0 +1,4 @@
+{
+ "book_level": "front-matter/toc: title-group + toc-entry(label?, title, nav-pointer[pagenum])",
+ "chapter_level": "book-part/front-matter/toc: toc-entry(label(xref[section]), title(xref[section])) — only some books"
+}

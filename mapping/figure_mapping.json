@@ -1,0 +1,34 @@
+{
+ "structure": "fig(label?, caption(title, p?)?, graphic)",
+ "child_patterns": {
+  "label caption graphic": 2167,
+  "graphic": 659,
+  "graphic p": 26,
+  "label caption": 6,
+  "label caption graphic attrib": 4,
+  "label graphic": 1,
+  "caption graphic": 1
+ },
+ "label_shapes": {
+  "Figura #-#": 718,
+  "<none>": 686,
+  "Figura #-#.": 432,
+  "FIGURA #-#.": 318,
+  "FIGURA #-#-#.": 259,
+  "FIGURA #-#": 151,
+  "FIGURA DE REVISIÓN #-#-#.": 140,
+  "Figure #.#.": 66,
+  "FIGURE A-#.": 49,
+  "FIGURA #-#A.": 11,
+  "FIGURA #-#B.": 11,
+  "FIGURA #-#-#A.": 7,
+  "FIGURA #-#-#B.": 7,
+  "Figura B-#.": 4,
+  "Diagrama #-#": 3,
+  "FIGURAS #-#-# y #-#-#.": 1,
+  "Figura #.#.": 1
+ },
+ "graphic": "graphic@id + @xlink:href",
+ "attrib": "credit lines stay inside caption p (attrib rarely used)",
+ "panels": "(A)(B) panels stay one fig unless separately labelled (fig-group only when sub-labels)"
+}

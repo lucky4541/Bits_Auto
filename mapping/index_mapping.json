@@ -1,0 +1,14 @@
+{
+ "location": "book-back/index",
+ "children": "title-group p? index-div(title-group/title=letter, index-entry+)",
+ "entry": "term, nav-pointer-group?, index-entry* (nested sub-entries)",
+ "see": "see-entry / see-also-entry",
+ "depths": {
+  "0": 11211,
+  "1": 10647,
+  "2": 3011,
+  "3": 316,
+  "4": 58,
+  "5": 2
+ }
+}

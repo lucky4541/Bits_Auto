@@ -1,0 +1,68 @@
+{
+ "9781975164256": {
+  "lang_attr": "en",
+  "prefix": "gartner",
+  "profile": [
+   "figure-heavy",
+   "table-heavy",
+   "index-heavy"
+  ]
+ },
+ "9781975265649": {
+  "lang_attr": "en",
+  "prefix": "buckway",
+  "profile": [
+   "quiz",
+   "box-heavy"
+  ]
+ },
+ "9788417602444": {
+  "lang_attr": "en",
+  "prefix": "Wineski",
+  "profile": [
+   "figure-heavy",
+   "index-heavy",
+   "box-heavy"
+  ]
+ },
+ "9788418257957": {
+  "lang_attr": "en",
+  "prefix": "brenner",
+  "profile": [
+   "table-heavy",
+   "reference-heavy"
+  ]
+ },
+ "9788418563591": {
+  "lang_attr": "en",
+  "prefix": "hamill",
+  "profile": [
+   "figure-heavy",
+   "reference-heavy"
+  ]
+ },
+ "9788418892738": {
+  "lang_attr": "en",
+  "prefix": "uzelac",
+  "profile": [
+   "textbook"
+  ]
+ },
+ "9788418892783": {
+  "lang_attr": "en",
+  "prefix": "white",
+  "profile": [
+   "textbook"
+  ]
+ },
+ "9788418892936": {
+  "lang_attr": "en",
+  "prefix": "boland",
+  "profile": [
+   "table-heavy",
+   "reference-heavy",
+   "index-heavy",
+   "box-heavy"
+  ]
+ }
+}

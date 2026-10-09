@@ -1,0 +1,423 @@
+{
+ "parent_child_top": {
+  "ack": {
+   "p": 4,
+   "title": 1
+  },
+  "aff": {
+   "break": 61,
+   "addr-line": 15
+  },
+  "answer": {
+   "label": 257,
+   "p": 257
+  },
+  "answer-set": {
+   "answer": 257
+  },
+  "article-title": {
+   "italic": 18,
+   "sup": 2,
+   "uri": 1
+  },
+  "attrib": {
+   "italic": 47,
+   "uri": 34,
+   "xref": 8,
+   "sub": 1
+  },
+  "back": {
+   "ref-list": 194,
+   "notes": 6
+  },
+  "body": {
+   "sec": 1748,
+   "p": 1488,
+   "fig": 66,
+   "list": 57,
+   "boxed-text": 38,
+   "table-wrap": 32,
+   "book-part": 15
+  },
+  "bold": {
+   "italic": 592,
+   "sup": 58,
+   "sub": 34,
+   "target": 27,
+   "break": 16,
+   "xref": 14,
+   "underline": 13,
+   "bold": 2
+  },
+  "book": {
+   "book-meta": 8,
+   "front-matter": 8,
+   "book-body": 8,
+   "book-back": 8
+  },
+  "book-back": {
+   "book-part": 14,
+   "index": 8
+  },
+  "book-body": {
+   "book-part": 272
+  },
+  "book-meta": {
+   "book-id": 16,
+   "supplementary-material": 16,
+   "contrib-group": 9,
+   "book-title-group": 8,
+   "pub-date": 8,
+   "isbn": 8,
+   "publisher": 8,
+   "edition": 8,
+   "permissions": 8
+  },
+  "book-part": {
+   "book-part-meta": 301,
+   "body": 289,
+   "back": 194,
+   "front-matter": 66
+  },
+  "book-part-meta": {
+   "title-group": 333,
+   "fpage": 328,
+   "lpage": 328,
+   "book-part-id": 301,
+   "kwd-group": 15
+  },
+  "book-title-group": {
+   "book-title": 8,
+   "alt-title": 8
+  },
+  "boxed-text": {
+   "p": 1943,
+   "sec": 1047,
+   "caption": 596,
+   "fig": 196,
+   "list": 137,
+   "label": 124,
+   "attrib": 36,
+   "table-wrap": 36
+  },
+  "caption": {
+   "title": 3536,
+   "p": 27
+  },
+  "collab": {
+   "italic": 3
+  },
+  "contrib": {
+   "name": 16,
+   "degrees": 16
+  },
+  "contrib-group": {
+   "contrib": 16,
+   "aff": 16
+  },
+  "date": {
+   "month": 1,
+   "year": 1
+  },
+  "dedication": {
+   "named-book-part-body": 7
+  },
+  "disp-quote": {
+   "p": 5
+  },
+  "fig": {
+   "graphic": 2874,
+   "label": 2178,
+   "caption": 2178,
+   "p": 26,
+   "attrib": 4
+  },
+  "fn": {
+   "p": 419,
+   "label": 162
+  },
+  "fn-group": {
+   "fn": 265
+  },
+  "front-matter": {
+   "toc": 74,
+   "front-matter-part": 25,
+   "dedication": 7,
+   "preface": 7,
+   "ack": 1
+  },
+  "front-matter-part": {
+   "book-part-meta": 25,
+   "named-book-part-body": 18
+  },
+  "index": {
+   "index-div": 184,
+   "title-group": 8,
+   "p": 8
+  },
+  "index-div": {
+   "index-entry": 11211,
+   "title-group": 184
+  },
+  "index-entry": {
+   "term": 25245,
+   "nav-pointer-group": 23372,
+   "index-entry": 14034,
+   "see-also-entry": 31,
+   "see-entry": 20
+  },
+  "italic": {
+   "xref": 262,
+   "sub": 44,
+   "sup": 38,
+   "target": 15,
+   "inline-graphic": 2
+  },
+  "kwd": {
+   "target": 1
+  },
+  "kwd-group": {
+   "kwd": 354,
+   "title": 15
+  },
+  "label": {
+   "xref": 1501,
+   "target": 148,
+   "italic": 3,
+   "bold": 3
+  },
+  "license": {
+   "license-p": 269
+  },
+  "license-p": {
+   "italic": 73,
+   "bold": 23,
+   "target": 8,
+   "sup": 7
+  },
+  "list": {
+   "list-item": 17816,
+   "title": 15
+  },
+  "list-item": {
+   "p": 18029,
+   "label": 3374,
+   "list": 1140
+  },
+  "mixed-citation": {
+   "person-group": 5063,
+   "source": 4951,
+   "year": 4896,
+   "article-title": 4351,
+   "fpage": 4289,
+   "volume": 3997,
+   "lpage": 3505,
+   "issue": 1907,
+   "publisher-name": 644,
+   "publisher-loc": 545,
+   "collab": 295,
+   "uri": 295
+  },
+  "name": {
+   "surname": 19,
+   "given-names": 19
+  },
+  "named-book-part-body": {
+   "p": 1681,
+   "table-wrap": 19,
+   "sec": 14,
+   "list": 4,
+   "fig": 3
+  },
+  "nav-pointer": {
+   "italic": 6100
+  },
+  "nav-pointer-group": {
+   "nav-pointer": 40043
+  },
+  "notes": {
+   "fn-group": 6
+  },
+  "p": {
+   "bold": 18753,
+   "italic": 9864,
+   "xref": 8433,
+   "target": 3745,
+   "sub": 765,
+   "sup": 659,
+   "fig": 105,
+   "uri": 93,
+   "underline": 85,
+   "table-wrap": 36,
+   "boxed-text": 20,
+   "list": 12
+  },
+  "permissions": {
+   "copyright-statement": 8,
+   "copyright-year": 8,
+   "copyright-holder": 8,
+   "license": 8
+  },
+  "person-group": {
+   "string-name": 16112,
+   "etal": 793,
+   "collab": 5,
+   "name": 3
+  },
+  "preface": {
+   "book-part-meta": 7,
+   "named-book-part-body": 7
+  },
+  "pub-date": {
+   "year": 8
+  },
+  "publisher": {
+   "publisher-name": 8,
+   "publisher-loc": 8
+  },
+  "question": {
+   "label": 64,
+   "p": 64
+  },
+  "question-wrap": {
+   "question": 64,
+   "answer-set": 64
+  },
+  "ref": {
+   "mixed-citation": 5010,
+   "label": 1193
+  },
+  "ref-list": {
+   "ref": 5010,
+   "title": 194,
+   "p": 54
+  },
+  "sc": {
+   "sub": 1
+  },
+  "sec": {
+   "p": 25763,
+   "title": 13248,
+   "sec": 10510,
+   "list": 2539,
+   "fig": 2494,
+   "boxed-text": 972,
+   "table-wrap": 911,
+   "question-wrap": 64,
+   "disp-quote": 5
+  },
+  "see-also-entry": {
+   "italic": 1
+  },
+  "source": {
+   "italic": 4915,
+   "sup": 1,
+   "uri": 1
+  },
+  "string-name": {
+   "surname": 16112,
+   "given-names": 15746,
+   "target": 1,
+   "suffix": 1
+  },
+  "subtitle": {
+   "sup": 1
+  },
+  "sup": {
+   "xref": 229,
+   "italic": 1
+  },
+  "supplementary-material": {
+   "label": 8,
+   "caption": 8
+  },
+  "table": {
+   "tbody": 1034,
+   "thead": 779
+  },
+  "table-wrap": {
+   "table": 1034,
+   "caption": 754,
+   "label": 751,
+   "table-wrap-foot": 278
+  },
+  "table-wrap-foot": {
+   "fn-group": 157,
+   "fn": 113,
+   "attrib": 9
+  },
+  "tbody": {
+   "tr": 7650
+  },
+  "td": {
+   "p": 18224,
+   "bold": 1899,
+   "italic": 539,
+   "list": 493,
+   "xref": 194,
+   "target": 174,
+   "inline-graphic": 117,
+   "sup": 116,
+   "uri": 23,
+   "sub": 15
+  },
+  "term": {
+   "target": 17,
+   "italic": 15
+  },
+  "th": {
+   "p": 1340,
+   "italic": 127,
+   "bold": 118,
+   "xref": 7,
+   "target": 5
+  },
+  "thead": {
+   "tr": 840
+  },
+  "title": {
+   "italic": 1836,
+   "xref": 1644,
+   "bold": 1393,
+   "target": 795,
+   "sub": 29,
+   "sup": 24,
+   "break": 9,
+   "uri": 3
+  },
+  "title-group": {
+   "title": 533,
+   "label": 260,
+   "subtitle": 6
+  },
+  "toc": {
+   "toc-entry": 1748,
+   "title-group": 8,
+   "p": 1
+  },
+  "toc-entry": {
+   "title": 3056,
+   "label": 2050,
+   "nav-pointer": 1561,
+   "toc-entry": 1379
+  },
+  "tr": {
+   "td": 27680,
+   "th": 2435
+  },
+  "uri": {
+   "target": 1,
+   "italic": 1
+  },
+  "volume": {
+   "italic": 74
+  },
+  "xref": {
+   "bold": 525,
+   "sup": 355,
+   "xref": 66,
+   "italic": 11,
+   "target": 2
+  }
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "rule": "new <p> on first-line indent, vertical gap > 0.6 line, style change, or block end without continuation",
+ "evidence": {
+  "9788418563263": {
+   "matched": 400,
+   "size_ratio_median": 1.0,
+   "size_ratio_range": [
+    0.74,
+    1.37
+   ],
+   "bold": 0.05,
+   "italic": 0.0,
+   "all_caps": 0.01,
+   "gap_before_median": -0.04,
+   "colored": 1.0,
+   "fonts": {
+    "AGaramondPro-Regular": 376,
+    "AGaramondPro-Bold": 17,
+    "FrutigerLTStd-Roman": 4
+   }
+  },
+  "9788417602444": {
+   "matched": 400,
+   "size_ratio_median": 1.0,
+   "size_ratio_range": [
+    0.82,
+    1.18
+   ],
+   "bold": 0.01,
+   "italic": 0.0,
+   "all_caps": 0.0,
+   "gap_before_median": 0.16,
+   "colored": 1.0,
+   "fonts": {
+    "CheltenhamStd-Book": 369,
+    "AvenirLTStd-Heavy": 12,
+    "Helvetica": 9
+   }
+  },
+  "9788418257957": {
+   "matched": 400,
+   "size_ratio_median": 1.0,
+   "size_ratio_range": [
+    0.53,
+    1.33
+   ],
+   "bold": 0.02,
+   "italic": 0.01,
+   "all_caps": 0.01,
+   "gap_before_median": -0.01,
+   "colored": 1.0,
+   "fonts": {
+    "KeplerStd-Regular": 387,
+    "UniversLTStd-BoldCn": 7,
+    "KeplerStd-Italic": 3
+   }
+  },
+  "9781975255312": {
+   "matched": 400,
+   "size_ratio_median": 1.0,
+   "size_ratio_range": [
+    0.8,
+    1.6
+   ],
+   "bold": 0.08,
+   "italic": 0.01,
+   "all_caps": 0.01,
+   "gap_before_median": 0.38,
+   "colored": 1.0,
+   "fonts": {
+    "AGaramondPro-Regular": 362,
+    "AGaramondPro-Bold": 24,
+    "UniversLTStd-BoldCn": 9
+   }
+  },
+  "9781975265649": {
+   "matched": 400,
+   "size_ratio_median": 1.0,
+   "size_ratio_range": [
+    0.8,
+    2.5
+   ],
+   "bold": 0.03,
+   "italic": 0.02,
+   "all_caps": 0.01,
+   "gap_before_median": -0.15,
+   "colored": 1.0,
+   "fonts": {
+    "MinionPro-Regular": 378,
+    "HelveticaNeueLTStd-Bd": 11,
+    "MinionPro-It": 7
+   }
+  }
+ }
+}

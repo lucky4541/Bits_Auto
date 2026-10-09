@@ -1,0 +1,157 @@
+{
+ "figure_words": [
+  "Figure",
+  "Figures",
+  "Fig.",
+  "Figs.",
+  "Figura",
+  "Figuras",
+  "fig.",
+  "figs.",
+  "FIGURA",
+  "FIGURE"
+ ],
+ "table_words": [
+  "Table",
+  "Tables",
+  "Tabla",
+  "Tablas",
+  "Cuadro",
+  "Cuadros",
+  "TABLA",
+  "TABLE"
+ ],
+ "chapter_words": [
+  "Chapter",
+  "Chapters",
+  "Capítulo",
+  "Capítulos"
+ ],
+ "section_words": [
+  "Section",
+  "Sección"
+ ],
+ "box_words": [
+  "Box",
+  "Recuadro",
+  "Cuadro"
+ ],
+ "number_shapes": [
+  "#-#",
+  "#.#",
+  "#",
+  "A-#",
+  "#-#A"
+ ],
+ "observed_link_text": {
+  "nav-pointer[]": {
+   "#": 33927,
+   "#f": 4099,
+   "#t": 1775,
+   "#b": 161,
+   "#r": 49,
+   "#c": 3,
+   "#f-#f #D": 2,
+   "#-": 1,
+   "#-# pélvico": 1,
+   "#-# (véase también Médula espinal)": 1
+  },
+  "nav-pointer[pagenum]": {
+   "#": 1542,
+   "vii": 3,
+   "xv": 3,
+   "vi": 2,
+   "ix": 2,
+   "xiv": 2,
+   "xi": 1,
+   "iii": 1,
+   "xiii": 1,
+   "xvi": 1
+  },
+  "xref[bibr]": {
+   "#": 2451,
+   "ANA, #": 17,
+   "Kalisch & Kalisch, #": 11,
+   "Petiprin, #": 10,
+   "NCSBN, #": 9,
+   "Harvard Medical School, #": 8,
+   "AACN, #": 6,
+   "U.S. Bureau of Labor Statistics, #": 6,
+   "Merriam-Webster, n.d.": 5,
+   "Smiley et al., #": 4
+  },
+  "xref[boxed-text]": {
+   "Box #.#": 57,
+   "Daily Ethical Dilemma #.#": 3
+  },
+  "xref[chapter]": {
+   "Chapter #": 117,
+   "capítulo #": 69,
+   "#": 4,
+   "Chapters #": 1
+  },
+  "xref[fig]": {
+   "figs. #-#": 2060,
+   "#-#": 778,
+   "figura #-#": 376,
+   "fig #-#": 262,
+   "Figura #-#-#": 259,
+   "Fig. #-#": 236,
+   "fig. #-#": 167,
+   "Figura de revisión #-#-#": 162,
+   "figs. #-#B": 144,
+   "figs. #-#A": 135
+  },
+  "xref[fn]": {
+   "a": 236,
+   "b": 75,
+   "*": 26,
+   "c": 16,
+   "d": 10,
+   "e": 6,
+   "i": 3,
+   "f": 2,
+   "h": 2,
+   "†": 1
+  },
+  "xref[kwd]": {
+   "folk image": 2,
+   "accreditation": 2,
+   "Accountability": 2,
+   "Ethics": 2,
+   "Advance directives": 2,
+   "living will": 2,
+   "mentor": 2,
+   "religious image": 1,
+   "servant image": 1,
+   "profession": 1
+  },
+  "xref[section]": {
+   "A.": 133,
+   "B.": 125,
+   "C.": 98,
+   "D.": 75,
+   "E.": 53,
+   "I.": 52,
+   "II.": 47,
+   "III.": 47,
+   "IV.": 40,
+   "V.": 31
+  },
+  "xref[table-fn]": {
+   "a": 3
+  },
+  "xref[table]": {
+   "tabla #-#": 666,
+   "Tabla #-#": 115,
+   "Table #.#": 40,
+   "#-#": 19,
+   "tablas #-#": 17,
+   "TABLA #-#": 4,
+   "tabla A-#": 4,
+   "Tabla #-# Características de los diferen": 3,
+   "Tabla #-# Proteínas asociadas con el mio": 2,
+   "Funciones y ejemplos de las proteínas G ": 1
+  }
+ }
+}

@@ -1,0 +1,64 @@
+{
+ "figure": {
+  "rule": "after_first_citation_block",
+  "evidence": {
+   "later_in_other_sec_same_chapter": 127,
+   "no_citation": 437,
+   "before_first_citation": 140,
+   "immediately_after_citing_block": 1112,
+   "after_citing_block_+1blocks": 61,
+   "different_book_part": 135,
+   "later_in_descendant_sec": 57,
+   "after_citing_block_+3blocks": 19,
+   "after_citing_block_+4blocks": 12,
+   "after_citing_block_+2blocks": 24,
+   "after_citing_block_+5blocks": 12,
+   "citation_inside_target_block": 12,
+   "inside_citing_paragraph_mid": 2,
+   "inside_citing_paragraph_end": 28
+  },
+  "dominant": "immediately_after_citing_block",
+  "in_list_item": "append inside the citing <p> (end) — evidence: {'list-item': 28}",
+  "multiple_figures_same_block": "keep citation order after the block",
+  "no_citation": "physical reading-order position (flag NO_FIRST_CITATION)",
+  "cross_part_citation": "physical position; flag CROSS_SECTION_FIGURE_REFERENCE",
+  "citation_after_physical": "move forward to first citation if within same book-part"
+ },
+ "table": {
+  "rule": "after_first_citation_block",
+  "evidence": {
+   "inside_citing_paragraph_end": 32,
+   "immediately_after_citing_block": 646,
+   "different_book_part": 5,
+   "inside_citing_paragraph_mid": 1,
+   "no_citation": 38,
+   "later_in_other_sec_same_chapter": 2,
+   "later_in_descendant_sec": 15,
+   "before_first_citation": 4,
+   "after_citing_block_+3blocks": 2,
+   "after_citing_block_+2blocks": 3,
+   "after_citing_block_+1blocks": 3
+  },
+  "dominant": "immediately_after_citing_block",
+  "in_list_item": "append inside the citing <p> (end)",
+  "no_citation": "physical position (flag NO_FIRST_CITATION)",
+  "cross_part_citation": "physical position; flag CROSS_SECTION_TABLE_REFERENCE"
+ },
+ "boxed-text": {
+  "rule": "physical position",
+  "evidence": {
+   "no_citation": 977,
+   "immediately_after_citing_block": 49,
+   "different_book_part": 2,
+   "after_citing_block_+1blocks": 1,
+   "before_first_citation": 1
+  }
+ },
+ "citations_ignored_for_first": [
+  "toc",
+  "toc-entry",
+  "index",
+  "index-entry",
+  "caption of the target itself"
+ ]
+}

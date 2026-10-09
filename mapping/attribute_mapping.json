@@ -1,0 +1,19 @@
+{
+ "table-wrap@specific-use": "inline",
+ "book-part@book-part-type": [
+  "chapter",
+  "part"
+ ],
+ "list@list-type": [
+  "bullet",
+  "simple",
+  "alpha-lower",
+  "number",
+  "alpha-upper",
+  "roman-upper",
+  "roman-lower",
+  "loweralpha"
+ ],
+ "target@target-type": "pagenum",
+ "nav-pointer@specific-use": "pagenum (TOC only)"
+}
