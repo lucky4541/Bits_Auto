@@ -1,0 +1,405 @@
+{
+  "ack@id": {
+    "<value>": 1
+  },
+  "aff@id": {
+    "<value>": 16
+  },
+  "alt-title@alt-title-type": {
+    "short-name": 8
+  },
+  "answer-set@id": {
+    "<value>": 64
+  },
+  "answer@id": {
+    "<value>": 257
+  },
+  "book-id@book-id-type": {
+    "publisher-id": 8,
+    "serial-code": 8
+  },
+  "book-part-id@book-part-id-type": {
+    "publisher-id": 301
+  },
+  "book-part@book-part-type": {
+    "chapter": 278,
+    "part": 23
+  },
+  "book-part@id": {
+    "<value>": 301
+  },
+  "book-part@seq": {
+    "1": 12,
+    "2": 12,
+    "3": 12,
+    "4": 10,
+    "5": 10,
+    "15": 10,
+    "6": 9,
+    "7": 9,
+    "8": 9,
+    "9": 9,
+    "10": 8,
+    "11": 8,
+    "12": 8,
+    "14": 8,
+    "13": 7,
+    "16": 6,
+    "17": 6,
+    "18": 6,
+    "19": 5,
+    "20": 5,
+    "21": 5,
+    "22": 5,
+    "23": 4,
+    "24": 4,
+    "25": 4,
+    "26": 4,
+    "27": 4,
+    "28": 4,
+    "29": 4,
+    "30": 4
+  },
+  "book@dtd-version": {
+    "1.0": 8
+  },
+  "book@xml:lang": {
+    "en": 8
+  },
+  "boxed-text@content-type": {
+    "sidebar": 748,
+    "case-study": 282
+  },
+  "boxed-text@id": {
+    "<value>": 1030
+  },
+  "boxed-text@specific-use": {
+    "type01": 282,
+    "box4": 97,
+    "box8": 62,
+    "box3": 61,
+    "box": 53,
+    "box2": 51,
+    "box5": 41,
+    "box6": 35,
+    "box1": 31,
+    "box7": 29,
+    "box10": 17,
+    "box20": 12,
+    "box30": 12,
+    "box40": 12,
+    "box50": 12,
+    "box60": 12,
+    "box70": 12,
+    "box80": 12,
+    "box90": 10,
+    "box100": 10,
+    "box110": 10,
+    "box120": 10,
+    "box130": 9,
+    "box140": 9,
+    "box9": 8,
+    "box150": 8,
+    "box160": 8,
+    "box170": 8,
+    "box180": 7,
+    "box190": 6
+  },
+  "caption@id": {
+    "<value>": 3536
+  },
+  "contrib@contrib-type": {
+    "author": 13,
+    "editor": 3
+  },
+  "copyright-year@content-type": {
+    "domestic": 8
+  },
+  "dedication@id": {
+    "<value>": 7
+  },
+  "edition@designator": {
+    "9": 88,
+    "10": 46,
+    "2": 24,
+    "3": 16,
+    "03": 12,
+    "5": 11,
+    "04": 9,
+    "02": 8,
+    "8": 8,
+    "6": 5,
+    "05": 4,
+    "4": 4,
+    "7": 4,
+    "01": 3,
+    "06": 2,
+    "07": 1,
+    "08": 1
+  },
+  "fig@id": {
+    "<value>": 2179
+  },
+  "fn@id": {
+    "<value>": 162
+  },
+  "front-matter-part@book-part-type": {
+    "title page": 7,
+    "how to use this book": 2,
+    "revisores page": 1,
+    "agradecimientos page": 1,
+    "memoriam page": 1,
+    "colaboradores page": 1,
+    "Agradecimientos page": 1,
+    "agradecimientos": 1,
+    "colaboradores": 1,
+    "al lector": 1,
+    "abreviaturas": 1,
+    "valores normales de laboratorio": 1,
+    "cómo escribir una nota soap": 1,
+    "Colaboradores page": 1,
+    "Prólogo page": 1,
+    "Abreviaturas page": 1,
+    "contributing editors page": 1,
+    "acerca de los autores": 1
+  },
+  "front-matter-part@id": {
+    "<value>": 25
+  },
+  "graphic@id": {
+    "<value>": 2318
+  },
+  "graphic@xlink:href": {
+    "<value>": 2874
+  },
+  "index-entry@id": {
+    "<value>": 25245
+  },
+  "index@id": {
+    "<value>": 8
+  },
+  "inline-graphic@xlink:href": {
+    "<value>": 120
+  },
+  "isbn@content-type": {
+    "ISBN13": 8
+  },
+  "isbn@publication-format": {
+    "print": 8
+  },
+  "kwd-group@id": {
+    "<value>": 15
+  },
+  "kwd@id": {
+    "<value>": 354
+  },
+  "license-p@id": {
+    "<value>": 269
+  },
+  "license@id": {
+    "<value>": 8
+  },
+  "license@license-type": {
+    "ccc": 8
+  },
+  "list@continued-from": {
+    "buckway-ch007-list005": 1,
+    "buckway-ch007-list006": 1
+  },
+  "list@id": {
+    "<value>": 4382
+  },
+  "list@list-type": {
+    "bullet": 2527,
+    "simple": 828,
+    "alpha-lower": 467,
+    "number": 418,
+    "alpha-upper": 133,
+    "roman-upper": 6,
+    "roman-lower": 2,
+    "loweralpha": 1
+  },
+  "mixed-citation@publication-type": {
+    "journal": 4109,
+    "book": 811,
+    "web": 74,
+    "report": 7,
+    "conference": 5,
+    "other": 2,
+    "thesis": 2
+  },
+  "name@name-style": {
+    "western": 3
+  },
+  "nav-pointer@nav-pointer-type": {
+    "start-of-range": 6386,
+    "end-of-range": 6386
+  },
+  "nav-pointer@rid": {
+    "<value>": 41604
+  },
+  "nav-pointer@specific-use": {
+    "pagenum": 1561
+  },
+  "p@id": {
+    "<value>": 69323
+  },
+  "permissions@id": {
+    "<value>": 8
+  },
+  "person-group@person-group-type": {
+    "author": 4692,
+    "editor": 368,
+    "associate-editor": 1
+  },
+  "preface@id": {
+    "<value>": 7
+  },
+  "pub-id@pub-id-type": {
+    "doi": 209,
+    "pmid": 11,
+    "other": 1,
+    "dhhs": 1
+  },
+  "question-wrap@id": {
+    "<value>": 64
+  },
+  "question@id": {
+    "<value>": 64
+  },
+  "ref-list@id": {
+    "<value>": 194
+  },
+  "ref@id": {
+    "<value>": 5010
+  },
+  "sec@disp-level": {
+    "3": 6668,
+    "2": 4140,
+    "1": 1897,
+    "4": 450,
+    "5": 47
+  },
+  "sec@id": {
+    "<value>": 13276
+  },
+  "see-also-entry@rid": {
+    "<value>": 30
+  },
+  "see-entry@rid": {
+    "<value>": 20
+  },
+  "supplementary-material@content-type": {
+    "book-cover": 8,
+    "book-thumbnail": 8
+  },
+  "supplementary-material@id": {
+    "<value>": 16
+  },
+  "supplementary-material@xlink:href": {
+    "<value>": 16
+  },
+  "table-wrap@id": {
+    "<value>": 772
+  },
+  "table-wrap@specific-use": {
+    "inline": 1032
+  },
+  "table@border": {
+    "1": 29
+  },
+  "table@frame": {
+    "void": 1005
+  },
+  "target@id": {
+    "<value>": 4996
+  },
+  "target@target-type": {
+    "pagenum": 4996
+  },
+  "td@align": {
+    "left": 26668,
+    "center": 915,
+    "right": 97
+  },
+  "td@colspan": {
+    "2": 208,
+    "5": 88,
+    "3": 83,
+    "4": 79,
+    "6": 29,
+    "9": 8,
+    "10": 6,
+    "8": 3,
+    "11": 3,
+    "7": 2,
+    "12": 1,
+    "15": 1
+  },
+  "td@rowspan": {
+    "2": 39,
+    "4": 15,
+    "3": 11,
+    "5": 7,
+    "6": 4,
+    "8": 2,
+    "7": 1,
+    "24": 1
+  },
+  "td@style": {
+    "Noindent": 24833,
+    "TB1": 768,
+    "BTB": 213,
+    "P": 1
+  },
+  "td@valign": {
+    "top": 13083,
+    "middle": 9608,
+    "bottom": 4989
+  },
+  "th@align": {
+    "left": 2242,
+    "center": 175,
+    "right": 16
+  },
+  "th@colspan": {
+    "3": 203,
+    "2": 72,
+    "5": 4,
+    "4": 3,
+    "7": 1
+  },
+  "th@rowspan": {
+    "2": 47,
+    "3": 2
+  },
+  "th@style": {
+    "Noindent": 2156,
+    "TCH": 78
+  },
+  "th@valign": {
+    "bottom": 893,
+    "middle": 791,
+    "top": 749
+  },
+  "toc@id": {
+    "<value>": 8
+  },
+  "uri@xlink:href": {
+    "<value>": 450
+  },
+  "xref@ref-type": {
+    "fig": 5782,
+    "bibr": 2921,
+    "section": 1737,
+    "table": 922,
+    "fn": 378,
+    "kwd": 364,
+    "chapter": 191,
+    "boxed-text": 60,
+    "table-fn": 3
+  },
+  "xref@rid": {
+    "<value>": 12358
+  }
+}

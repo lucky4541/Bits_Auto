@@ -1,0 +1,898 @@
+{
+  "relations": {
+    "fig": {
+      "later_in_other_sec_same_chapter": 127,
+      "no_citation": 437,
+      "before_first_citation": 140,
+      "immediately_after_citing_block": 1112,
+      "after_citing_block_+1blocks": 61,
+      "different_book_part": 135,
+      "later_in_descendant_sec": 57,
+      "after_citing_block_+3blocks": 19,
+      "after_citing_block_+4blocks": 12,
+      "after_citing_block_+2blocks": 24,
+      "after_citing_block_+5blocks": 12,
+      "citation_inside_target_block": 12,
+      "inside_citing_paragraph_mid": 2,
+      "inside_citing_paragraph_end": 28
+    },
+    "table-wrap": {
+      "inside_citing_paragraph_end": 32,
+      "immediately_after_citing_block": 646,
+      "different_book_part": 5,
+      "inside_citing_paragraph_mid": 1,
+      "no_citation": 38,
+      "later_in_other_sec_same_chapter": 2,
+      "later_in_descendant_sec": 15,
+      "before_first_citation": 4,
+      "after_citing_block_+3blocks": 2,
+      "after_citing_block_+2blocks": 3,
+      "after_citing_block_+1blocks": 3
+    },
+    "table-wrap(unlabeled)": {
+      "no_citation": 19,
+      "immediately_after_citing_block": 1,
+      "later_in_descendant_sec": 1
+    },
+    "boxed-text": {
+      "no_citation": 977,
+      "immediately_after_citing_block": 49,
+      "different_book_part": 2,
+      "after_citing_block_+1blocks": 1,
+      "before_first_citation": 1
+    },
+    "fig(unlabeled)": {
+      "no_citation": 1
+    }
+  },
+  "by_sample": {
+    "9781975164256": {
+      "fig:later_in_other_sec_same_chapter": 65,
+      "fig:no_citation": 372,
+      "fig:before_first_citation": 69,
+      "fig:immediately_after_citing_block": 85,
+      "fig:after_citing_block_+1blocks": 30,
+      "fig:different_book_part": 56,
+      "fig:later_in_descendant_sec": 34,
+      "fig:after_citing_block_+3blocks": 10,
+      "fig:after_citing_block_+4blocks": 4,
+      "fig:after_citing_block_+2blocks": 8,
+      "fig:after_citing_block_+5blocks": 6,
+      "fig:citation_inside_target_block": 3,
+      "table-wrap:inside_citing_paragraph_end": 14,
+      "table-wrap:immediately_after_citing_block": 35,
+      "table-wrap(unlabeled):no_citation": 7,
+      "table-wrap:different_book_part": 1,
+      "table-wrap:inside_citing_paragraph_mid": 1,
+      "table-wrap:no_citation": 1,
+      "boxed-text:no_citation": 117
+    },
+    "9781975265649": {
+      "fig:immediately_after_citing_block": 65,
+      "fig:before_first_citation": 1,
+      "table-wrap:immediately_after_citing_block": 32,
+      "table-wrap(unlabeled):no_citation": 8,
+      "boxed-text:no_citation": 208,
+      "boxed-text:immediately_after_citing_block": 49,
+      "boxed-text:different_book_part": 2,
+      "boxed-text:after_citing_block_+1blocks": 1,
+      "boxed-text:before_first_citation": 1
+    },
+    "9788417602444": {
+      "fig:immediately_after_citing_block": 496,
+      "fig:before_first_citation": 22,
+      "fig:no_citation": 31,
+      "fig:later_in_other_sec_same_chapter": 51,
+      "fig:later_in_descendant_sec": 17,
+      "fig:different_book_part": 50,
+      "fig:inside_citing_paragraph_mid": 2,
+      "fig:citation_inside_target_block": 2,
+      "fig:inside_citing_paragraph_end": 27,
+      "fig:after_citing_block_+1blocks": 12,
+      "fig:after_citing_block_+4blocks": 2,
+      "fig:after_citing_block_+2blocks": 6,
+      "fig:after_citing_block_+3blocks": 2,
+      "fig:after_citing_block_+5blocks": 1,
+      "table-wrap:immediately_after_citing_block": 62,
+      "table-wrap:inside_citing_paragraph_end": 1,
+      "table-wrap:later_in_other_sec_same_chapter": 2,
+      "table-wrap:no_citation": 1,
+      "boxed-text:no_citation": 267
+    },
+    "9788418257957": {
+      "fig:citation_inside_target_block": 7,
+      "fig:different_book_part": 12,
+      "fig:immediately_after_citing_block": 14,
+      "fig:inside_citing_paragraph_end": 1,
+      "fig:before_first_citation": 4,
+      "fig:no_citation": 11,
+      "fig:later_in_other_sec_same_chapter": 10,
+      "fig:after_citing_block_+1blocks": 7,
+      "fig:after_citing_block_+2blocks": 4,
+      "fig:after_citing_block_+3blocks": 1,
+      "fig:later_in_descendant_sec": 1,
+      "fig(unlabeled):no_citation": 1,
+      "table-wrap:inside_citing_paragraph_end": 17,
+      "table-wrap:immediately_after_citing_block": 63,
+      "table-wrap:no_citation": 18,
+      "table-wrap:later_in_descendant_sec": 8,
+      "table-wrap:before_first_citation": 4,
+      "table-wrap:different_book_part": 3
+    },
+    "9788418563591": {
+      "fig:immediately_after_citing_block": 379,
+      "fig:different_book_part": 2,
+      "fig:before_first_citation": 26,
+      "fig:no_citation": 7,
+      "fig:after_citing_block_+1blocks": 8,
+      "fig:after_citing_block_+3blocks": 5,
+      "fig:later_in_descendant_sec": 1,
+      "fig:after_citing_block_+4blocks": 4,
+      "fig:after_citing_block_+5blocks": 1,
+      "fig:later_in_other_sec_same_chapter": 1,
+      "fig:after_citing_block_+2blocks": 2,
+      "table-wrap:immediately_after_citing_block": 18,
+      "table-wrap:no_citation": 6,
+      "table-wrap:after_citing_block_+3blocks": 2,
+      "table-wrap:after_citing_block_+2blocks": 2,
+      "table-wrap:after_citing_block_+1blocks": 1,
+      "boxed-text:no_citation": 103
+    },
+    "9788418892738": {
+      "table-wrap(unlabeled):immediately_after_citing_block": 1,
+      "table-wrap(unlabeled):later_in_descendant_sec": 1,
+      "table-wrap:immediately_after_citing_block": 5,
+      "table-wrap:later_in_descendant_sec": 7,
+      "table-wrap:different_book_part": 1,
+      "table-wrap:after_citing_block_+2blocks": 1,
+      "table-wrap:after_citing_block_+1blocks": 2,
+      "boxed-text:no_citation": 88
+    },
+    "9788418892783": {
+      "fig:no_citation": 15,
+      "fig:immediately_after_citing_block": 64,
+      "fig:before_first_citation": 1,
+      "fig:later_in_descendant_sec": 1,
+      "table-wrap(unlabeled):no_citation": 4,
+      "table-wrap:immediately_after_citing_block": 2,
+      "table-wrap:no_citation": 2
+    },
+    "9788418892936": {
+      "fig:after_citing_block_+3blocks": 1,
+      "fig:after_citing_block_+1blocks": 4,
+      "fig:before_first_citation": 17,
+      "fig:immediately_after_citing_block": 9,
+      "fig:later_in_descendant_sec": 3,
+      "fig:after_citing_block_+5blocks": 4,
+      "fig:after_citing_block_+2blocks": 4,
+      "fig:different_book_part": 15,
+      "fig:after_citing_block_+4blocks": 2,
+      "fig:no_citation": 1,
+      "table-wrap:immediately_after_citing_block": 429,
+      "table-wrap:no_citation": 10,
+      "boxed-text:no_citation": 194
+    }
+  },
+  "citing_context": {
+    "fig:later_in_other_sec_same_chapter": {
+      "sec": 102,
+      "list-item": 25
+    },
+    "fig:before_first_citation": {
+      "sec": 131,
+      "list-item": 9
+    },
+    "fig:immediately_after_citing_block": {
+      "sec": 1054,
+      "body": 6,
+      "list-item": 52
+    },
+    "fig:after_citing_block_+1blocks": {
+      "sec": 57,
+      "list-item": 3,
+      "body": 1
+    },
+    "fig:different_book_part": {
+      "sec": 119,
+      "list-item": 16
+    },
+    "fig:later_in_descendant_sec": {
+      "sec": 48,
+      "list-item": 5,
+      "body": 3,
+      "boxed-text": 1
+    },
+    "fig:after_citing_block_+3blocks": {
+      "sec": 14,
+      "list-item": 5
+    },
+    "fig:after_citing_block_+4blocks": {
+      "sec": 11,
+      "body": 1
+    },
+    "fig:after_citing_block_+2blocks": {
+      "sec": 22,
+      "list-item": 2
+    },
+    "fig:after_citing_block_+5blocks": {
+      "sec": 10,
+      "list-item": 2
+    },
+    "fig:citation_inside_target_block": {
+      "list-item": 12
+    },
+    "table-wrap:inside_citing_paragraph_end": {
+      "list-item": 32
+    },
+    "table-wrap:immediately_after_citing_block": {
+      "sec": 637,
+      "body": 8,
+      "boxed-text": 1
+    },
+    "table-wrap:different_book_part": {
+      "sec": 5
+    },
+    "table-wrap:inside_citing_paragraph_mid": {
+      "list-item": 1
+    },
+    "boxed-text:immediately_after_citing_block": {
+      "sec": 49
+    },
+    "boxed-text:different_book_part": {
+      "sec": 2
+    },
+    "boxed-text:after_citing_block_+1blocks": {
+      "sec": 1
+    },
+    "boxed-text:before_first_citation": {
+      "sec": 1
+    },
+    "fig:inside_citing_paragraph_mid": {
+      "list-item": 2
+    },
+    "fig:inside_citing_paragraph_end": {
+      "list-item": 28
+    },
+    "table-wrap:later_in_other_sec_same_chapter": {
+      "sec": 2
+    },
+    "table-wrap:later_in_descendant_sec": {
+      "sec": 13,
+      "body": 2
+    },
+    "table-wrap:before_first_citation": {
+      "sec": 2,
+      "body": 2
+    },
+    "table-wrap:after_citing_block_+3blocks": {
+      "sec": 1,
+      "body": 1
+    },
+    "table-wrap:after_citing_block_+2blocks": {
+      "body": 2,
+      "sec": 1
+    },
+    "table-wrap:after_citing_block_+1blocks": {
+      "body": 1,
+      "sec": 2
+    },
+    "table-wrap(unlabeled):immediately_after_citing_block": {
+      "sec": 1
+    },
+    "table-wrap(unlabeled):later_in_descendant_sec": {
+      "sec": 1
+    }
+  },
+  "examples": {
+    "fig:later_in_other_sec_same_chapter": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch001-fig001",
+        "first_citation_text": "figs. 1-1",
+        "citing_block_id": "gartner-ch001-p010",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch001-fig0014",
+        "first_citation_text": "1-14",
+        "citing_block_id": "gartner-ch001-p010",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig0021",
+        "first_citation_text": "Fig. 2-21",
+        "citing_block_id": "gartner-ch002-p195",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch005-fig004",
+        "first_citation_text": "Fig. 5-4",
+        "citing_block_id": "gartner-ch005-p014",
+        "target_parent": "p"
+      }
+    ],
+    "fig:before_first_citation": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch001-fig005",
+        "first_citation_text": "Fig. 1-5",
+        "citing_block_id": "gartner-ch003-p146",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig002",
+        "first_citation_text": "Fig. 2-2",
+        "citing_block_id": "gartner-ch002-p038",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch005-fig003A",
+        "first_citation_text": "fig. 5-3A y B",
+        "citing_block_id": "gartner-ch005-p013",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch005-fig002-5",
+        "first_citation_text": "Figura. 5-2-5",
+        "citing_block_id": "gartner-ch005-fig002-6",
+        "target_parent": "sec"
+      }
+    ],
+    "fig:immediately_after_citing_block": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch001-fig0015",
+        "first_citation_text": "Fig. 1-15",
+        "citing_block_id": "gartner-ch001-p028",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch001-fig0016",
+        "first_citation_text": "Fig. 1-16",
+        "citing_block_id": "gartner-ch001-p028",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch001-fig0017",
+        "first_citation_text": "Fig. 1-17",
+        "citing_block_id": "gartner-ch001-p028",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig001",
+        "first_citation_text": "Fig. 2-1",
+        "citing_block_id": "gartner-ch002-p001",
+        "target_parent": "body"
+      }
+    ],
+    "fig:after_citing_block_+1blocks": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig003",
+        "first_citation_text": "figs. 2-3",
+        "citing_block_id": "gartner-ch002-p039",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch003-fig004",
+        "first_citation_text": "Fig. 3-4",
+        "citing_block_id": "gartner-ch003-p016",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch005-fig002",
+        "first_citation_text": "Fig. 5-2",
+        "citing_block_id": "gartner-ch005-p009",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch005-fig0010",
+        "first_citation_text": "Fig. 5-10",
+        "citing_block_id": "gartner-ch005-p056",
+        "target_parent": "sec"
+      }
+    ],
+    "fig:different_book_part": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig004",
+        "first_citation_text": "figs. 2-4",
+        "citing_block_id": "gartner-ch002-p041",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig005",
+        "first_citation_text": "2-5",
+        "citing_block_id": "gartner-ch002-p041",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig006",
+        "first_citation_text": "Fig. 2-6",
+        "citing_block_id": "gartner-ch002-list0003",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig009",
+        "first_citation_text": "2-9",
+        "citing_block_id": "gartner-ch002-p069",
+        "target_parent": "sec"
+      }
+    ],
+    "fig:later_in_descendant_sec": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig007",
+        "first_citation_text": "figs. 2-7",
+        "citing_block_id": "gartner-ch002-p061",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-fig008",
+        "first_citation_text": "2-8",
+        "citing_block_id": "gartner-ch002-p061",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch005-fig001",
+        "first_citation_text": "Fig. 5-1",
+        "citing_block_id": "gartner-ch005-p002",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch005-fig005",
+        "first_citation_text": "Fig. 5-5",
+        "citing_block_id": "gartner-ch005-p032",
+        "target_parent": "sec"
+      }
+    ],
+    "fig:after_citing_block_+3blocks": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch003-fig001",
+        "first_citation_text": "Fig. 3-1",
+        "citing_block_id": "gartner-ch003-p002",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch003-fig007",
+        "first_citation_text": "Fig. 3-7",
+        "citing_block_id": "gartner-ch003-p072",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch009-fig002",
+        "first_citation_text": "Fig. 9-2",
+        "citing_block_id": "gartner-ch009-list002",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch010-fig003",
+        "first_citation_text": "Fig. 10-3",
+        "citing_block_id": "gartner-ch010-p132",
+        "target_parent": "p"
+      }
+    ],
+    "fig:after_citing_block_+4blocks": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch003-fig002",
+        "first_citation_text": "Fig. 3-2",
+        "citing_block_id": "gartner-ch003-p003",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch003-fig005",
+        "first_citation_text": "Fig. 3-5",
+        "citing_block_id": "gartner-ch003-fig004",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch008-fig007A",
+        "first_citation_text": "fig. 8-7",
+        "citing_block_id": "gartner-ch008-p048",
+        "target_parent": "p"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch017-fig006",
+        "first_citation_text": "Fig. 17-6",
+        "citing_block_id": "gartner-ch017-p135",
+        "target_parent": "sec"
+      }
+    ],
+    "fig:after_citing_block_+2blocks": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch003-fig006",
+        "first_citation_text": "Fig. 3-6",
+        "citing_block_id": "gartner-ch003-p067",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch010-fig005",
+        "first_citation_text": "Fig. 10-5",
+        "citing_block_id": "gartner-ch010-p159",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch010-fig008",
+        "first_citation_text": "Fig. 10-8",
+        "citing_block_id": "gartner-ch010-p165",
+        "target_parent": "p"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch010-fig0011",
+        "first_citation_text": "Fig. 10-11",
+        "citing_block_id": "gartner-ch010-p183",
+        "target_parent": "p"
+      }
+    ],
+    "fig:after_citing_block_+5blocks": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch008-fig007B",
+        "first_citation_text": "figura. 8-7B",
+        "citing_block_id": "gartner-ch008-p048",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch010-fig002",
+        "first_citation_text": "Fig. 10-2",
+        "citing_block_id": "gartner-ch010-p121",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch020-fig009",
+        "first_citation_text": "Fig. 20-9",
+        "citing_block_id": "gartner-ch020-list007",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch020-fig0010",
+        "first_citation_text": "fig. 20-10",
+        "citing_block_id": "gartner-ch020-list007",
+        "target_parent": "sec"
+      }
+    ],
+    "fig:citation_inside_target_block": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch014-fig006",
+        "first_citation_text": "Fig. 14-6",
+        "citing_block_id": "gartner-ch014-list008",
+        "target_parent": "p"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch014-fig007",
+        "first_citation_text": "Fig. 14-7",
+        "citing_block_id": "gartner-ch014-list008",
+        "target_parent": "p"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch019-fig008",
+        "first_citation_text": "Fig. 19-8",
+        "citing_block_id": "gartner-ch019-list013",
+        "target_parent": "p"
+      },
+      {
+        "sample": "9788417602444",
+        "target": "Wineski-ch003-fig0022",
+        "first_citation_text": "figs. 3-22",
+        "citing_block_id": "Wineski-ch003-list00210",
+        "target_parent": "p"
+      }
+    ],
+    "table-wrap:immediately_after_citing_block": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-tbl002",
+        "first_citation_text": "Tabla 2-2",
+        "citing_block_id": "gartner-ch002-p041",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch002-tbl003",
+        "first_citation_text": "Tabla 2-3",
+        "citing_block_id": "gartner-ch002-p123",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch003-tbl001",
+        "first_citation_text": "Tabla 3-1",
+        "citing_block_id": "gartner-ch003-p016",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch004-tbl001",
+        "first_citation_text": "Tabla 4-1",
+        "citing_block_id": "gartner-ch004-p023",
+        "target_parent": "sec"
+      }
+    ],
+    "table-wrap:different_book_part": [
+      {
+        "sample": "9781975164256",
+        "target": "gartner-ch006-tbl002",
+        "first_citation_text": "Tabla 6-2",
+        "citing_block_id": "gartner-ch006-p071",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch044-tbl001",
+        "first_citation_text": "tabla 44-1",
+        "citing_block_id": "brenner-ch044-p003",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch044-tbl002",
+        "first_citation_text": "tablas 44-2",
+        "citing_block_id": "brenner-ch044-p003",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch044-tbl003",
+        "first_citation_text": "44-3",
+        "citing_block_id": "brenner-ch044-p003",
+        "target_parent": "sec"
+      }
+    ],
+    "boxed-text:immediately_after_citing_block": [
+      {
+        "sample": "9781975265649",
+        "target": "buckway-ch001-sb-box006",
+        "first_citation_text": "Box 1.1",
+        "citing_block_id": "buckway-ch001-p312",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975265649",
+        "target": "buckway-ch001-sb-box013",
+        "first_citation_text": "Box 1.2",
+        "citing_block_id": "buckway-ch001-p444",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975265649",
+        "target": "buckway-ch002-sb-box002",
+        "first_citation_text": "Box 2.1",
+        "citing_block_id": "buckway-ch002-p031",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975265649",
+        "target": "buckway-ch002-sb-box010",
+        "first_citation_text": "Box 2.2",
+        "citing_block_id": "buckway-ch002-p201",
+        "target_parent": "sec"
+      }
+    ],
+    "boxed-text:different_book_part": [
+      {
+        "sample": "9781975265649",
+        "target": "buckway-ch004-sb-box012",
+        "first_citation_text": "Box 4.3",
+        "citing_block_id": "buckway-ch004-p128",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9781975265649",
+        "target": "buckway-ch004-sb-box013",
+        "first_citation_text": "Box 4.4",
+        "citing_block_id": "buckway-ch004-p129",
+        "target_parent": "sec"
+      }
+    ],
+    "boxed-text:after_citing_block_+1blocks": [
+      {
+        "sample": "9781975265649",
+        "target": "buckway-ch008-sb-box005",
+        "first_citation_text": "Daily Ethical Dilemma 8.1",
+        "citing_block_id": "buckway-ch008-p200",
+        "target_parent": "sec"
+      }
+    ],
+    "boxed-text:before_first_citation": [
+      {
+        "sample": "9781975265649",
+        "target": "buckway-ch008-sb-box010",
+        "first_citation_text": "Daily Ethical Dilemma 8.2",
+        "citing_block_id": "buckway-ch008-p310",
+        "target_parent": "sec"
+      }
+    ],
+    "table-wrap:later_in_other_sec_same_chapter": [
+      {
+        "sample": "9788417602444",
+        "target": "Wineski-ch003-tbl005",
+        "first_citation_text": "3-5",
+        "citing_block_id": "Wineski-ch003-p208",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788417602444",
+        "target": "Wineski-ch012-tbl005",
+        "first_citation_text": "tabla 12-5",
+        "citing_block_id": "Wineski-ch012-tbl003",
+        "target_parent": "sec"
+      }
+    ],
+    "table-wrap:later_in_descendant_sec": [
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch013-tbl006",
+        "first_citation_text": "tabla 13-6",
+        "citing_block_id": "brenner-ch013-sec026",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch036-tbl002",
+        "first_citation_text": "TABLA 36-2",
+        "citing_block_id": "brenner-ch036-sec012",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch039-tbl001",
+        "first_citation_text": "tabla 39-1",
+        "citing_block_id": "brenner-ch039-sec008",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch039-tbl002",
+        "first_citation_text": "tabla 39-2",
+        "citing_block_id": "brenner-ch039-sec016",
+        "target_parent": "sec"
+      }
+    ],
+    "table-wrap:before_first_citation": [
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch028-tbl003",
+        "first_citation_text": "tablas 28-3",
+        "citing_block_id": "brenner-ch028-p119",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch028-tbl004",
+        "first_citation_text": "28-4",
+        "citing_block_id": "brenner-ch028-p119",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch039-tbl0010",
+        "first_citation_text": "TABLAS 39-10",
+        "citing_block_id": "brenner-ch039-sec040",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418257957",
+        "target": "brenner-ch039-tbl011",
+        "first_citation_text": "39-11",
+        "citing_block_id": "brenner-ch039-sec040",
+        "target_parent": "sec"
+      }
+    ],
+    "table-wrap:after_citing_block_+3blocks": [
+      {
+        "sample": "9788418563591",
+        "target": "hamill-ch012-tbl005",
+        "first_citation_text": "tabla 12-5",
+        "citing_block_id": "hamill-ch012-p130",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418563591",
+        "target": "hamill-app001-tbl001",
+        "first_citation_text": "tabla A-1",
+        "citing_block_id": "hamill-app001-p402",
+        "target_parent": "body"
+      }
+    ],
+    "table-wrap:after_citing_block_+2blocks": [
+      {
+        "sample": "9788418563591",
+        "target": "hamill-app001-tbl002",
+        "first_citation_text": "tabla A-2",
+        "citing_block_id": "hamill-app001-p403",
+        "target_parent": "body"
+      },
+      {
+        "sample": "9788418563591",
+        "target": "hamill-app002-tbl001",
+        "first_citation_text": "tabla B-1",
+        "citing_block_id": "hamill-app002-p442",
+        "target_parent": "body"
+      },
+      {
+        "sample": "9788418892738",
+        "target": "uzelac-ch012-tbl004",
+        "first_citation_text": "tabla 12-4",
+        "citing_block_id": "uzelac-ch012-p1380",
+        "target_parent": "sec"
+      }
+    ],
+    "table-wrap:after_citing_block_+1blocks": [
+      {
+        "sample": "9788418563591",
+        "target": "hamill-app001-tbl003",
+        "first_citation_text": "tabla A-3",
+        "citing_block_id": "hamill-app001-p404",
+        "target_parent": "body"
+      },
+      {
+        "sample": "9788418892738",
+        "target": "uzelac-ch013-tbl001",
+        "first_citation_text": "tabla 13-1",
+        "citing_block_id": "uzelac-ch013-p013",
+        "target_parent": "sec"
+      },
+      {
+        "sample": "9788418892738",
+        "target": "uzelac-ch014-tbl001",
+        "first_citation_text": "tabla 14-1",
+        "citing_block_id": "uzelac-ch014-p447",
+        "target_parent": "sec"
+      }
+    ],
+    "table-wrap(unlabeled):immediately_after_citing_block": [
+      {
+        "sample": "9788418892738",
+        "target": "uzelac-ch001-tbl001",
+        "first_citation_text": "tabla 1-1",
+        "citing_block_id": "uzelac-ch001-p065",
+        "target_parent": "sec"
+      }
+    ],
+    "table-wrap(unlabeled):later_in_descendant_sec": [
+      {
+        "sample": "9788418892738",
+        "target": "uzelac-ch001-tbl002",
+        "first_citation_text": "tabla 1-2",
+        "citing_block_id": "uzelac-ch001-sec024",
+        "target_parent": "sec"
+      }
+    ]
+  }
+}

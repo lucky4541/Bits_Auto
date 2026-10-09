@@ -1,0 +1,462 @@
+{
+  "p": {
+    "count": 69333,
+    "documents": 8
+  },
+  "nav-pointer": {
+    "count": 41604,
+    "documents": 8
+  },
+  "td": {
+    "count": 27680,
+    "documents": 8
+  },
+  "index-entry": {
+    "count": 25245,
+    "documents": 8
+  },
+  "term": {
+    "count": 25245,
+    "documents": 8
+  },
+  "italic": {
+    "count": 24226,
+    "documents": 8
+  },
+  "nav-pointer-group": {
+    "count": 23372,
+    "documents": 8
+  },
+  "bold": {
+    "count": 22716,
+    "documents": 8
+  },
+  "title": {
+    "count": 20598,
+    "documents": 8
+  },
+  "list-item": {
+    "count": 17816,
+    "documents": 8
+  },
+  "surname": {
+    "count": 16131,
+    "documents": 8
+  },
+  "string-name": {
+    "count": 16112,
+    "documents": 5
+  },
+  "given-names": {
+    "count": 15765,
+    "documents": 8
+  },
+  "sec": {
+    "count": 13319,
+    "documents": 8
+  },
+  "xref": {
+    "count": 12358,
+    "documents": 8
+  },
+  "label": {
+    "count": 10421,
+    "documents": 8
+  },
+  "tr": {
+    "count": 8490,
+    "documents": 8
+  },
+  "person-group": {
+    "count": 5063,
+    "documents": 5
+  },
+  "ref": {
+    "count": 5010,
+    "documents": 5
+  },
+  "mixed-citation": {
+    "count": 5010,
+    "documents": 5
+  },
+  "target": {
+    "count": 4996,
+    "documents": 8
+  },
+  "source": {
+    "count": 4951,
+    "documents": 5
+  },
+  "year": {
+    "count": 4905,
+    "documents": 8
+  },
+  "fpage": {
+    "count": 4617,
+    "documents": 8
+  },
+  "list": {
+    "count": 4382,
+    "documents": 8
+  },
+  "article-title": {
+    "count": 4351,
+    "documents": 5
+  },
+  "volume": {
+    "count": 3997,
+    "documents": 5
+  },
+  "lpage": {
+    "count": 3833,
+    "documents": 8
+  },
+  "caption": {
+    "count": 3536,
+    "documents": 8
+  },
+  "toc-entry": {
+    "count": 3127,
+    "documents": 8
+  },
+  "graphic": {
+    "count": 2874,
+    "documents": 8
+  },
+  "fig": {
+    "count": 2864,
+    "documents": 8
+  },
+  "th": {
+    "count": 2435,
+    "documents": 8
+  },
+  "issue": {
+    "count": 1907,
+    "documents": 5
+  },
+  "sup": {
+    "count": 1261,
+    "documents": 8
+  },
+  "table-wrap": {
+    "count": 1034,
+    "documents": 8
+  },
+  "table": {
+    "count": 1034,
+    "documents": 8
+  },
+  "tbody": {
+    "count": 1034,
+    "documents": 8
+  },
+  "boxed-text": {
+    "count": 1030,
+    "documents": 6
+  },
+  "sub": {
+    "count": 889,
+    "documents": 7
+  },
+  "etal": {
+    "count": 794,
+    "documents": 4
+  },
+  "thead": {
+    "count": 779,
+    "documents": 8
+  },
+  "publisher-name": {
+    "count": 652,
+    "documents": 8
+  },
+  "publisher-loc": {
+    "count": 553,
+    "documents": 8
+  },
+  "title-group": {
+    "count": 533,
+    "documents": 8
+  },
+  "uri": {
+    "count": 450,
+    "documents": 6
+  },
+  "fn": {
+    "count": 378,
+    "documents": 7
+  },
+  "kwd": {
+    "count": 354,
+    "documents": 1
+  },
+  "book-part-meta": {
+    "count": 333,
+    "documents": 8
+  },
+  "book-part": {
+    "count": 301,
+    "documents": 8
+  },
+  "book-part-id": {
+    "count": 301,
+    "documents": 8
+  },
+  "collab": {
+    "count": 300,
+    "documents": 5
+  },
+  "body": {
+    "count": 289,
+    "documents": 8
+  },
+  "table-wrap-foot": {
+    "count": 278,
+    "documents": 8
+  },
+  "license-p": {
+    "count": 269,
+    "documents": 8
+  },
+  "edition": {
+    "count": 259,
+    "documents": 8
+  },
+  "answer": {
+    "count": 257,
+    "documents": 1
+  },
+  "pub-id": {
+    "count": 222,
+    "documents": 4
+  },
+  "back": {
+    "count": 194,
+    "documents": 5
+  },
+  "ref-list": {
+    "count": 194,
+    "documents": 5
+  },
+  "index-div": {
+    "count": 184,
+    "documents": 8
+  },
+  "fn-group": {
+    "count": 163,
+    "documents": 7
+  },
+  "chapter-title": {
+    "count": 120,
+    "documents": 4
+  },
+  "inline-graphic": {
+    "count": 120,
+    "documents": 1
+  },
+  "underline": {
+    "count": 98,
+    "documents": 2
+  },
+  "break": {
+    "count": 86,
+    "documents": 8
+  },
+  "front-matter": {
+    "count": 74,
+    "documents": 8
+  },
+  "toc": {
+    "count": 74,
+    "documents": 8
+  },
+  "question-wrap": {
+    "count": 64,
+    "documents": 1
+  },
+  "question": {
+    "count": 64,
+    "documents": 1
+  },
+  "answer-set": {
+    "count": 64,
+    "documents": 1
+  },
+  "attrib": {
+    "count": 49,
+    "documents": 2
+  },
+  "named-book-part-body": {
+    "count": 32,
+    "documents": 8
+  },
+  "see-also-entry": {
+    "count": 31,
+    "documents": 1
+  },
+  "front-matter-part": {
+    "count": 25,
+    "documents": 8
+  },
+  "see-entry": {
+    "count": 20,
+    "documents": 1
+  },
+  "name": {
+    "count": 19,
+    "documents": 8
+  },
+  "book-id": {
+    "count": 16,
+    "documents": 8
+  },
+  "contrib": {
+    "count": 16,
+    "documents": 8
+  },
+  "degrees": {
+    "count": 16,
+    "documents": 8
+  },
+  "aff": {
+    "count": 16,
+    "documents": 8
+  },
+  "supplementary-material": {
+    "count": 16,
+    "documents": 8
+  },
+  "month": {
+    "count": 16,
+    "documents": 3
+  },
+  "addr-line": {
+    "count": 15,
+    "documents": 8
+  },
+  "kwd-group": {
+    "count": 15,
+    "documents": 1
+  },
+  "contrib-group": {
+    "count": 9,
+    "documents": 8
+  },
+  "book": {
+    "count": 8,
+    "documents": 8
+  },
+  "book-meta": {
+    "count": 8,
+    "documents": 8
+  },
+  "book-title-group": {
+    "count": 8,
+    "documents": 8
+  },
+  "book-title": {
+    "count": 8,
+    "documents": 8
+  },
+  "alt-title": {
+    "count": 8,
+    "documents": 8
+  },
+  "pub-date": {
+    "count": 8,
+    "documents": 8
+  },
+  "isbn": {
+    "count": 8,
+    "documents": 8
+  },
+  "publisher": {
+    "count": 8,
+    "documents": 8
+  },
+  "permissions": {
+    "count": 8,
+    "documents": 8
+  },
+  "copyright-statement": {
+    "count": 8,
+    "documents": 8
+  },
+  "copyright-year": {
+    "count": 8,
+    "documents": 8
+  },
+  "copyright-holder": {
+    "count": 8,
+    "documents": 8
+  },
+  "license": {
+    "count": 8,
+    "documents": 8
+  },
+  "book-body": {
+    "count": 8,
+    "documents": 8
+  },
+  "book-back": {
+    "count": 8,
+    "documents": 8
+  },
+  "index": {
+    "count": 8,
+    "documents": 8
+  },
+  "dedication": {
+    "count": 7,
+    "documents": 7
+  },
+  "preface": {
+    "count": 7,
+    "documents": 7
+  },
+  "subtitle": {
+    "count": 6,
+    "documents": 6
+  },
+  "notes": {
+    "count": 6,
+    "documents": 2
+  },
+  "disp-quote": {
+    "count": 5,
+    "documents": 1
+  },
+  "elocation-id": {
+    "count": 5,
+    "documents": 2
+  },
+  "email": {
+    "count": 3,
+    "documents": 1
+  },
+  "sc": {
+    "count": 2,
+    "documents": 2
+  },
+  "institution": {
+    "count": 2,
+    "documents": 1
+  },
+  "ack": {
+    "count": 1,
+    "documents": 1
+  },
+  "suffix": {
+    "count": 1,
+    "documents": 1
+  },
+  "date": {
+    "count": 1,
+    "documents": 1
+  },
+  "day": {
+    "count": 1,
+    "documents": 1
+  }
+}

@@ -1,0 +1,684 @@
+{
+  "ack": [
+    {
+      "pattern": "{P}-fm{N3}-sec{N3}",
+      "count": 1,
+      "example": "buckway-fm001-sec012"
+    }
+  ],
+  "aff": [
+    {
+      "pattern": "{P}-fm{N3}-aff{N3}",
+      "count": 14,
+      "example": "gartner-fm001-aff001"
+    },
+    {
+      "pattern": "knutzen-fm{N3}-aff{N3}",
+      "count": 1,
+      "example": "knutzen-fm001-aff001"
+    },
+    {
+      "pattern": "derrick-fm{N3}-aff{N3}",
+      "count": 1,
+      "example": "derrick-fm001-aff001"
+    }
+  ],
+  "answer": [
+    {
+      "pattern": "{P}-ch{N3}-a{N3}",
+      "count": 257,
+      "example": "buckway-ch001-a001"
+    }
+  ],
+  "answer-set": [
+    {
+      "pattern": "{P}-ch{N3}-qam{N3}",
+      "count": 64,
+      "example": "buckway-ch001-qam001"
+    }
+  ],
+  "book-part": [
+    {
+      "pattern": "{P}-ch{N3}",
+      "count": 264,
+      "example": "gartner-ch001"
+    },
+    {
+      "pattern": "{P}-sec{N3}",
+      "count": 20,
+      "example": "brenner-sec001"
+    },
+    {
+      "pattern": "{P}-app{N3}",
+      "count": 13,
+      "example": "gartner-app001"
+    },
+    {
+      "pattern": "{P}-pt{N3}",
+      "count": 3,
+      "example": "buckway-pt001"
+    },
+    {
+      "pattern": "{P}-bm{N3}",
+      "count": 1,
+      "example": "hamill-bm005"
+    }
+  ],
+  "boxed-text": [
+    {
+      "pattern": "{P}-ch{N3}-sb-box{N3}",
+      "count": 747,
+      "example": "gartner-ch002-sb-box001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-cs-box{N5}",
+      "count": 170,
+      "example": "uzelac-ch003-cs-box00175"
+    },
+    {
+      "pattern": "{P}-ch{N3}-cs-box{N4}",
+      "count": 93,
+      "example": "uzelac-ch002-cs-box0010"
+    },
+    {
+      "pattern": "{P}-ch{N3}-cs-box{N3}",
+      "count": 13,
+      "example": "uzelac-ch001-cs-box001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-cs-box{N6}",
+      "count": 6,
+      "example": "boland-ch007-cs-box001093"
+    },
+    {
+      "pattern": "{P}-ch{N3}-sb-box{N4}",
+      "count": 1,
+      "example": "hamill-ch003-sb-box0042"
+    }
+  ],
+  "caption": [
+    {
+      "pattern": "{P}-ch{N3}-cap{N3}",
+      "count": 3349,
+      "example": "gartner-ch001-cap001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-cap{N4}",
+      "count": 67,
+      "example": "gartner-ch002-cap0010"
+    },
+    {
+      "pattern": "{P}-app{N3}-cap{N3}",
+      "count": 57,
+      "example": "gartner-app001-cap001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-cap{N5}",
+      "count": 36,
+      "example": "gartner-ch002-cap00111"
+    },
+    {
+      "pattern": "{P}-fm{N3}-cap{N3}",
+      "count": 8,
+      "example": "gartner-fm001-cap001"
+    },
+    {
+      "pattern": "{P}-app{N3}-cap{N4}",
+      "count": 8,
+      "example": "brenner-app002-cap0155"
+    },
+    {
+      "pattern": "{P}-app{N3}-cap{N2}",
+      "count": 6,
+      "example": "hamill-app001-cap01"
+    },
+    {
+      "pattern": "{P}-ch{N3}-cap{N2}",
+      "count": 4,
+      "example": "gartner-ch002-cap01"
+    },
+    {
+      "pattern": "{P}-app{N3}-cap{N5}",
+      "count": 1,
+      "example": "hamill-app002-cap00111"
+    }
+  ],
+  "dedication": [
+    {
+      "pattern": "{P}-fm{N3}-dedication{N3}",
+      "count": 7,
+      "example": "gartner-fm001-dedication001"
+    }
+  ],
+  "fig": [
+    {
+      "pattern": "{P}-ch{N3}-fig{N4}",
+      "count": 1000,
+      "example": "gartner-ch001-fig0010"
+    },
+    {
+      "pattern": "{P}-ch{N3}-fig{N3}",
+      "count": 573,
+      "example": "gartner-ch001-fig001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-fig{N3}-{N1}",
+      "count": 260,
+      "example": "gartner-ch002-fig001-1"
+    },
+    {
+      "pattern": "{P}-ch{N3}-figdr{N1}-{N1}",
+      "count": 140,
+      "example": "gartner-ch003-figdr1-1"
+    },
+    {
+      "pattern": "{P}-ch{N4}-fig{N3}",
+      "count": 72,
+      "example": "white-ch0011-fig001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-fig{N5}",
+      "count": 41,
+      "example": "Wineski-ch003-fig00105"
+    },
+    {
+      "pattern": "{P}-app{N3}-fig{N4}",
+      "count": 40,
+      "example": "gartner-app001-fig0010"
+    },
+    {
+      "pattern": "{P}-app{N3}-fig{N3}",
+      "count": 14,
+      "example": "gartner-app001-fig001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-fig{N3}A",
+      "count": 9,
+      "example": "gartner-ch004-fig003A"
+    },
+    {
+      "pattern": "{P}-ch{N3}-fig{N3}B",
+      "count": 9,
+      "example": "gartner-ch004-fig003B"
+    },
+    {
+      "pattern": "{P}-ch{N3}-fig{N3}-{N1}A",
+      "count": 7,
+      "example": "gartner-ch006-fig006-3A"
+    },
+    {
+      "pattern": "{P}-ch{N3}-fig{N3}-{N1}B",
+      "count": 7,
+      "example": "gartner-ch006-fig006-3B"
+    }
+  ],
+  "fn": [
+    {
+      "pattern": "{P}-ch{N3}-tbl{N3}-fn{N3}",
+      "count": 112,
+      "example": "gartner-ch006-tbl002-fn001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-fn{N3}",
+      "count": 40,
+      "example": "brenner-ch009-fn001"
+    },
+    {
+      "pattern": "{P}-app{N3}-fn{N3}",
+      "count": 10,
+      "example": "brenner-app002-fn001"
+    }
+  ],
+  "front-matter-part": [
+    {
+      "pattern": "{P}-fm{N3}-topic{N3}",
+      "count": 25,
+      "example": "gartner-fm001-topic001"
+    }
+  ],
+  "graphic": [
+    {
+      "pattern": "{P}-ch{N3}-gr{N3}",
+      "count": 2214,
+      "example": "gartner-ch001-gr001"
+    },
+    {
+      "pattern": "{P}-app{N3}-gr{N3}",
+      "count": 49,
+      "example": "gartner-app001-gr001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-gr{N4}",
+      "count": 35,
+      "example": "Wineski-ch002-gr0281"
+    },
+    {
+      "pattern": "{P}-ch{N3}-gr{N5}",
+      "count": 12,
+      "example": "Wineski-ch003-gr04561"
+    },
+    {
+      "pattern": "{P}-fm{N3}-gr{N3}",
+      "count": 3,
+      "example": "gartner-fm001-gr001"
+    },
+    {
+      "pattern": "{P}-app{N3}-gr{N5}",
+      "count": 3,
+      "example": "hamill-app002-gr00322"
+    },
+    {
+      "pattern": "{P}-ch{N3}-gr{N6}",
+      "count": 1,
+      "example": "Wineski-ch012-gr009833"
+    },
+    {
+      "pattern": "{P}-app{N3}-gr{N4}",
+      "count": 1,
+      "example": "hamill-app002-gr0032"
+    }
+  ],
+  "index": [
+    {
+      "pattern": "{P}-index{N3}",
+      "count": 8,
+      "example": "gartner-index001"
+    }
+  ],
+  "index-entry": [
+    {
+      "pattern": "{P}-index{N3}-ie{N4}",
+      "count": 18591,
+      "example": "gartner-index001-ie0001"
+    },
+    {
+      "pattern": "{P}-index{N3}-ie{N5}",
+      "count": 5558,
+      "example": "Wineski-index001-ie01000"
+    },
+    {
+      "pattern": "{P}-index{N3}-ie{N3}",
+      "count": 998,
+      "example": "buckway-index001-ie100"
+    },
+    {
+      "pattern": "{P}-index{N3}-ie{N2}",
+      "count": 90,
+      "example": "buckway-index001-ie10"
+    },
+    {
+      "pattern": "{P}-index{N3}-ie{N1}",
+      "count": 8,
+      "example": "buckway-index001-ie2"
+    }
+  ],
+  "kwd": [
+    {
+      "pattern": "{P}-ch{N3}-term{N3}",
+      "count": 354,
+      "example": "buckway-ch001-term001"
+    }
+  ],
+  "kwd-group": [
+    {
+      "pattern": "{P}-ch{N3}-kwdgroup{N3}",
+      "count": 15,
+      "example": "buckway-ch001-kwdgroup001"
+    }
+  ],
+  "license": [
+    {
+      "pattern": "{P}-license",
+      "count": 8,
+      "example": "gartner-license"
+    }
+  ],
+  "license-p": [
+    {
+      "pattern": "{P}-fm{N3}-p{N3}",
+      "count": 251,
+      "example": "gartner-fm001-p001"
+    },
+    {
+      "pattern": "{P}-fm{N3}-p{N4}",
+      "count": 18,
+      "example": "Wineski-fm001-p0021"
+    }
+  ],
+  "list": [
+    {
+      "pattern": "{P}-ch{N3}-list{N3}",
+      "count": 4165,
+      "example": "gartner-ch001-list001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-list{N4}",
+      "count": 124,
+      "example": "gartner-ch002-list0001"
+    },
+    {
+      "pattern": "{P}-app{N3}-list{N3}",
+      "count": 51,
+      "example": "gartner-app001-list001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-list{N5}",
+      "count": 20,
+      "example": "Wineski-ch003-list00210"
+    },
+    {
+      "pattern": "{P}-fm{N3}-list{N3}",
+      "count": 18,
+      "example": "buckway-fm001-list001"
+    },
+    {
+      "pattern": "rebar-ch{N3}-list{N3}",
+      "count": 3,
+      "example": "rebar-ch001-list002"
+    },
+    {
+      "pattern": "{P}-app{N3}-list{N4}",
+      "count": 1,
+      "example": "brenner-app002-list0016"
+    }
+  ],
+  "p": [
+    {
+      "pattern": "{P}-ch{N3}-p{N3}",
+      "count": 56057,
+      "example": "gartner-ch001-p001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-p{N4}",
+      "count": 9618,
+      "example": "gartner-ch009-p0001"
+    },
+    {
+      "pattern": "{P}-fm{N3}-p{N3}",
+      "count": 1804,
+      "example": "gartner-fm001-p033"
+    },
+    {
+      "pattern": "{P}-app{N3}-p{N3}",
+      "count": 1086,
+      "example": "gartner-app001-p001"
+    },
+    {
+      "pattern": "{P}-bm{N3}-p{N3}",
+      "count": 615,
+      "example": "hamill-bm005-p001"
+    },
+    {
+      "pattern": "{P}-sec{N3}-p{N3}",
+      "count": 64,
+      "example": "hamill-sec001-p402"
+    },
+    {
+      "pattern": "{P}-fm{N3}-p{N4}",
+      "count": 41,
+      "example": "buckway-fm001-p9501"
+    },
+    {
+      "pattern": "{P}-pt{N3}-p{N3}",
+      "count": 17,
+      "example": "buckway-pt001-p003"
+    },
+    {
+      "pattern": "{P}-index{N3}-p{N3}",
+      "count": 8,
+      "example": "gartner-index001-p001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-p{N5}",
+      "count": 8,
+      "example": "Wineski-ch005-p25911"
+    },
+    {
+      "pattern": "{P}-app{N3}-p{N4}",
+      "count": 2,
+      "example": "hamill-app002-p4112"
+    },
+    {
+      "pattern": "{P}-fm{N3}-{N4}",
+      "count": 1,
+      "example": "buckway-fm001-9500"
+    }
+  ],
+  "permissions": [
+    {
+      "pattern": "{P}-per",
+      "count": 8,
+      "example": "gartner-per"
+    }
+  ],
+  "preface": [
+    {
+      "pattern": "{P}-fm{N3}-preface{N3}",
+      "count": 7,
+      "example": "gartner-fm001-preface002"
+    }
+  ],
+  "question": [
+    {
+      "pattern": "{P}-ch{N3}-q{N3}",
+      "count": 64,
+      "example": "buckway-ch001-q001"
+    }
+  ],
+  "question-wrap": [
+    {
+      "pattern": "{P}-ch{N3}-qw{N3}",
+      "count": 64,
+      "example": "buckway-ch001-qw001"
+    }
+  ],
+  "ref": [
+    {
+      "pattern": "ch{N3}-bib{N3}",
+      "count": 2277,
+      "example": "ch001-bib001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-bib{N3}",
+      "count": 1865,
+      "example": "buckway-ch001-bib001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-bib{N4}",
+      "count": 744,
+      "example": "hamill-ch002-bib0010"
+    },
+    {
+      "pattern": "{P}-ch{N3}-bib{N5}",
+      "count": 120,
+      "example": "hamill-ch004-bib00100"
+    },
+    {
+      "pattern": "{P}-ch{N3}-bib{N3}a",
+      "count": 4,
+      "example": "buckway-ch007-bib002a"
+    }
+  ],
+  "ref-list": [
+    {
+      "pattern": "{P}-ch{N3}-ref{N3}",
+      "count": 101,
+      "example": "hamill-ch001-ref001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-r{N3}",
+      "count": 93,
+      "example": "buckway-ch001-r001"
+    }
+  ],
+  "sec": [
+    {
+      "pattern": "{P}-ch{N3}-sec{N3}",
+      "count": 9919,
+      "example": "gartner-ch001-sec001"
+    },
+    {
+      "pattern": "{P}-ch{N3}_sec{N5}",
+      "count": 1437,
+      "example": "boland-ch002_sec00100"
+    },
+    {
+      "pattern": "{P}-ch{N3}-s{N3}",
+      "count": 379,
+      "example": "gartner-ch002-s001"
+    },
+    {
+      "pattern": "{P}-ch{N3}_sec{N6}",
+      "count": 284,
+      "example": "boland-ch002_sec003273"
+    },
+    {
+      "pattern": "{P}-ch{N3}-sec{N3}_{N1}",
+      "count": 170,
+      "example": "gartner-ch001-sec001_1"
+    },
+    {
+      "pattern": "{P}-ch{N3}-sec{N3}_{N2}",
+      "count": 145,
+      "example": "gartner-ch002-sec002_10"
+    },
+    {
+      "pattern": "{P}-ch{N3}_sec{N4}",
+      "count": 137,
+      "example": "boland-ch002_sec0010"
+    },
+    {
+      "pattern": "{P}-ch{N3}_sec{N3}",
+      "count": 135,
+      "example": "boland-ch001_sec001"
+    },
+    {
+      "pattern": "{P}-ch{N3}_sec{N3}_{N3}",
+      "count": 119,
+      "example": "uzelac-ch012_sec012_100"
+    },
+    {
+      "pattern": "{P}-ch{N3}-con{N1}",
+      "count": 115,
+      "example": "gartner-ch002-con1"
+    },
+    {
+      "pattern": "{P}-ch{N3}_sec{N3}_{N2}",
+      "count": 90,
+      "example": "uzelac-ch002_sec002_10"
+    },
+    {
+      "pattern": "{P}-ch{N3}-la{N1}A",
+      "count": 50,
+      "example": "gartner-ch002-la1A"
+    }
+  ],
+  "supplementary-material": [
+    {
+      "pattern": "{P}-cover",
+      "count": 8,
+      "example": "gartner-cover"
+    },
+    {
+      "pattern": "{P}-thumbnail",
+      "count": 8,
+      "example": "gartner-thumbnail"
+    }
+  ],
+  "table-wrap": [
+    {
+      "pattern": "{P}-ch{N3}-tbl{N3}",
+      "count": 498,
+      "example": "gartner-ch002-tbl001"
+    },
+    {
+      "pattern": "{P}-ch{N3}-tbl{N4}",
+      "count": 249,
+      "example": "Wineski-ch003-tbl0010"
+    },
+    {
+      "pattern": "{P}-app{N3}-tbl{N3}",
+      "count": 17,
+      "example": "brenner-app002-tbl001"
+    },
+    {
+      "pattern": "{P}-ch{N2}-tbl{N3}",
+      "count": 7,
+      "example": "white-ch21-tbl001"
+    },
+    {
+      "pattern": "{P}-ch{N1}-tbl{N3}",
+      "count": 1,
+      "example": "white-ch9-tbl001"
+    }
+  ],
+  "target": [
+    {
+      "pattern": "page{N3}",
+      "count": 3999,
+      "example": "page100"
+    },
+    {
+      "pattern": "page{N2}",
+      "count": 711,
+      "example": "page10"
+    },
+    {
+      "pattern": "page{N4}",
+      "count": 93,
+      "example": "page5019"
+    },
+    {
+      "pattern": "page{N1}",
+      "count": 69,
+      "example": "page1"
+    },
+    {
+      "pattern": "pageix",
+      "count": 8,
+      "example": "pageix"
+    },
+    {
+      "pattern": "pagevii",
+      "count": 7,
+      "example": "pagevii"
+    },
+    {
+      "pattern": "pageviii",
+      "count": 7,
+      "example": "pageviii"
+    },
+    {
+      "pattern": "pagexi",
+      "count": 7,
+      "example": "pagexi"
+    },
+    {
+      "pattern": "pagev",
+      "count": 6,
+      "example": "pagev"
+    },
+    {
+      "pattern": "pagevi",
+      "count": 6,
+      "example": "pagevi"
+    },
+    {
+      "pattern": "pagexv",
+      "count": 6,
+      "example": "pagexv"
+    },
+    {
+      "pattern": "pagex",
+      "count": 6,
+      "example": "pagex"
+    }
+  ],
+  "toc": [
+    {
+      "pattern": "{P}-fm{N3}-toc{N3}",
+      "count": 8,
+      "example": "gartner-fm001-toc001"
+    }
+  ]
+}

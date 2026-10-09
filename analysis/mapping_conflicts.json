@@ -1,0 +1,66 @@
+[
+ {
+  "topic": "sec id shape",
+  "variants": {
+   "{P}-ch{N3}-sec{N3}": 9919,
+   "{P}-ch{N3}_sec{N5}": 1437,
+   "{P}-ch{N3}-s{N3}": 379,
+   "{P}-ch{N3}_sec{N6}": 284,
+   "{P}-ch{N3}-sec{N3}_{N1}": 170,
+   "{P}-ch{N3}-sec{N3}_{N2}": 145
+  },
+  "cause": "publisher/vendor convention differs per book (e.g. '_sec', '-s')",
+  "resolution": "{P}-{part}-sec{NNN} (vendor spec + majority)"
+ },
+ {
+  "topic": "ref id without author prefix",
+  "variants": {
+   "ch{N3}-bib{N3}": 2277
+  },
+  "cause": "single book (vendor convention)",
+  "resolution": "always prefix (vendor spec @id rule)"
+ },
+ {
+  "topic": "appendix part id",
+  "variants": {
+   "app": 13,
+   "appx": 0
+  },
+  "cause": "book-part @id uses 'app', book-part-id sometimes 'appx' (publisher convention)",
+  "resolution": "@id and book-part-id both 'app{NNN}' (majority); configurable"
+ },
+ {
+  "topic": "figure inside citing <p> vs after it",
+  "variants": {
+   "immediately_after_citing_block": 1112,
+   "inside_citing_paragraph_mid": 2,
+   "inside_citing_paragraph_end": 28
+  },
+  "cause": "citing paragraph inside list-item (cannot place fig between list items) + one book (9788418563263) nests figures in p",
+  "resolution": "after citing block; inside citing p only when citation is in a list-item"
+ },
+ {
+  "topic": "chapter-level TOC",
+  "variants": {
+   "books with book-part/front-matter/toc": "some"
+  },
+  "cause": "publisher convention",
+  "resolution": "generate only when PDF shows a chapter outline"
+ },
+ {
+  "topic": "figure after first citation vs end of section / print position",
+  "variants": {
+   "9788418257957": "43/72 figures are the last block of their section or sit at the printed page position, several paragraphs after the first citation"
+  },
+  "cause": "one book kept the typesetter's float position instead of the first-citation rule",
+  "resolution": "first-citation rule (specification + majority of samples); regression placement score for this book is expected to be low"
+ },
+ {
+  "topic": "golden sample with broken links",
+  "variants": {
+   "9788418563263": "21 nav-pointer rid -> missing page13"
+  },
+  "cause": "golden XML defect",
+  "resolution": "excluded from link baseline; recorded"
+ }
+]

@@ -1,0 +1,771 @@
+{
+  "child_sequences": {
+    "ack": {
+      "title p": 1
+    },
+    "aff": {
+      "break addr-line": 15,
+      "break": 1
+    },
+    "answer": {
+      "label p": 257
+    },
+    "answer-set": {
+      "answer": 64
+    },
+    "article-title": {
+      "italic": 18,
+      "sup": 2,
+      "uri": 1
+    },
+    "attrib": {
+      "italic uri": 18,
+      "uri": 9,
+      "italic": 8,
+      "xref italic uri": 6,
+      "italic xref": 1,
+      "xref italic": 1,
+      "sub": 1
+    },
+    "back": {
+      "ref-list": 188,
+      "notes ref-list": 6
+    },
+    "body": {
+      "sec": 185,
+      "p sec": 45,
+      "boxed-text sec": 15,
+      "p": 12,
+      "boxed-text p sec": 7,
+      "p list sec": 4,
+      "p book-part": 3,
+      "p table-wrap": 3
+    },
+    "book": {
+      "book-meta front-matter book-body book-back": 8
+    },
+    "book-back": {
+      "book-part index": 5,
+      "index": 3
+    },
+    "book-body": {
+      "book-part": 8
+    },
+    "book-meta": {
+      "book-id book-title-group contrib-group pub-date isbn publisher edition supplementary-material permissions": 8
+    },
+    "book-part": {
+      "book-part-meta body back": 147,
+      "book-part-meta body": 76,
+      "book-part-meta front-matter body back": 47,
+      "book-part-meta front-matter body": 19,
+      "book-part-meta": 12
+    },
+    "book-part-meta": {
+      "book-part-id title-group fpage lpage": 283,
+      "title-group fpage lpage": 30,
+      "book-part-id title-group fpage lpage kwd-group": 15,
+      "book-part-id title-group": 3,
+      "title-group": 2
+    },
+    "book-title-group": {
+      "book-title alt-title": 8
+    },
+    "boxed-text": {
+      "p": 278,
+      "caption fig sec": 196,
+      "caption p": 128,
+      "sec": 123,
+      "label caption p": 54,
+      "caption sec": 47,
+      "caption p list": 44,
+      "caption table-wrap": 30
+    },
+    "caption": {
+      "title": 3509,
+      "title p": 27
+    },
+    "collab": {
+      "italic": 3
+    },
+    "contrib": {
+      "name degrees": 16
+    },
+    "contrib-group": {
+      "contrib aff": 5,
+      "contrib aff contrib aff": 2,
+      "contrib aff contrib aff contrib aff": 2
+    },
+    "date": {
+      "month year": 1
+    },
+    "dedication": {
+      "named-book-part-body": 7
+    },
+    "disp-quote": {
+      "p": 5
+    },
+    "fig": {
+      "label caption graphic": 2167,
+      "graphic": 659,
+      "graphic p": 26,
+      "label caption": 6,
+      "label caption graphic attrib": 4,
+      "label graphic": 1,
+      "caption graphic": 1
+    },
+    "fn": {
+      "p": 216,
+      "label p": 162
+    },
+    "fn-group": {
+      "fn": 163
+    },
+    "front-matter": {
+      "toc": 66,
+      "front-matter-part dedication front-matter-part preface front-matter-part toc": 2,
+      "front-matter-part dedication preface ack toc": 1,
+      "front-matter-part preface toc": 1,
+      "front-matter-part dedication preface front-matter-part toc": 1,
+      "front-matter-part dedication toc front-matter-part": 1,
+      "front-matter-part dedication front-matter-part preface toc front-matter-part": 1,
+      "front-matter-part dedication preface toc front-matter-part": 1
+    },
+    "front-matter-part": {
+      "book-part-meta named-book-part-body": 18,
+      "book-part-meta": 7
+    },
+    "index": {
+      "title-group p index-div": 8
+    },
+    "index-div": {
+      "title-group index-entry": 184
+    },
+    "index-entry": {
+      "term nav-pointer-group": 21572,
+      "term nav-pointer-group index-entry": 1772,
+      "term index-entry": 1465,
+      "term": 385,
+      "term nav-pointer-group see-also-entry": 23,
+      "term see-entry": 20,
+      "term nav-pointer-group see-also-entry index-entry": 4,
+      "term see-also-entry": 1
+    },
+    "kwd": {
+      "target": 1
+    },
+    "kwd-group": {
+      "title kwd": 15
+    },
+    "label": {
+      "xref": 1501,
+      "target": 148,
+      "italic": 3,
+      "bold": 3
+    },
+    "license": {
+      "license-p": 8
+    },
+    "license-p": {
+      "italic": 70,
+      "bold": 23,
+      "target sup": 4,
+      "target": 3,
+      "italic sup": 2,
+      "target italic": 1,
+      "sup": 1
+    },
+    "list": {
+      "list-item": 4367,
+      "title list-item": 15
+    },
+    "list-item": {
+      "p": 13459,
+      "label p": 3219,
+      "p list": 983,
+      "label p list": 155
+    },
+    "name": {
+      "surname given-names": 19
+    },
+    "named-book-part-body": {
+      "p": 22,
+      "p sec": 3,
+      "p fig p": 1,
+      "sec": 1,
+      "p fig p fig p": 1,
+      "p list p list p": 1,
+      "p list p": 1,
+      "p table-wrap p table-wrap p table-wrap p table-wrap p table-wrap p table-wrap": 1
+    },
+    "nav-pointer": {
+      "italic": 6100
+    },
+    "nav-pointer-group": {
+      "nav-pointer": 23372
+    },
+    "notes": {
+      "fn-group": 6
+    },
+    "permissions": {
+      "copyright-statement copyright-year copyright-holder license": 8
+    },
+    "person-group": {
+      "string-name": 4262,
+      "string-name etal": 793,
+      "collab": 4,
+      "name": 1,
+      "string-name collab": 1
+    },
+    "preface": {
+      "book-part-meta named-book-part-body": 7
+    },
+    "pub-date": {
+      "year": 8
+    },
+    "publisher": {
+      "publisher-name publisher-loc": 8
+    },
+    "question": {
+      "label p": 64
+    },
+    "question-wrap": {
+      "question answer-set": 64
+    },
+    "ref": {
+      "mixed-citation": 3817,
+      "label mixed-citation": 1193
+    },
+    "ref-list": {
+      "title ref": 189,
+      "title p ref p ref p ref p ref p ref p": 3,
+      "title p ref p ref p ref p ref p ref": 1,
+      "title p ref p ref p ref": 1
+    },
+    "sc": {
+      "sub": 1
+    },
+    "sec": {
+      "title p": 6575,
+      "title p sec": 1450,
+      "title list": 725,
+      "title sec": 712,
+      "title p list": 470,
+      "title": 331,
+      "title p fig": 272,
+      "title p fig p": 249
+    },
+    "see-also-entry": {
+      "italic": 1
+    },
+    "source": {
+      "italic": 4900,
+      "italic sup italic": 1,
+      "italic uri": 1
+    },
+    "string-name": {
+      "surname given-names": 15588,
+      "surname": 366,
+      "given-names surname": 156,
+      "target surname given-names": 1,
+      "surname given-names suffix": 1
+    },
+    "subtitle": {
+      "sup": 1
+    },
+    "sup": {
+      "xref": 186,
+      "italic": 1
+    },
+    "supplementary-material": {
+      "label caption": 8
+    },
+    "table": {
+      "thead tbody": 779,
+      "tbody": 255
+    },
+    "table-wrap": {
+      "label caption table": 484,
+      "table": 271,
+      "label caption table table-wrap-foot": 267,
+      "table table-wrap-foot": 9,
+      "caption table table-wrap-foot": 2,
+      "caption table": 1
+    },
+    "table-wrap-foot": {
+      "fn-group": 156,
+      "fn": 112,
+      "attrib": 9,
+      "fn fn-group": 1
+    },
+    "tbody": {
+      "tr": 1034
+    },
+    "thead": {
+      "tr": 779
+    },
+    "title-group": {
+      "title": 267,
+      "label title": 260,
+      "title subtitle": 6
+    },
+    "toc": {
+      "toc-entry": 66,
+      "title-group toc-entry": 7,
+      "title-group p toc-entry": 1
+    },
+    "toc-entry": {
+      "label title": 1430,
+      "title nav-pointer": 849,
+      "label title nav-pointer": 483,
+      "title nav-pointer toc-entry": 162,
+      "label": 70,
+      "label title nav-pointer toc-entry": 66,
+      "title": 51,
+      "title toc-entry": 15
+    },
+    "tr": {
+      "td": 7652,
+      "th": 838
+    },
+    "uri": {
+      "target": 1,
+      "italic": 1
+    },
+    "volume": {
+      "italic": 74
+    },
+    "xref": {
+      "bold": 524,
+      "sup": 355,
+      "xref": 66,
+      "italic": 7,
+      "target": 2
+    }
+  },
+  "structures": {
+    "book-part@book-part-type": {
+      "chapter": 278,
+      "part": 23
+    },
+    "book-part label shape": {
+      "#": 191,
+      "CAPÍTULO #": 20,
+      "CHAPTER #": 15,
+      "I": 2,
+      "II": 2,
+      "III": 2,
+      "A": 2,
+      "B": 2,
+      "C": 2,
+      "Apéndice A": 1,
+      "Apéndice B": 1,
+      "UNIT ONE": 1,
+      "UNIT TWO": 1,
+      "UNIT THREE": 1,
+      "SECCIÓN I": 1,
+      "SECCIÓN II": 1,
+      "SECCIÓN III": 1,
+      "SECCIÓN IV": 1,
+      "SECCIÓN V": 1,
+      "SECCIÓN VI": 1,
+      "SECCIÓN VII": 1,
+      "SECCIÓN VIII": 1,
+      "SECCIÓN IX": 1,
+      "APÉNDICE I": 1,
+      "APÉNDICE II": 1,
+      "APÉNDICE III": 1,
+      "APÉNDICE IV": 1,
+      "APÉNDICE V": 1,
+      "D": 1,
+      "IV": 1,
+      "V": 1
+    },
+    "book-part parent": {
+      "book-body": 272,
+      "body": 15,
+      "book-back": 14
+    },
+    "book-part has fpage/lpage": {
+      "True": 298,
+      "False": 3
+    },
+    "front-matter children": {
+      "toc": 74,
+      "front-matter-part[title page]": 7,
+      "dedication": 7,
+      "preface": 7,
+      "front-matter-part[how to use this book]": 2,
+      "front-matter-part[revisores page]": 1,
+      "front-matter-part[agradecimientos page]": 1,
+      "ack": 1,
+      "front-matter-part[memoriam page]": 1,
+      "front-matter-part[colaboradores page]": 1,
+      "front-matter-part[Agradecimientos page]": 1,
+      "front-matter-part[agradecimientos]": 1,
+      "front-matter-part[colaboradores]": 1,
+      "front-matter-part[al lector]": 1,
+      "front-matter-part[abreviaturas]": 1,
+      "front-matter-part[valores normales de laboratorio]": 1,
+      "front-matter-part[cómo escribir una nota soap]": 1,
+      "front-matter-part[Colaboradores page]": 1,
+      "front-matter-part[Prólogo page]": 1,
+      "front-matter-part[Abreviaturas page]": 1,
+      "front-matter-part[contributing editors page]": 1,
+      "front-matter-part[acerca de los autores]": 1
+    },
+    "sec@disp-level": {
+      "3": 6668,
+      "2": 4140,
+      "1": 1897,
+      "4": 450,
+      "<none>": 117,
+      "5": 47
+    },
+    "sec@sec-type": {
+      "<none>": 13319
+    },
+    "sec nesting depth": {
+      "2": 6376,
+      "1": 3909,
+      "0": 1762,
+      "3": 1034,
+      "4": 218,
+      "5": 20
+    },
+    "pagenum target inside sec/title": {
+      "yes": 213
+    },
+    "list@list-type": {
+      "bullet": 2527,
+      "simple": 828,
+      "alpha-lower": 467,
+      "number": 418,
+      "alpha-upper": 133,
+      "roman-upper": 6,
+      "roman-lower": 2,
+      "loweralpha": 1
+    },
+    "list-item has label": {
+      "False:bullet": 2526,
+      "True:simple": 813,
+      "False:alpha-lower": 467,
+      "False:number": 415,
+      "False:alpha-upper": 133,
+      "False:simple": 15,
+      "False:roman-upper": 6,
+      "True:number": 3,
+      "False:roman-lower": 2,
+      "True:bullet": 1,
+      "False:loweralpha": 1
+    },
+    "nested list@list-type": {
+      "alpha-lower": 424,
+      "simple": 321,
+      "bullet": 221,
+      "alpha-upper": 120,
+      "number": 64,
+      "roman-lower": 2,
+      "loweralpha": 1
+    },
+    "boxed-text@content-type": {
+      "sidebar": 748,
+      "case-study": 282
+    },
+    "boxed-text@specific-use": {
+      "type01": 282,
+      "box4": 97,
+      "box8": 62,
+      "box3": 61,
+      "box": 53,
+      "box2": 51,
+      "box5": 41,
+      "box6": 35,
+      "box1": 31,
+      "box7": 29,
+      "box10": 17,
+      "box20": 12,
+      "box30": 12,
+      "box40": 12,
+      "box50": 12,
+      "box60": 12,
+      "box70": 12,
+      "box80": 12,
+      "box90": 10,
+      "box100": 10,
+      "box110": 10,
+      "box120": 10,
+      "box130": 9,
+      "box140": 9,
+      "box9": 8,
+      "box150": 8,
+      "box160": 8,
+      "box170": 8,
+      "box180": 7,
+      "box190": 6,
+      "box200": 4,
+      "box210": 4,
+      "box220": 4,
+      "box230": 4,
+      "box240": 4,
+      "box250": 4,
+      "box260": 4,
+      "box270": 4,
+      "box280": 4,
+      "box11": 3
+    },
+    "table-wrap@specific-use": {
+      "inline": 1032,
+      "<none>": 2
+    },
+    "table-wrap has label": {
+      "True": 751,
+      "False": 283
+    },
+    "table-wrap has graphic": {
+      "False": 1034
+    },
+    "table-wrap has table": {
+      "True": 1034
+    },
+    "table label shape": {
+      "Tabla #-#": 578,
+      "TABLA #-#": 124,
+      "Table #.#": 32,
+      "Tabla IV-#": 6,
+      "Tabla A-#": 5,
+      "Tabla II-#": 2,
+      "Tabla C-#": 2,
+      "Tabla III-#": 1,
+      "Tabla B-#": 1
+    },
+    "table-wrap-foot present": {
+      "False": 756,
+      "True": 278
+    },
+    "fig label shape": {
+      "Figura #-#": 718,
+      "<none>": 686,
+      "Figura #-#.": 432,
+      "FIGURA #-#.": 318,
+      "FIGURA #-#-#.": 259,
+      "FIGURA #-#": 151,
+      "FIGURA DE REVISIÓN #-#-#.": 140,
+      "Figure #.#.": 66,
+      "FIGURE A-#.": 49,
+      "FIGURA #-#A.": 11,
+      "FIGURA #-#B.": 11,
+      "FIGURA #-#-#A.": 7,
+      "FIGURA #-#-#B.": 7,
+      "Figura B-#.": 4,
+      "Diagrama #-#": 3,
+      "FIGURAS #-#-# y #-#-#.": 1,
+      "Figura #.#.": 1
+    },
+    "fig has attrib": {
+      "False": 2860,
+      "True": 4
+    },
+    "fig graphic href shape": {
+      "gartner{N13}-ch{N3}-f{N3}.jpg": 811,
+      "images\\Wineski{N13}-ch{N3}-f{N3}.jpg": 691,
+      "hamill{N13}-ch{N3}-f{N3}.jpg": 435,
+      "hamill{N13}-ch{N3}-eqn{N3}.jpg": 321,
+      "images\\Wineski{N13}-icon{N3}.jpg": 196,
+      "white{N13}-ch{N3}-fig{N3}.jpg": 80,
+      "brenner{N13}-ch{N3}-f{N3}.jpg": 72,
+      "buckway{N13}-ch{N3}-f{N3}.jpg": 66,
+      "boland{N13}-ch{N3}-f{N3}.jpg": 60,
+      "gartner{N13}-app{N3}-f{N3}.jpg": 49,
+      "images\\Wineski{N13}-ch{N3}-f{N2}.jpg": 26,
+      "hamill{N13}-icon{N2}.jpg": 26,
+      "hamill{N13}-app{N3}-eqn{N3}.jpg": 8,
+      "hamill{N13}-app{N3}-f{N3}.jpg": 5,
+      "images\\Wineski{N13}-ch{N3}-f{N4}.jpg": 4,
+      "gartner{N13}-fm{N3}-f{N3}.jpg": 3,
+      "uzelac{N13}-ch{N3}-eqn{N3}.jpg": 3,
+      "brenner{N13}-app{N3}-f{N3}.jpg": 1,
+      "Assets\\white{N13}-ch{N3}-fig{N3}.jpg": 1
+    },
+    "index-entry depth": {
+      "0": 11211,
+      "1": 10647,
+      "2": 3011,
+      "3": 316,
+      "4": 58,
+      "5": 2
+    },
+    "index-entry has nav-pointer-group": {
+      "True": 23372,
+      "False": 1873
+    },
+    "nav-pointer@specific-use": {
+      "<none>": 40043,
+      "pagenum": 1561
+    },
+    "nav-pointer text shape": {
+      "#": 35469,
+      "#f": 4099,
+      "#t": 1775,
+      "#b": 161,
+      "#r": 49,
+      "#. V. tambié": 9,
+      "#-metilendio": 4,
+      "vii": 3,
+      "xv": 3,
+      "#c": 3,
+      "vi": 2,
+      "ix": 2,
+      "#f-#f #D": 2,
+      "xiv": 2,
+      "#t. V. tambi": 2,
+      "#f. V. tambi": 2,
+      "#-": 1,
+      "xi": 1,
+      "#-# pélvico": 1,
+      "#-# (véase t": 1,
+      "#f (Véase ta": 1,
+      "iii": 1,
+      "Headache Imp": 1,
+      "#.": 1,
+      "xiii": 1,
+      "xvi": 1,
+      "xxvi": 1,
+      "xxx": 1,
+      "xxi": 1,
+      "#,RAPS#)": 1,
+      "#t-#t. V. ta": 1,
+      "niveles # y ": 1,
+      "# estado de ": 1
+    },
+    "target@target-type": {
+      "pagenum": 4996
+    },
+    "target parent": {
+      "p": 3745,
+      "title": 795,
+      "td": 174,
+      "label": 148,
+      "mixed-citation": 57,
+      "bold": 27,
+      "term": 17,
+      "italic": 15,
+      "license-p": 8,
+      "th": 5,
+      "xref": 2,
+      "kwd": 1,
+      "uri": 1,
+      "string-name": 1
+    },
+    "target id shape": {
+      "page{N3}": 3999,
+      "page{N2}": 711,
+      "page{N4}": 93,
+      "page{N1}": 69,
+      "pageix": 8,
+      "pagevii": 7,
+      "pageviii": 7,
+      "pagexi": 7,
+      "pagev": 6,
+      "pagevi": 6,
+      "pagexv": 6,
+      "pagex": 6,
+      "pageiv": 5,
+      "pagexii": 5,
+      "pagexiii": 5,
+      "pagexiv": 5,
+      "pagexvi": 5,
+      "pagexvii": 4,
+      "pagexviii": 4,
+      "pagexix": 4,
+      "pagexx": 4,
+      "pageii": 4,
+      "pagexxi": 3,
+      "pagexxii": 3,
+      "pagexxiii": 3,
+      "pagexxiv": 3,
+      "pageiii": 3,
+      "pagexxv": 2,
+      "pagexxvi": 2,
+      "pagexxvii": 2,
+      "pagexxviii": 2,
+      "pagexxix": 2,
+      "pagexxx": 1
+    },
+    "graphic href ext": {
+      ".jpg": 2874
+    },
+    "fn parent": {
+      "fn-group": 265,
+      "table-wrap-foot": 113
+    },
+    "ref has label": {
+      "False": 3817,
+      "True": 1193
+    },
+    "mixed-citation@publication-type": {
+      "journal": 4109,
+      "book": 811,
+      "web": 74,
+      "report": 7,
+      "conference": 5,
+      "other": 2,
+      "thesis": 2
+    },
+    "mixed-citation children": {
+      "article-title fpage lpage person-group source volume year": 1567,
+      "article-title fpage issue lpage person-group source volume year": 1455,
+      "article-title fpage person-group source volume year": 402,
+      "article-title fpage issue lpage person-group pub-id source volume year": 165,
+      "article-title fpage issue person-group source volume year": 160,
+      "person-group publisher-loc publisher-name source year": 129,
+      "collab source uri year": 99,
+      "article-title edition fpage person-group publisher-loc publisher-name source yea": 97,
+      "chapter-title fpage lpage person-group publisher-loc publisher-name source year": 66,
+      "person-group publisher-name source year": 53,
+      "edition person-group publisher-loc publisher-name source year": 43,
+      "article-title person-group source year": 43,
+      "article-title person-group source": 43,
+      "article-title fpage person-group publisher-loc publisher-name source year": 32,
+      "article-title edition fpage lpage person-group publisher-loc publisher-name sour": 28,
+      "fpage lpage person-group publisher-loc publisher-name source year": 27,
+      "collab source uri": 26,
+      "article-title person-group source volume year": 22,
+      "article-title fpage issue lpage person-group source uri volume year": 21,
+      "article-title collab fpage issue lpage person-group source volume year": 21,
+      "chapter-title edition fpage lpage person-group publisher-loc publisher-name sour": 17,
+      "article-title person-group source uri year": 16,
+      "article-title fpage issue person-group pub-id source volume year": 16,
+      "article-title fpage lpage person-group source target volume year": 15,
+      "uri": 15,
+      "article-title fpage issue lpage person-group source target volume year": 14,
+      "article-title edition person-group publisher-loc publisher-name source year": 14,
+      "person-group source uri year": 13,
+      "article-title collab fpage lpage person-group source volume year": 13,
+      "article-title collab fpage lpage source volume year": 12,
+      "article-title fpage lpage person-group pub-id source volume year": 12,
+      "collab edition publisher-loc publisher-name source year": 12,
+      "fpage lpage person-group source volume year": 11,
+      "collab source year": 10,
+      "collab publisher-name source uri year": 10,
+      "article-title collab uri year": 10,
+      "article-title fpage lpage person-group source year": 10,
+      "edition person-group publisher-name source year": 9,
+      "article-title collab fpage issue lpage source volume year": 9,
+      "article-title person-group publisher-loc publisher-name source year": 9
+    },
+    "ref-list parent": {
+      "back": 5010
+    },
+    "index see/see-also": {
+      "see-also-entry": 31,
+      "see-entry": 20
+    },
+    "question-wrap@content-type": {
+      "<none>": 64
+    },
+    "inline-graphic href ext": {
+      ".jpg": 120
+    }
+  }
+}
