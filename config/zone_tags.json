@@ -1,0 +1,175 @@
+{
+ "comment": "Zoning tag palette. Edit freely: label, shortcut key, colour. 'element' must exist in the DTD or the tag is disabled.",
+ "tags": [
+  {
+   "id": "p",
+   "label": "Paragraph",
+   "element": "p",
+   "key": "P",
+   "color": "#2563EB",
+   "group": "Text"
+  },
+  {
+   "id": "h1",
+   "label": "Heading 1",
+   "element": "sec",
+   "level": 1,
+   "key": "1",
+   "color": "#7C3AED",
+   "group": "Text"
+  },
+  {
+   "id": "h2",
+   "label": "Heading 2",
+   "element": "sec",
+   "level": 2,
+   "key": "2",
+   "color": "#8B5CF6",
+   "group": "Text"
+  },
+  {
+   "id": "h3",
+   "label": "Heading 3",
+   "element": "sec",
+   "level": 3,
+   "key": "3",
+   "color": "#A78BFA",
+   "group": "Text"
+  },
+  {
+   "id": "h4",
+   "label": "Heading 4",
+   "element": "sec",
+   "level": 4,
+   "key": "4",
+   "color": "#C4B5FD",
+   "group": "Text"
+  },
+  {
+   "id": "list-item",
+   "label": "List item",
+   "element": "list-item",
+   "key": "L",
+   "color": "#0891B2",
+   "group": "Text"
+  },
+  {
+   "id": "disp-formula",
+   "label": "Equation",
+   "element": "disp-formula",
+   "key": "E",
+   "color": "#CA8A04",
+   "group": "Text"
+  },
+  {
+   "id": "ref",
+   "label": "Reference",
+   "element": "ref",
+   "key": "R",
+   "color": "#65A30D",
+   "group": "Text"
+  },
+  {
+   "id": "fn",
+   "label": "Footnote",
+   "element": "fn",
+   "key": "N",
+   "color": "#78716C",
+   "group": "Text"
+  },
+  {
+   "id": "fig",
+   "label": "Figure",
+   "element": "fig",
+   "key": "F",
+   "color": "#16A34A",
+   "group": "Objects"
+  },
+  {
+   "id": "table-wrap",
+   "label": "Table",
+   "element": "table-wrap",
+   "key": "T",
+   "color": "#EA580C",
+   "group": "Objects"
+  },
+  {
+   "id": "boxed-text",
+   "label": "Box / sidebar",
+   "element": "boxed-text",
+   "key": "B",
+   "color": "#DB2777",
+   "group": "Objects"
+  },
+  {
+   "id": "chapter",
+   "label": "New chapter",
+   "element": "book-part",
+   "key": "C",
+   "color": "#0F766E",
+   "group": "Structure"
+  },
+  {
+   "id": "appendix",
+   "label": "New appendix",
+   "element": "book-part",
+   "key": "",
+   "color": "#0F766E",
+   "group": "Structure"
+  },
+  {
+   "id": "part-title",
+   "label": "Chapter title",
+   "element": "book-part",
+   "key": "K",
+   "color": "#115E59",
+   "group": "Structure"
+  },
+  {
+   "id": "toc",
+   "label": "Contents (TOC)",
+   "element": "toc",
+   "key": "",
+   "color": "#475569",
+   "group": "Structure"
+  },
+  {
+   "id": "index",
+   "label": "Index",
+   "element": "index",
+   "key": "",
+   "color": "#475569",
+   "group": "Structure"
+  },
+  {
+   "id": "auto",
+   "label": "Auto-detect inside box",
+   "element": "",
+   "key": "A",
+   "color": "#64748B",
+   "group": "Draw only"
+  }
+ ],
+ "kind_colors": {
+  "p": "#2563EB",
+  "sec": "#7C3AED",
+  "list-item": "#0891B2",
+  "list": "#0891B2",
+  "disp-formula": "#CA8A04",
+  "ref": "#65A30D",
+  "ref-list": "#65A30D",
+  "fn": "#78716C",
+  "fig": "#16A34A",
+  "table-wrap": "#EA580C",
+  "boxed-text": "#DB2777",
+  "book-part": "#0F766E",
+  "toc": "#475569",
+  "index": "#475569",
+  "front-matter-part": "#0F766E",
+  "preface": "#0F766E",
+  "dedication": "#0F766E",
+  "ack": "#0F766E",
+  "foreword": "#0F766E",
+  "inline-graphic": "#16A34A"
+ }
+}

@@ -1,0 +1,65 @@
+paths:
+  dtd_dir: D:\BITS_Conversion_Tool\DTD
+  samples_dir: D:\BITS_Conversion_Tool\Samples
+  input_dir: D:\BITS_Conversion_Tool\inputs
+  output_dir: D:\BITS_Conversion_Tool\output
+  analysis_dir: analysis
+  mapping_dir: mapping
+  cache_dir: D:\BITS_Conversion_Tool\cache
+bits:
+  version: '1.0'
+  public_id: -//NLM//DTD BITS Book Interchange DTD v1.0 20130520//EN
+  system_id: ..\..\BITS-book1.dtd
+  xml_lang: en
+  include_serial_code: true
+ocr:
+  engine: auto
+  languages:
+  - spa
+  - eng
+  dpi: 300
+  min_text_chars: 40
+  confidence_threshold: 60
+  tesseract_cmd: ''
+images:
+  dpi: 300
+  format: jpg
+  jpeg_quality: 90
+  min_figure_pt: 36
+  include_unlabeled_images: true
+  cover_width_px: 300
+layout:
+  column_detection: true
+  table_detection: true
+  figure_detection: true
+  header_footer_zone: 0.085
+  repeat_ratio: 0.3
+links:
+  citation_detection: true
+  cross_reference_detection: true
+  bibliography_citations: true
+  link_validation: strict
+placement:
+  policy: learned
+  fallback: physical
+confidence:
+  auto: 0.9
+  warn: 0.75
+  review: 0.5
+qa:
+  content_coverage_min: 0.97
+  page_coverage_warn: 0.9
+  visual_overlays: false
+performance:
+  workers: 1
+  memory_mode: normal
+  resume: true
+mode: production
+debug: false
+save_intermediate_json: true
+auto_open_report: false
+book:
+  publisher_name: Wolters Kluwer
+  publisher_loc: null
+zoning:
+  save_project: true
