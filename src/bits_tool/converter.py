@@ -171,6 +171,9 @@ class BookConverter:
                 logs["errors"].error("[PAGE %d] extraction failed: %s", gi, e)
                 from .document_tree import PageInfo
                 info = PageInfo(index=gi, pdf=f.path.name, pdf_page=pno, width=0, height=0, trim=(0, 0, 1, 1), errors=[repr(e)])
+            if "OCR_REQUIRED_BUT_NO_ENGINE" in info.errors:
+                issues.add("OCR_REQUIRED_BUT_NO_ENGINE", "error", "Page needs OCR but no engine is available", page=gi)
+                failed_pages.append({"page": gi, "error": "OCR_REQUIRED_BUT_NO_ENGINE"})
             for err in info.errors:
                 if err.startswith("EXTRACTION_ERROR"):
                     failed_pages.append({"page": gi, "pdf": f.path.name, "pdf_page": pno, "error": err})
@@ -186,6 +189,8 @@ class BookConverter:
         # ---- layout
         mark_headers_footers(pages, self.cfg.get("layout.header_footer_zone", 0.085))
         assign_folios(pages)
+        from .figure_detector import mark_repeated_graphic_furniture
+        mark_repeated_graphic_furniture(pages)
         style = body_style(pages)
         clog.info("body style: %s", style)
         # sample the body of the book, spread over all pages (front matter is often English credits / addresses)
@@ -259,7 +264,7 @@ class BookConverter:
         # ---- citations pass 1 + placement
         resolver = XrefResolver(issues, self.cfg)
         cites = resolver.collect(root, author_year=True)
-        placement = PlacementEngine(issues, self.cfg.get("placement.policy", "learned"))
+        placement = PlacementEngine(issues, self.cfg.get("placement.policy", "physical"))
 
         def key_of(obj: Node):
             part = part_of(obj)
@@ -325,6 +330,9 @@ class BookConverter:
         v["id_collisions"] = idgen.collisions
         for e in v["dtd"]["errors"][:200]:
             logs["validation"].error("line %s: %s", e["line"], e["message"])
+        from .recognition_qc import audit_recognition, write_recognition_report
+        v["recognition"] = audit_recognition(root, pages, tree, issues)
+        write_recognition_report(out_dir, v["recognition"], src, pages, xml_path.name)
         status = quality_gate(v, failed_pages, issues, self.cfg)
         # ---- intermediate + reports
         if self.cfg.get("save_intermediate_json", True):
@@ -394,34 +402,39 @@ class BookConverter:
                     bbox, kind = n.meta.get("art"), "f"
                 elif n.kind == "table-wrap" and "TABLE_STRUCTURAL_EXTRACTION_FAILED" in n.flags:
                     bbox, kind = n.meta.get("fallback_image"), "t"
+                elif n.kind == "disp-formula" and n.meta.get("fallback_image"):
+                    bbox, kind = n.meta["fallback_image"], "e"
                 elif n.kind == "inline-graphic":
                     bbox, kind = n.meta.get("art"), "i"
                 if kind is None:
                     continue
                 part = (n.id or "x-x").split("-")[1] if n.id and n.id.count("-") >= 2 else "x"
                 counters[(part, kind)] = counters.get((part, kind), 0) + 1
-                name = f"{author}{isbn}-{part}-{kind}{counters[(part, kind)]:03d}.{self.cfg.get('images.format', 'jpg')}"
+                ext = n.meta.get("asset_format") or self.cfg.get("images.format", "jpg")
+                name = f"{author}{isbn}-{part}-{kind}{counters[(part, kind)]:03d}.{ext}"
                 if bbox is None or n.page is None:
                     issues.add("IMAGE_REGION_MISSING", "error", f"{n.meta.get('label') or n.kind} has no crop region", page=n.page)
                     continue
                 try:
                     d, pno = doc_for(n.page)
                     pg = page_by.get(n.page)
-                    keep = {id(x) for x in (n.meta.get("absorbed") or [])}
                     bx = tuple(bbox)
-                    # small unlabelled graphic (feature-box icon): no text belongs in its image
-                    icon = not n.meta.get("label") and max(bx[2] - bx[0], bx[3] - bx[1]) < 90
-                    # erase what overlaps the crop but is not artwork: captions, running heads/folios,
-                    # table/box text, and running-text lines (long body lines); short labels stay
-                    erase = [l.bbox for l in (pg.lines if pg else [])
-                             if id(l) not in keep and l.x1 > bx[0] and l.x0 < bx[2] and l.y1 > bx[1] and l.y0 < bx[3]
-                             and (l.role in ("caption", "header", "footer", "folio", "header-iso", "footer-iso",
-                                             "table-text", "table-foot", "box-text", "rotated-margin")
-                                  or (l.role == "body" and len(l.text.strip()) > 45)
-                                  or (icon and l.role != "figure-text"))]
-                    export_region(d, pno, bx, img_dir / name, dpi=dpi, quality=q,
-                                  rot=pg.rot if pg else 0, orig_size=pg.orig_size if pg else None,
-                                  erase=erase if kind in ("f", "i") else None)
+                    overlaps = [l for l in (pg.lines if pg else [])
+                                if l.role == "body" and l.x1 > bx[0] and l.x0 < bx[2]
+                                and l.y1 > bx[1] and l.y0 < bx[3]]
+                    if overlaps and kind == "f":
+                        issues.add("FIGURE_CROP_NEEDS_REVIEW", "warning",
+                                   "Figure crop intersects body text; source pixels retained", page=n.page)
+                    if ext == "svg":
+                        from .figure_detector import export_vector_region
+                        from .text_extractor import unrot_bbox
+                        if pg and pg.rot and pg.orig_size:
+                            bx = unrot_bbox(bx, pg.rot, *pg.orig_size)
+                        export_vector_region(d, pno, bx, img_dir / name, rot=pg.rot if pg else 0)
+                    else:
+                        export_region(d, pno, bx, img_dir / name, dpi=dpi, quality=q,
+                                      rot=pg.rot if pg else 0, orig_size=pg.orig_size if pg else None,
+                                      whiten=False, pad=0)
                     n.meta["href"] = name
                 except Exception as e:
                     issues.add("IMAGE_EXPORT_FAILED", "error", f"{name}: {e}", page=n.page)
@@ -536,6 +549,11 @@ def quality_gate(v: dict, failed_pages, issues: IssueLog, cfg) -> str:
         critical.append(f"content coverage {v['content']['coverage']:.3f}")
     if any(p for p in failed_pages):
         critical.append(f"{len(failed_pages)} failed page(s)")
+    if (cfg.get("qa.fail_on_recognition_review", False) and
+            v.get("recognition", {}).get("status") == "REVIEW"):
+        critical.append("recognition review required (strict QC)")
+    if v.get("recognition", {}).get("status") == "FAILED":
+        critical.append("recognition QC failed")
     if issues.count("error"):
         critical.append(f"{issues.count('error')} error issue(s)")
     v["gate"] = {"critical": critical}

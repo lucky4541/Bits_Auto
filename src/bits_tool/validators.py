@@ -114,9 +114,17 @@ def validate_images(tree, xml_dir: Path) -> dict:
             missing.append(href)
             continue
         try:
-            from PIL import Image
-            with Image.open(f) as im:
-                im.verify()
+            if f.suffix.lower() == '.svg':
+                svg = etree.parse(str(f), etree.XMLParser(resolve_entities=False, no_network=True))
+                if svg.getroot().tag != '{http://www.w3.org/2000/svg}svg':
+                    raise ValueError('not an SVG')
+                import pymupdf
+                with pymupdf.open(f) as vector:
+                    vector[0].get_pixmap(matrix=pymupdf.Matrix(.5, .5))
+            else:
+                from PIL import Image
+                with Image.open(f) as im:
+                    im.verify()
             ok += 1
         except Exception:
             unreadable.append(href)
@@ -152,30 +160,48 @@ def _words(s: str) -> list[str]:
 
 
 def content_coverage(pages, xml_tree, exclude_roles=("header", "footer", "folio", "slug", "figure-text")) -> dict:
-    xml_words = Counter(_words("".join(xml_tree.getroot().itertext())))
+    def coverage_text(el):
+        # Presentation MathML stores identifiers/scripts in separate token
+        # elements. Joining without boundaries turns V + max into "Vmax" and
+        # reports retained text as missing. Preserve normal inline text joins.
+        if el.tag == "{http://www.w3.org/1998/Math/MathML}math":
+            return " " + " ".join(el.itertext()) + " "
+        text = el.text or ""
+        for child in el:
+            boundary = " " if local(child) in {"td", "th", "tr", "p", "label", "list-item",
+                                                     "caption", "title", "fig", "sec", "table-wrap",
+                                                     "disp-formula", "boxed-text"} else ""
+            text += boundary + coverage_text(child) + boundary + (child.tail or "")
+        return text
+    xml_words = Counter(_words(coverage_text(xml_tree.getroot())))
     total = matched = 0
     per_page = []
     remaining = Counter(xml_words)
     missing_samples = []
     for p in pages:
         pw = []
-        carry = None
-        for l in p.lines:
-            if l.role in exclude_roles:
-                continue
+        prefixes = {}
+        lines = [l for l in p.lines if l.role not in exclude_roles]
+        for l in sorted(lines, key=lambda line: (line.y0, line.x0)):
             ws = _words(l.text)
-            if carry and ws:
-                ws[0] = carry + ws[0]          # line-end hyphenation: 'conver-' + 'sion'
-                carry = None
-            elif carry:
-                pw.append(carry)
-                carry = None
+            if id(l) in prefixes and ws:
+                ws[0] = prefixes.pop(id(l)) + ws[0]
             t = l.text.rstrip()
-            if t.endswith("-") and ws and re.search(r"[^\W\d_]-$", t):
-                carry = ws.pop()
+            if ws and t.endswith(("-", "\u00ad")) and re.search(r"[^\W\d_][-\u00ad]$", t):
+                # Only join the next line in the same text flow. Extraction
+                # order interleaves columns and table cells on real pages.
+                candidates = [o for o in lines if o.y0 > l.y0 + .5 * l.size
+                              and -.5 * l.size <= o.y0 - l.y1 <= 1.8 * l.size
+                              and abs(o.x0 - l.x0) <= 2 * l.size
+                              and abs(o.size - l.size) < 1 and o.role == l.role
+                              and _words(o.text)]
+                if candidates:
+                    next_line = min(candidates, key=lambda o: (o.y0, abs(o.x0 - l.x0)))
+                    joined = ws[-1] + _words(next_line.text)[0]
+                    if t.endswith("\u00ad") or joined in xml_words:
+                        prefixes[id(next_line)] = ws.pop()
             pw.extend(ws)
-        if carry:
-            pw.append(carry)
+        pw.extend(prefixes.values())
         pm = 0
         for w in pw:
             if remaining[w] > 0:

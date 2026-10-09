@@ -24,13 +24,13 @@ from pathlib import Path
 
 from .caption_detector import label_match, number_key
 from .document_tree import IssueLog, Line, Node, PageMark, Region, T
-from .equation_detector import linearize
+from .equation_detector import linearize, reconstruct_math
 from .list_detector import marker, strip_marker_from_runs
 from .paragraph_detector import append_line, despace_runs, finish_inlines, line_runs
 from .reference_parser import parse_citation
 
 ZONE_VERSION = 1
-CONTENT_ROLES = ("body", "caption", "figure-text", "table-text", "table-foot", "box-text", "footnote")
+CONTENT_ROLES = ("body", "caption", "figure-text", "equation-text", "table-text", "table-foot", "box-text", "footnote")
 TEXT_KINDS = ("p", "sec", "disp-formula", "ref", "fn")
 REGION_KINDS = ("fig", "table-wrap", "boxed-text")
 SKIP_META = ("copyright_lines", "title_lines")
@@ -242,6 +242,11 @@ class ZoneProject:
         d = cls.dir_for(out_dir)
         with gzip.open(d / "state.pkl.gz", "rb") as fh:
             st = pickle.load(fh)
+        for page in st.pages:
+            if not hasattr(page, "diagnostics"):
+                page.diagnostics = []
+            if not hasattr(page, "tables"):
+                page.tables = []
         data = json.loads((d / "zones.json").read_text(encoding="utf-8"))
         root = node_from_json(data["tree"])
         info = data.get("info", {})
@@ -1262,9 +1267,15 @@ class ZoneEditor:
             n.meta["title"] = runs
             n.meta["title_text"] = "".join(r.get("text", "") for r in runs if r.get("k") == "t")
         elif k == "disp-formula":
-            n.meta["text"] = linearize(lines) if lines else ""
-            n.flags = [f for f in n.flags if f != "EQUATION_NEEDS_REVIEW"] + ["EQUATION_NEEDS_REVIEW"]
-            n.conf = 0.4
+            if lines:
+                page = self.page_by.get(n.page)
+                ast, reason = reconstruct_math(lines, page.drawings if page else [])
+                n.meta.update(text=linearize(lines), mathml=ast, reason=reason,
+                              fallback_image=n.bbox if ast is None else None)
+                n.flags = [f for f in n.flags if f != "EQUATION_NEEDS_REVIEW"]
+                if ast is None:
+                    n.flags.append("EQUATION_NEEDS_REVIEW")
+                n.conf = 0.85 if ast else 0.4
         elif k == "ref":
             runs = self._runs_for(lines, first_line)
             txt = "".join(r.get("text", "") for r in runs if r.get("k") == "t")

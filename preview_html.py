@@ -11,6 +11,7 @@ The XML is not changed. This is a review aid, not the deliverable.
 from __future__ import annotations
 
 import html
+import shutil
 import sys
 import webbrowser
 from pathlib import Path
@@ -19,7 +20,9 @@ from lxml import etree
 
 XLINK = "{http://www.w3.org/1999/xlink}href"
 CSS = """
-body{font-family:Georgia,'Times New Roman',serif;max-width:900px;margin:0 auto;padding:24px 20px 80px;color:#222;line-height:1.55;background:#fff}
+@font-face{font-family:'BITS STIX Math';src:url('preview-assets/STIX2Math.woff2') format('woff2');font-display:swap}
+math{font-family:'BITS STIX Math','STIX Two Math','Cambria Math',math}
+body{font-family:Georgia,'Times New Roman','BITS STIX Math',serif;max-width:900px;margin:0 auto;padding:24px 20px 80px;color:#222;line-height:1.55;background:#fff}
 h1,h2,h3,h4,h5,h6{font-family:Arial,Helvetica,sans-serif;color:#1d3c6e;line-height:1.25}
 .meta{background:#f3f6fb;border:1px solid #d6e0ef;border-radius:6px;padding:12px 16px;font-family:Arial,sans-serif;font-size:14px}
 .part{border-top:4px solid #1d3c6e;margin-top:48px;padding-top:8px}
@@ -40,7 +43,7 @@ th{background:#eef2f8}
 .refs li{font-size:.9em;margin-bottom:4px}
 .fn{font-size:.85em;color:#444;border-top:1px solid #ddd;margin-top:16px;padding-top:6px}
 .disp-formula{display:block;text-align:center;margin:1.4em auto;padding:.55em .8em;max-width:100%;overflow-x:auto;font-size:1.12em;line-height:1.8;background:#fff;border:1px solid #e8edf4;border-radius:5px}
-.disp-formula math{font-family:serif;font-size:1.08em}
+.disp-formula math{font-size:1.08em}
 .disp-formula mfrac{vertical-align:middle}
 .disp-formula .eq-fallback{display:inline-block;white-space:normal;font-style:italic;letter-spacing:.01em}
 .disp-formula sub,.disp-formula sup{font-size:.72em;line-height:0;position:relative;vertical-align:baseline}
@@ -100,6 +103,8 @@ class Renderer:
                 pid = c.get("id") or ""
                 return f"<span class='pg' id='{self.esc(pid)}'>p. {self.esc(pid.replace('page', ''))}</span>"
             return f"<a id='{self.esc(c.get('id'))}'></a>{inner}"
+        if t == "inline-formula":
+            return self.equation_content(c)
         if t == "inline-graphic":
             return f"<img class='inl' src='{self.img}/{self.esc(c.get(XLINK))}' alt=''>"
         if t == "uri" or t == "ext-link":
@@ -120,7 +125,7 @@ class Renderer:
                    "mfrac", "msqrt", "mroot", "mfenced", "mtable", "mtr", "mtd", "mover", "munder", "munderover"}
         if name not in allowed:
             return self.inline(el)
-        attrs = []
+        attrs = [' xmlns="http://www.w3.org/1998/Math/MathML"'] if name == "math" else []
         for key in ("display", "mathvariant", "stretchy", "fence", "separator", "accent", "columnalign", "rowalign"):
             value = el.get(key)
             if value is not None:
@@ -131,6 +136,11 @@ class Renderer:
         return f"<{name}{''.join(attrs)}>{content}</{name}>"
 
     def equation_content(self, el) -> str:
+        graphic = next((node for node in el if tag(node) == "graphic"), None)
+        if graphic is not None:
+            href = graphic.get("{http://www.w3.org/1999/xlink}href", "")
+            alt = graphic.findtext("alt-text") or "Equation requiring review"
+            return f'<img src="{self.esc(self.img + "/" + href)}" alt="{self.esc(alt)}">'
         math_nodes = [node for node in el.iter() if tag(node) == "math"]
         if math_nodes:
             return self.mathml_html(math_nodes[0])
@@ -402,6 +412,10 @@ def main(argv):
     r.book(root)
     title = root.findtext(".//book-title") or p.stem
     out = p.with_name(p.stem + "_preview.html")
+    assets = out.parent / "preview-assets"
+    assets.mkdir(exist_ok=True)
+    for name in ("STIX2Math.woff2", "OFL.txt"):
+        shutil.copyfile(Path(__file__).resolve().parent / "assets" / "fonts" / name, assets / name)
     out.write_text("<!doctype html><html lang='es'><head><meta charset='utf-8'>"
                    "<meta name='viewport' content='width=device-width,initial-scale=1'>"
                    f"<title>{html.escape(title)} – preview</title><style>{CSS}</style></head><body>"

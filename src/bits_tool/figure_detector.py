@@ -3,6 +3,7 @@ anchored on captions, crop rectangles and deterministic image export."""
 from __future__ import annotations
 
 from pathlib import Path
+import re
 
 import pymupdf
 
@@ -25,17 +26,36 @@ def _intersects(a, b, tol=0.0):
     return a[0] < b[2] - tol and b[0] < a[2] - tol and a[1] < b[3] - tol and b[1] < a[3] - tol
 
 
+def _page_backdrop(page, b):
+    x0, y0, x1, y1 = page.trim
+    crossing = [l for l in page.lines if l.role == "body" and len(l.text.split()) >= 5
+                and _intersects(l.bbox, b) and (l.x0 < b[0] - 3 or l.x1 > b[2] + 3)]
+    return (b[3] - b[1] > .9 * (y1 - y0) and
+            (b[0] <= x0 + 3 or b[2] >= x1 - 3) and len(crossing) >= 5)
+
+
 def graphic_blocks(page: PageInfo, min_pt: float = 12.0) -> list[dict]:
     """Candidate graphic objects: images and clustered vector art (not rules/backgrounds)."""
     tx0, ty0, tx1, ty1 = page.trim
     tarea = (tx1 - tx0) * (ty1 - ty0)
     out = []
     for im in page.images:
+        if im.get("furniture"):
+            continue
         b = im["bbox"]
+        if _page_backdrop(page, b):
+            page.diagnostics.append({"action": "exclude-background", "bbox": b,
+                                     "reason": "page-height edge artwork behind multiple crossing prose lines"})
+            continue
         if _area(b) > 0.97 * tarea and len(page.lines) > 10:
             continue  # full-page background behind text
         if im.get("std") is not None and im["std"] < 4.0:
-            continue  # flat tint: box/table background, not artwork
+            overlaid = [l for l in page.lines if len(l.text.split()) >= 5 and
+                        b[0] <= l.x0 and l.x1 <= b[2] and b[1] <= l.y0 and l.y1 <= b[3]]
+            if len(overlaid) >= 3:
+                page.diagnostics.append({"action": "exclude-background", "bbox": b,
+                                         "reason": "flat tint behind multiple prose lines"})
+                continue
         out.append({"bbox": b, "kind": "image", "n": 1, "xref": im.get("xref")})
     # vector drawings: ignore thin rules (tables) and huge page-background rects
     art = []
@@ -51,11 +71,21 @@ def graphic_blocks(page: PageInfo, min_pt: float = 12.0) -> list[dict]:
         if d["kinds"] in ("re",) and d["fill"] and d["n"] <= 1 and (b[2] - b[0]) > 60 and (b[3] - b[1]) > 20:
             continue
         art.append(dict(d))
+    def same_column(a, b):
+        # Do not let the empty rectangle around a tall drawing connect to an
+        # unrelated sidebar icon across a detected text gutter. A spanning
+        # caption can still join independent panels after clustering.
+        for left, right in zip(page.columns, page.columns[1:]):
+            gutter = (left[1] + right[0]) / 2
+            if (a[2] <= gutter <= b[0]) or (b[2] <= gutter <= a[0]):
+                return False
+        return True
+
     clusters: list[dict] = []
     for d in sorted(art, key=lambda d: (d["bbox"][1], d["bbox"][0])):
         placed = False
         for c in clusters:
-            if _near(c["bbox"], d["bbox"], 6):
+            if _near(c["bbox"], d["bbox"], 6) and same_column(c["bbox"], d["bbox"]):
                 c["bbox"] = _union(c["bbox"], d["bbox"])
                 c["n"] += d["n"]
                 c["curves"] += "c" in d["kinds"]
@@ -69,7 +99,8 @@ def graphic_blocks(page: PageInfo, min_pt: float = 12.0) -> list[dict]:
         changed = False
         for i in range(len(clusters)):
             for j in range(i + 1, len(clusters)):
-                if _near(clusters[i]["bbox"], clusters[j]["bbox"], 6):
+                if (_near(clusters[i]["bbox"], clusters[j]["bbox"], 6) and
+                        same_column(clusters[i]["bbox"], clusters[j]["bbox"])):
                     clusters[i]["bbox"] = _union(clusters[i]["bbox"], clusters[j]["bbox"])
                     clusters[i]["n"] += clusters[j]["n"]
                     clusters[i]["curves"] += clusters[j]["curves"]
@@ -80,7 +111,12 @@ def graphic_blocks(page: PageInfo, min_pt: float = 12.0) -> list[dict]:
                 break
     for c in clusters:
         b = c["bbox"]
-        if (b[2] - b[0]) >= min_pt and (b[3] - b[1]) >= min_pt and c["n"] >= 4:
+        if _page_backdrop(page, b):
+            page.diagnostics.append({"action": "exclude-background", "bbox": b,
+                                     "reason": "page-height edge vectors behind crossing prose lines"})
+            continue
+        if (((b[2] - b[0]) >= min_pt and (b[3] - b[1]) >= 3) or
+                ((b[2] - b[0]) >= 6 and (b[3] - b[1]) >= 6)) and c["n"] >= 3:
             out.append(c)
     return out
 
@@ -89,7 +125,9 @@ def _stacked(page: PageInfo, a, b, vgap: float = 75, hgap: float = 45) -> bool:
     """Panels of one figure set next to / below each other, separated only by white space or short labels
     (no running-text line between them)."""
     def running_text_in(x0, y0, x1, y1):
-        return any(l.role == "body" and len(l.text.strip()) > 45 and l.y0 >= y0 - 1 and l.y1 <= y1 + 1
+        return any(l.role in ("body", "caption") and
+                   not (l.all_bold() and re.match(r"^[A-Z]\s+", l.text) and len(l.text.split()) <= 10) and
+                   (len(l.text.split()) >= 5 or re.match(r"(?i)^(?:fig(?:ure|ura)?|table|tabla)\b", l.text)) and l.y0 >= y0 - 1 and l.y1 <= y1 + 1
                    and min(l.x1, x1) - max(l.x0, x0) > 0 for l in page.lines)
     hov = min(a[2], b[2]) - max(a[0], b[0])
     vov = min(a[3], b[3]) - max(a[1], b[1])
@@ -115,14 +153,18 @@ def figure_region_for_caption(page: PageInfo, cap_lines: list[Line], graphics: l
 
     def hover(g):
         b = g["bbox"]
-        return min(b[2], max(cx1, col[1])) - max(b[0], min(cx0, col[0]))
+        return min(b[2], cx1) - max(b[0], cx0)
     above = [g for g in cand if g["bbox"][3] <= cb[1] + 6 and hover(g) > 10]
     below = [g for g in cand if g["bbox"][1] >= cb[3] - 6 and hover(g) > 10]
     beside = [g for g in cand if not (g["bbox"][3] <= cb[1] + 6 or g["bbox"][1] >= cb[3] - 6)
-              and (g["bbox"][3] - g["bbox"][1]) > 30]
+              and (g["bbox"][3] - g["bbox"][1]) > 30
+              and (hover(g) > 10 or
+                   (max(cx0 - g["bbox"][2], g["bbox"][0] - cx1, 0) <= 36
+                    and g["bbox"][0] >= col[0] - 4 and g["bbox"][2] <= col[1] + 4))]
     def xov(g):
         b = g["bbox"]
         return min(b[2], cx1) - max(b[0], cx0)
+    expansion_groups = {"above": above[:], "below": below[:], "beside": beside[:]}
     # side-by-side figures: a caption takes the artwork standing over its own text first
     above = [g for g in above if xov(g) > 0.3 * (cx1 - cx0)] or above
     below = [g for g in below if xov(g) > 0.3 * (cx1 - cx0)] or below
@@ -149,13 +191,13 @@ def figure_region_for_caption(page: PageInfo, cap_lines: list[Line], graphics: l
         grown = True
         while grown:
             grown = False
-            for g in group:
+            for g in expansion_groups[direction]:
                 if g["bbox"] == region or _intersects(g["bbox"], region, -1):
                     if not (region[0] <= g["bbox"][0] and region[2] >= g["bbox"][2] and region[1] <= g["bbox"][1] and region[3] >= g["bbox"][3]):
                         region = _union(region, g["bbox"])
                         grown = True
                     continue
-                if (_near(g["bbox"], region, 18) or _stacked(page, g["bbox"], region)) and \
+                if (_near(g["bbox"], region, 18) or _stacked(page, g["bbox"], region, hgap=max(45, .2 * (cx1 - cx0)))) and \
                         not (direction == "above" and g["bbox"][1] > cb[1]):
                     region = _union(region, g["bbox"])
                     grown = True
@@ -181,16 +223,21 @@ def absorb_text(region: tuple, lines: list[Line], cap_ids: set) -> list[Line]:
             body_fams[f] = body_fams.get(f, 0) + 1
     running = max(body_fams, key=body_fams.get) if body_fams else None
     for l in lines:
-        if id(l) in cap_ids or l.role != "body" or l in inside or len(l.text.strip()) > 40:
+        if id(l) in cap_ids or l.role != "body" or l in inside:
             continue
-        if running and l.main.font.split("-")[0].lower() == running:
+        rotated = l.y1 - l.y0 > 2 * max(l.x1 - l.x0, 1)
+        if not rotated and (len(l.text.strip()) > 40 or
+                            (len(l.text.split()) >= 5 and l.text.rstrip().endswith((".", ";", ":")))):
+            continue
+        if not rotated and running and l.main.font.split("-")[0].lower() == running:
             continue           # same face as the running text: not a label
         b = l.bbox
         vov = min(b[3], region[3]) - max(b[1], region[1])
         hov = min(b[2], region[2]) - max(b[0], region[0])
         dx = max(region[0] - b[2], b[0] - region[2], 0)
         dy = max(region[1] - b[3], b[1] - region[3], 0)
-        if (vov > 0 and dx <= 14) or (hov > 0 and dy <= 10):
+        if ((vov > 0 and dx <= 14) or (hov > 0 and dy <= 10) or
+                (rotated and vov >= .6 * (b[3] - b[1]) and dx <= 3 * l.size)):
             inside.append(l)
     return inside
 
@@ -229,7 +276,7 @@ def _whiten_background(pix):
 
 
 def export_region(doc, pdf_page: int, bbox: tuple, out_path: Path, dpi: int = 300, quality: int = 90, pad: float = 2.0,
-                  rot: int = 0, orig_size: tuple | None = None, erase: list | None = None, whiten: bool = True):
+                  rot: int = 0, orig_size: tuple | None = None, erase: list | None = None, whiten: bool = False):
     page = doc[pdf_page]
     if rot and orig_size:
         from .text_extractor import unrot_bbox
@@ -299,7 +346,8 @@ def text_art_region(page: PageInfo, cap_lines: list[Line], style, direction: str
     lines directly above the caption, up to the previous body-style text."""
     cb = (min(l.x0 for l in cap_lines), min(l.y0 for l in cap_lines), max(l.x1 for l in cap_lines), max(l.y1 for l in cap_lines))
     cap_ids = {id(l) for l in cap_lines}
-    cands = sorted((l for l in page.lines if l.role == "body" and id(l) not in cap_ids and l.y1 <= cb[1] + 1),
+    cands = sorted((l for l in page.lines if l.role == "body" and id(l) not in cap_ids and l.y1 <= cb[1] + 1
+                    and min(l.x1, cb[2]) > max(l.x0, cb[0])),
                    key=lambda l: -l.y1)
     picked = []
     last_top = cb[1]
@@ -318,6 +366,52 @@ def text_art_region(page: PageInfo, cap_lines: list[Line], style, direction: str
     y1 = max(l.y1 for l in picked)
     for d in page.drawings:
         b = d["bbox"]
-        if b[1] >= y0 - 20 and b[3] <= cb[1] + 1 and b[2] - b[0] < 0.95 * (page.trim[2] - page.trim[0]):
+        if b[0] >= cb[0] - 3 and b[2] <= cb[2] + 3 and b[1] >= y0 - 20 and b[3] <= cb[1] + 1 and b[2] - b[0] < 0.95 * (page.trim[2] - page.trim[0]):
             x0, y0, x1, y1 = min(x0, b[0]), min(y0, b[1]), max(x1, b[2]), max(y1, b[3])
     return (x0, y0, x1, y1)
+
+
+def mark_repeated_graphic_furniture(pages):
+    """Exclude identical marginal artwork only with document-level evidence.
+
+    Mirrored outer-margin strips share the same pixel digest and geometry. A
+    nearby body line or caption prevents exclusion, preserving content panels.
+    """
+    groups = {}
+    for page in pages:
+        x0, y0, x1, y1 = page.trim
+        for im in page.images:
+            im.pop("furniture", None)
+            b = im["bbox"]
+            digest = im.get("digest")
+            w, h = b[2] - b[0], b[3] - b[1]
+            edge = min(abs(b[0] - x0), abs(x1 - b[2]))
+            if not digest or w > .08 * (x1 - x0) or edge > 3:
+                continue
+            if any(l.role == "body" and _intersects(l.bbox, b) for l in page.lines):
+                continue
+            key = (digest, round(w / 3), round(h / 3), round((b[1] - y0) / 3))
+            groups.setdefault(key, []).append((page, im))
+    for matches in groups.values():
+        count = len({p.index for p, _ in matches})
+        if count < max(3, len(pages) * .3):
+            continue
+        for page, im in matches:
+            im["furniture"] = True
+            page.diagnostics.append({"action": "exclude-graphic-furniture", "bbox": im["bbox"],
+                                     "reason": "identical marginal artwork at matching position without body overlap",
+                                     "matching_pages": count})
+
+
+def export_vector_region(doc, pdf_page, bbox, out_path, rot=0):
+    """Preserve a detected diagram's original vectors and glyph outlines."""
+    rect = pymupdf.Rect(bbox) & doc[pdf_page].rect
+    if rect.is_empty:
+        raise ValueError("empty vector region")
+    with pymupdf.open() as crop:
+        page = crop.new_page(width=rect.width, height=rect.height)
+        page.show_pdf_page(page.rect, doc, pdf_page, clip=rect)
+        if rot:
+            page.set_rotation(-rot)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(page.get_svg_image(text_as_path=True), encoding='utf-8')

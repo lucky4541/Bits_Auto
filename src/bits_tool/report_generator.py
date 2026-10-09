@@ -142,6 +142,7 @@ def write_reports(out_dir: Path, res, placement, links, registry, pages, bi, cfg
 <div class='card'><div class='k'>Wrong target type</div><div class='v'>{len(lk['wrong_type'])}</div></div>
 <div class='card'><div class='k'>Unresolved (kept as text)</div><div class='v'>{len(unresolved)}</div></div>
 <div class='card'><div class='k'>Duplicate IDs</div><div class='v'>{len(v['ids']['duplicates'])}</div></div></div>
+<h2>Recognition QC</h2><p><a href="../qa/recognition_qc.html">Open automatic recognition checks and source comparisons</a> · {_esc(v.get("recognition", {}).get("status", "unavailable"))}</p>
 <h2>Issues</h2><table><tr><th>Severity</th><th>Code</th><th>Count</th></tr>
 {''.join(f"<tr><td class='{'err' if sev in ('error','critical') else 'warn' if sev=='warning' else ''}'>{_esc(sev)}</td><td><code>{_esc(code)}</code></td><td>{n}</td></tr>" for (sev, code), n in sorted(ic.items(), key=lambda x: (-['info','warning','error','critical'].index(x[0][0]) if x[0][0] in ['info','warning','error','critical'] else 0, -x[1])))}</table>
 <h2>DTD</h2><p>{'Valid against ' + _esc(cfg.get('bits.public_id')) if v['dtd']['valid'] else str(v['dtd']['error_count']) + ' errors'}</p>

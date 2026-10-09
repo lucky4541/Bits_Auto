@@ -1,0 +1,10 @@
+paths:
+  dtd_dir: DTD
+  samples_dir: Samples
+  input_dir: inputs
+  output_dir: output
+  analysis_dir: analysis
+  mapping_dir: mapping
+  cache_dir: cache
+placement:
+  policy: physical

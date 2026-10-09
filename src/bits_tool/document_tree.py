@@ -27,6 +27,8 @@ class Span:
     mono: bool = False
     color: int = 0
     bbox: tuple = (0, 0, 0, 0)
+    origin: tuple | None = None
+    glyphs: list = field(default_factory=list)
 
     def styles(self) -> frozenset:
         s = set()
@@ -138,12 +140,15 @@ class PageInfo:
     images: list[dict] = field(default_factory=list)
     drawings: list[tuple] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
+    diagnostics: list[dict] = field(default_factory=list)
+    tables: list[dict] = field(default_factory=list)
 
     def to_json(self, with_lines=True):
         d = {"index": self.index, "pdf": self.pdf, "pdf_page": self.pdf_page, "size": [self.width, self.height],
              "trim": self.trim, "folio": self.folio, "folio_conf": self.folio_conf, "ocr": self.is_ocr,
              "ocr_conf": self.ocr_conf, "lang": self.lang, "columns": self.columns, "kind": self.kind,
-             "regions": [asdict(r) for r in self.regions], "errors": self.errors}
+             "regions": [asdict(r) for r in self.regions], "errors": self.errors,
+             "diagnostics": self.diagnostics}
         if with_lines:
             d["lines"] = [l.to_json() for l in self.lines]
         return d
@@ -174,7 +179,7 @@ def Break() -> dict:
 
 
 def inline_text(items: list[dict]) -> str:
-    return "".join(i.get("text", "") if i["k"] in ("t", "cite") else (i.get("label", "") if i["k"] == "fnref" else "")
+    return "".join(i.get("text", "") if i["k"] in ("t", "cite", "math") else (i.get("label", "") if i["k"] == "fnref" else "")
                    for i in items)
 
 

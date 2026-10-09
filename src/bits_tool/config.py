@@ -13,7 +13,7 @@ from typing import Any
 
 import yaml
 
-TOOL_VERSION = "1.0.0"
+TOOL_VERSION = "1.2.0"
 
 DEFAULTS: dict[str, Any] = {
     "paths": {
@@ -46,9 +46,9 @@ DEFAULTS: dict[str, Any] = {
                "header_footer_zone": 0.085, "repeat_ratio": 0.3},
     "links": {"citation_detection": True, "cross_reference_detection": True,
               "bibliography_citations": True, "link_validation": "strict"},
-    "placement": {"policy": "learned", "fallback": "physical"},
+    "placement": {"policy": "physical", "fallback": "physical"},
     "confidence": {"auto": 0.90, "warn": 0.75, "review": 0.50},
-    "qa": {"content_coverage_min": 0.97, "page_coverage_warn": 0.90, "visual_overlays": False},
+    "qa": {"fail_on_recognition_review": False, "content_coverage_min": 0.97, "page_coverage_warn": 0.90, "visual_overlays": False},
     "performance": {"workers": 1, "memory_mode": "normal", "resume": True},
     "mode": "production",          # production | development
     "debug": False,

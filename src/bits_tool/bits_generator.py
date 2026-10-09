@@ -295,6 +295,22 @@ class BitsGenerator:
         self.E(parent, "target", {"target-type": "pagenum", "id": tid})
         return True
 
+    def append_mathml(self, parent_el, spec):
+        if not isinstance(spec, dict):
+            node = etree.SubElement(parent_el, f"{{{MML}}}mtext")
+            node.text = clean(str(spec or ""))
+            return node
+        tag = spec.get("tag", "mrow")
+        if tag not in {"mrow", "mi", "mn", "mo", "mtext", "msub", "msup", "msubsup", "mfrac", "msqrt", "mroot", "mover", "munder", "munderover", "mfenced"}:
+            tag = "mrow"
+        node = etree.SubElement(parent_el, f"{{{MML}}}{tag}")
+        if spec.get("text") is not None:
+            node.text = clean(str(spec["text"]))
+        for child in spec.get("children", []):
+            self.append_mathml(node, child)
+        return node
+
+
     def add_inlines(self, parent, items, allow_targets=True):
         ptag = self._tagname(parent)
         if self.pending_marks and allow_targets and self.rules.allows_child(ptag, "target"):
@@ -309,6 +325,10 @@ class BitsGenerator:
                     self._styled(parent, it["text"], st)
                 else:
                     self._append_text(parent, it["text"])
+            elif k == "math":
+                formula = self.E(parent, "inline-formula")
+                math = etree.SubElement(formula, f"{{{MML}}}math", display="inline", alttext=clean(it["text"]))
+                self.append_mathml(math, it["mathml"])
             elif k == "xref":
                 self._styled(parent, it["text"], [s for s in it["st"] if s in STYLE_TAG], "xref",
                              {"ref-type": it["ref-type"], "rid": it["rid"]})
@@ -604,28 +624,17 @@ class BitsGenerator:
         if k == "disp-formula":
             el = self.E(parent, "disp-formula", {"id": n.id})
             txt = n.meta.get("text") or ""
+            if n.meta.get("href") and n.meta.get("fallback_image"):
+                graphic = self.E(el, "graphic", {"xlink:href": n.meta["href"]})
+                self.E(graphic, "alt-text", text=txt)
+                return el
             math = etree.SubElement(el, f"{{{MML}}}math")
             math.set("display", "block")
             math.set("alttext", clean(txt) or "This is an equation")
 
-            def append_mathml(parent_el, spec):
-                if not isinstance(spec, dict):
-                    node = etree.SubElement(parent_el, f"{{{MML}}}mtext")
-                    node.text = clean(str(spec or ""))
-                    return node
-                tag = spec.get("tag", "mrow")
-                if tag not in {"mrow", "mi", "mn", "mo", "mtext", "msub", "msup", "msubsup", "mfrac", "msqrt", "mroot", "mover", "munder", "munderover", "mfenced"}:
-                    tag = "mrow"
-                node = etree.SubElement(parent_el, f"{{{MML}}}{tag}")
-                if spec.get("text") is not None:
-                    node.text = clean(str(spec["text"]))
-                for child in spec.get("children", []):
-                    append_mathml(node, child)
-                return node
-
             ast = n.meta.get("mathml")
             if ast:
-                append_mathml(math, ast)
+                self.append_mathml(math, ast)
             else:
                 # Backward compatibility for saved zoning projects created before
                 # structured equation ASTs were added.
@@ -684,13 +693,15 @@ class BitsGenerator:
                 for row in rows[:hr]:
                     tr = self.E(th, "tr")
                     for c in row:
-                        cell = self.E(tr, "th", {"align": "left", "valign": "top", "colspan": str(c["colspan"]) if c["colspan"] > 1 else None})
+                        cell = self.E(tr, "th", {"align": "left", "valign": "top", "colspan": str(c["colspan"]) if c["colspan"] > 1 else None,
+                                                       "rowspan": str(c["rowspan"]) if c.get("rowspan", 1) > 1 else None})
                         self._cell(cell, c)
             body = self.E(tb, "tbody")
             for row in rows[hr:] or rows[-1:]:
                 tr = self.E(body, "tr")
                 for c in row:
-                    cell = self.E(tr, "td", {"align": "left", "valign": "top", "colspan": str(c["colspan"]) if c["colspan"] > 1 else None})
+                    cell = self.E(tr, "td", {"align": "left", "valign": "top", "colspan": str(c["colspan"]) if c["colspan"] > 1 else None,
+                                                       "rowspan": str(c["rowspan"]) if c.get("rowspan", 1) > 1 else None})
                     self._cell(cell, c)
         else:
             href = n.meta.get("href")

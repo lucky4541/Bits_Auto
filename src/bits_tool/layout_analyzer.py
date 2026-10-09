@@ -108,75 +108,53 @@ def _rh_sig(l: Line, where: str):
 
 
 def mark_headers_footers(pages: list[PageInfo], zone_frac: float = 0.085, window: int = 12, min_repeat: int = 3):
-    """Assign role header/footer/folio to lines in the top/bottom zones."""
-    cand = []
-    for p in pages:
-        for l in p.lines:
-            if l.role == "rotated-margin":
-                t = l.text.strip()
-                l.role = "folio" if (NUM_RE.match(t) or ROMAN_RE.match(t)) else "header"
-        tx0, ty0, tx1, ty1 = p.trim
-        h = ty1 - ty0
-        top, bot = ty0 + zone_frac * h, ty1 - zone_frac * h
-        for l in p.lines:
-            if l.role == "slug":
-                continue
-            if l.y1 <= top + 2:
-                cand.append((p, l, "header"))
-            elif l.y0 >= bot - 2:
-                cand.append((p, l, "footer"))
-    keyed = defaultdict(list)
-    for p, l, where in cand:
-        keyed[(where, norm_repeat(l.text))].append(p.index)
+    """Furniture needs repeated position/style AND separation from body text.
+
+    An isolated boundary line on a single page remains content. Numeric folios
+    need corroborating page progression, so a diagram label 'I' is not erased.
+    """
     from .caption_detector import label_match
-    med = {}
-    for p in pages:
-        sz = sorted(l.size for l in p.lines if l.role not in ("slug", "rotated-margin"))
-        med[p.index] = sz[len(sz) // 2] if sz else 0
-    for p, l, where in cand:
-        t = l.text.strip()
-        if NUM_RE.match(t) or ROMAN_RE.match(t):
-            l.role = "folio"
+    candidates = []
+    keyed = defaultdict(set)
+    folios = defaultdict(set)
+    for page in pages:
+        x0, y0, x1, y1 = page.trim
+        height = max(y1 - y0, 1)
+        for line in page.lines:
+            if line.role not in ("body", "rotated-margin"):
+                continue
+            where = "header" if line.y1 <= y0 + zone_frac * height else "footer" if line.y0 >= y1 - zone_frac * height else None
+            text = line.text.strip()
+            if not where or label_match(text)[0] or len(text) > 160:
+                continue
+            neighbors = [l for l in page.lines if l is not line and l.role == "body"
+                         and min(l.x1, line.x1) > max(l.x0, line.x0)
+                         and (l.y0 >= line.y1 if where == "header" else l.y1 <= line.y0)]
+            gap = min((l.y0 - line.y1 if where == "header" else line.y0 - l.y1 for l in neighbors), default=height if (NUM_RE.fullmatch(text) or ROMAN_RE.fullmatch(text)) else 0)
+            if gap < 0.7 * line.size:
+                continue
+            sig = (page.pdf, where, family(line.main.font), round(line.size),
+                   round((line.y0 - y0) / height * 100),
+                   round(((line.x0 + line.x1) / 2 - x0) / max(x1 - x0, 1) * 4))
+            key = sig + (norm_repeat(text),)
+            keyed[key].add(page.index)
+            numeric = int(text) if NUM_RE.fullmatch(text) else roman_to_int(text) if ROMAN_RE.fullmatch(text) else None
+            fkey = sig + ("roman" if text.isalpha() else "arabic", numeric - page.pdf_page) if numeric is not None else None
+            if fkey:
+                folios[fkey].add(page.index)
+            candidates.append((page, line, where, key, fkey))
+    for page, line, where, key, fkey in candidates:
+        repeats = sum(abs(i - page.index) <= window for i in keyed[key])
+        if fkey and len(folios[fkey]) >= 2:
+            line.role = "folio"
+        elif not fkey and repeats >= min_repeat:
+            line.role = where
+        else:
+            page.diagnostics.append({"action": "include", "bbox": line.bbox,
+                                     "reason": "boundary text lacks corroborated furniture evidence"})
             continue
-        if med.get(p.index) and l.size >= 1.4 * med[p.index] and l.role != "rotated-margin" and len(t) < 120:
-            continue              # display-size text (chapter label / title on an opener page) is content
-        ct = t.replace(" ", "") if re.fullmatch(r"(?:\w ){2,}\w", t) else t
-        if label_match(t)[0] or label_match(ct)[0] or re.fullmatch(r"(?i)(tabla|table|figura|figure|cuadro|box|recuadro)", ct):
-            continue              # a caption / display label that happens to sit in the margin zone
-        idxs = keyed[(where, norm_repeat(t))]
-        near = sum(1 for i in idxs if abs(i - p.index) <= window)
-        if near >= min_repeat and len(t) < 160:
-            l.role = where
-    # running heads of short chapters repeat fewer than `min_repeat` times; they share the
-    # typographic signature (font, size, vertical position) of the confirmed ones
-    sigs = Counter(_rh_sig(l, where) for p, l, where in cand if l.role == where)
-    for p, l, where in cand:
-        if l.role in ("header", "footer", "folio") or len(l.text.strip()) >= 160:
-            continue
-        if sigs.get(_rh_sig(l, where), 0) >= min_repeat:
-            l.role = where
-    # second pass: small isolated zone lines above/below the body on pages with body text
-    for p in pages:
-        body = [l for l in p.lines if l.role == "body"]
-        if len(body) < 4:
-            continue
-        sizes = Counter(round(l.size) for l in body)
-        common = sizes.most_common(1)[0][0]
-        tx0, ty0, tx1, ty1 = p.trim
-        h = ty1 - ty0
-        from .caption_detector import label_match
-        for l in body:
-            t = l.text.strip()
-            if len(t) > 70 or label_match(t)[0] or re.match(r"^\s*(?:[*†‡§¶]|\d{1,2}\s|[a-z]\s)", t):
-                continue          # captions / notes are content, never running heads
-            if l.y1 <= ty0 + 0.06 * h and l.size < common - 0.4:
-                below = [b for b in body if b is not l and b.y1 > l.y1 + 1 and min(b.x1, l.x1) - max(b.x0, l.x0) > 0]
-                if below and min(b.y0 for b in below) - l.y1 > 0.8 * common:
-                    l.role = "header-iso"
-            elif l.y0 >= ty1 - 0.06 * h and l.size < common - 0.4:
-                above = [b for b in body if b is not l and b.y0 < l.y0 - 1 and min(b.x1, l.x1) - max(b.x0, l.x0) > 0]
-                if above and l.y0 - max(b.y1 for b in above) > 0.8 * common:
-                    l.role = "footer-iso"
+        page.diagnostics.append({"action": "exclude-from-body", "bbox": line.bbox,
+                                 "role": line.role, "reason": "repeated position, typography and isolated margin context"})
 
 
 def _folio_from_line(l: Line) -> str | None:

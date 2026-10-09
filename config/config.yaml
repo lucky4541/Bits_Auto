@@ -40,13 +40,14 @@ links:
   bibliography_citations: true
   link_validation: strict
 placement:
-  policy: learned
+  policy: physical
   fallback: physical
 confidence:
   auto: 0.9
   warn: 0.75
   review: 0.5
 qa:
+  fail_on_recognition_review: false  # true makes unresolved recognition a failed quality gate
   content_coverage_min: 0.97
   page_coverage_warn: 0.9
   visual_overlays: false

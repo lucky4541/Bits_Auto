@@ -126,31 +126,6 @@ def _tip_tables(page: PageInfo, style: BookStyle, used: list) -> list[Region]:
     return out
 
 
-def _decorative_graphic(page: PageInfo, b, w: float, h: float, style: BookStyle, fm_ok: bool = False) -> bool:
-    """Page design, not content (golden samples never tag these):
-    * any unlabelled graphic in the front matter (title-page art, logos, title banners, page strips);
-    * a thin strip (colour bar, edge tab, rule-like band);
-    * the background behind display-size text (chapter label 'Capítulo 1.3' box, 'Prefacio' banner)."""
-    from .pdf_loader import classify_file
-    from pathlib import Path
-    if not fm_ok and classify_file(Path(page.pdf or "x.pdf"))[0] == "fm":
-        return True
-    tx0, ty0, tx1, ty1 = page.trim
-    if (b[0] <= tx0 + 1 or b[1] <= ty0 + 1 or b[2] >= tx1 - 1 or b[3] >= ty1 - 1) and \
-            not any(o.role == "caption" for o in page.lines if abs(o.y0 - b[3]) < 30):
-        return True          # touches the trim edge (artwork clipped at the page edge = bleed decoration, badge, tab)
-    if w * h > 0.45 * (tx1 - tx0) * (ty1 - ty0):
-        return True          # page background / opener artwork behind the text
-    if b[0] < tx0 - 15 or b[1] < ty0 - 15 or b[2] > tx1 + 15 or b[3] > ty1 + 15:
-        return True          # bleeds off the page: thumb tab ('1' chapter badge), corner decoration
-    if min(w, h) < max(w, h) / 6:
-        return True
-    for o in page.lines:
-        if o.size >= 1.4 * style.body_size and b[0] - 2 <= (o.x0 + o.x1) / 2 <= b[2] + 2 and b[1] - 2 <= (o.y0 + o.y1) / 2 <= b[3] + 2:
-            return True
-    return False
-
-
 def analyze_regions(page: PageInfo, style: BookStyle, cfg) -> None:
     assemble_labels(page, style)
     body = [l for l in page.lines if l.role == "body"]
@@ -160,15 +135,12 @@ def analyze_regions(page: PageInfo, style: BookStyle, cfg) -> None:
     cols = detect_columns(page, body)
     page.columns = cols
     graphics = graphic_blocks(page, min_pt=cfg.get("images.min_figure_pt", 36) * 0.5) if cfg.get("layout.figure_detection", True) else []
-    # page design (backgrounds, bleeding badges, strips) is never figure artwork
-    graphics = [g for g in graphics if not _decorative_graphic(page, g["bbox"], g["bbox"][2] - g["bbox"][0],
-                                                               g["bbox"][3] - g["bbox"][1], style, fm_ok=True)]
     # chapter-opener outline page ('… / 29' entries): no captions and no figures on it, only its text
     if sum(1 for o in page.lines if re.search(r"/\s*\d{1,4}\s*$", o.text)) >= 4:
         graphics = []
         page.errors.append("OUTLINE_PAGE")
-    # small square icons (box / feature icons) are not the artwork of a numbered figure
-    art_graphics = [g for g in graphics if g["kind"] != "image" or max(g["bbox"][2] - g["bbox"][0], g["bbox"][3] - g["bbox"][1]) >= 80]
+    # Caption association considers all graphic candidates, including small components.
+    art_graphics = graphics
     used: list[tuple] = []
     ordered = _sorted_lines(body)
     pitch = style.line_pitch
@@ -200,6 +172,9 @@ def analyze_regions(page: PageInfo, style: BookStyle, cfg) -> None:
             for c in cap:
                 c.role = "caption"
             absorbed = absorb_text(art, page.lines, cap_ids) if art else []
+            if art and absorbed:
+                expanded = _union_box(art, _bbox(absorbed))
+                absorbed = absorb_text(expanded, page.lines, cap_ids)
             for a in absorbed:
                 a.role = "figure-text"
             if art and absorbed:
@@ -261,6 +236,12 @@ def analyze_regions(page: PageInfo, style: BookStyle, cfg) -> None:
             regions.append(Region("table", box, page.index, grid.conf * 0.95,
                                   {"label": None, "key": None, "caption": [], "lines": tl, "foot": [], "grid": grid,
                                    "body_bbox": box, "unlabeled": True}))
+    # Molecular diagrams need their short bond strokes, which are deliberately
+    # excluded from ordinary figure/table candidates.
+    from .chemical_detector import chemical_regions
+    for region in chemical_regions(page, style, used):
+        regions.append(region)
+        used.append(region.bbox)
     # 4b: unlabelled graphics (large enough to be figures); small ones become inline graphics
     min_pt = cfg.get("images.min_figure_pt", 36)
     for g in graphics:
@@ -268,10 +249,6 @@ def analyze_regions(page: PageInfo, style: BookStyle, cfg) -> None:
         if any(not (b[2] < u[0] or u[2] < b[0] or b[3] < u[1] or u[3] < b[1]) for u in used):
             continue
         w, h = b[2] - b[0], b[3] - b[1]
-        if _decorative_graphic(page, b, w, h, style):
-            page.errors.append("DECORATIVE_GRAPHIC_SKIPPED")
-            used.append(b)
-            continue
         if g["kind"] == "vector" and (g.get("curves", 0) < 2 and g["n"] < 30):
             continue            # decorative rules / simple frames
         inside_text = [o for o in page.lines if o.role == "body" and b[0] - 2 <= (o.x0 + o.x1) / 2 <= b[2] + 2
@@ -286,13 +263,6 @@ def analyze_regions(page: PageInfo, style: BookStyle, cfg) -> None:
             if (w >= 0.5 * pw and w / max(h, 1) >= 5) or (len(inside_text) >= 3 and text_area > 0.25 * w * h):
                 page.errors.append("DECORATIVE_PANEL_SKIPPED")
                 continue        # banner strip / tinted panel behind running text: page design, not a figure
-            big_text = [o for o in inside_text if o.size >= 1.25 * style.body_size]
-            banner = (b[1] <= page.trim[1] + 2 and (b[2] - b[0]) >= 0.8 * (page.trim[2] - page.trim[0])
-                      and any(o.size >= 1.8 * style.body_size for o in page.lines))
-            if banner or (page.pdf_page == 0 and b[1] < page.trim[1] + 0.5 * (page.trim[3] - page.trim[1]) and (big_text or g["kind"] == "image")):
-                page.errors.append("DECORATIVE_OPENER_IMAGE_SKIPPED")
-                used.append(b)
-                continue        # chapter-opener decoration (golden samples never tag it)
             # a small unlabelled graphic (box icon) keeps no text: the words next to it belong to the box
             absorbed = [] if max(w, h) < 90 else \
                 [o for o in absorb_text(b, page.lines, set()) if o.size < 1.25 * style.body_size]
@@ -319,7 +289,14 @@ def analyze_regions(page: PageInfo, style: BookStyle, cfg) -> None:
         for r in inner_regions:
             r.meta["in_box"] = True
         regions.append(bx)
+    from .equation_detector import equation_regions
+    regions.extend(equation_regions(page, style, regions))
     page.regions = regions
+    for region in regions:
+        page.diagnostics.append({"action": "include-region", "kind": region.kind,
+                                 "bbox": region.bbox, "confidence": region.conf,
+                                 "reason": region.meta.get("reason", "spatial region classification"),
+                                 "label": region.meta.get("label")})
     if len(page.columns) <= 1 and regions:
         # tables/figures spanning the gutter hid it from the first pass: look again without their text
         rest = [l for l in page.lines if l.role == "body"]
@@ -331,7 +308,7 @@ def analyze_regions(page: PageInfo, style: BookStyle, cfg) -> None:
 
 def _gutter_columns(els, min_gutter=2.0):
     """Column intervals for a zone of elements from the x-coverage profile."""
-    if len(els) < 4:
+    if len(els) < 2:
         return None
     x0 = min(e[0][0] for e in els)
     x1 = max(e[0][2] for e in els)
@@ -351,10 +328,36 @@ def _gutter_columns(els, min_gutter=2.0):
         start = g1
     cols.append((start, x1))
     # every column must hold >= 2 elements, otherwise it is not a real column layout
-    counts = [sum(1 for e in els if c0 - 1 <= (e[0][0] + e[0][2]) / 2 <= c1 + 1) for c0, c1 in cols]
+    counts = [sum(2 if e[1] == "region" else 1 for e in els
+                  if c0 - 1 <= (e[0][0] + e[0][2]) / 2 <= c1 + 1) for c0, c1 in cols]
     if min(counts) < 2:
         return None
     return cols
+
+
+def _xy_order(elements, depth=0):
+    """Recursive whitespace partition for bands with changing column layouts.
+
+    A vertical gutter has priority. Horizontal cuts are used only when a
+    spanning region prevents that cut. The partition tree is a layout graph.
+    """
+    if len(elements) < 2 or depth > 64:
+        return sorted(elements, key=lambda e: (e[0][1], e[0][0]))
+    columns = _gutter_columns(elements, min_gutter=8)
+    if columns:
+        return [e for a, b in columns for e in _xy_order(
+            [item for item in elements if a - 1 <= (item[0][0] + item[0][2]) / 2 <= b + 1], depth + 1)]
+    ordered = sorted(elements, key=lambda e: (e[0][1], e[0][0]))
+    bottom = ordered[0][0][3]
+    gaps = []
+    for i, element in enumerate(ordered[1:], 1):
+        if element[0][1] > bottom + 1:
+            gaps.append((element[0][1] - bottom, i))
+        bottom = max(bottom, element[0][3])
+    if gaps:
+        _, cut = max(gaps, key=lambda g: (g[0], -g[1]))
+        return _xy_order(ordered[:cut], depth + 1) + _xy_order(ordered[cut:], depth + 1)
+    return ordered
 
 
 def order_items(page: PageInfo, lines: list[Line], regions: list[Region]) -> list[tuple[str, object]]:
@@ -374,23 +377,16 @@ def order_items(page: PageInfo, lines: list[Line], regions: list[Region]) -> lis
 
     cols = getattr(page, "columns", None) or []
     tw = page.trim[2] - page.trim[0]
-    # text columns only (a TOC's narrow label column or a margin column is not a reading column)
-    multi = len(cols) > 1 and all((c1 - c0) >= 0.3 * tw for c0, c1 in cols)
+    multi = len(cols) > 1
     if not multi and len(cols) <= 1:
         # text column + side-note column (or a 2-column page the detector missed): a white gutter
         # running through all text lines of the page separates columns, whatever their widths
-        g = _gutter_columns([e for e in els if e[1] == "line"], min_gutter=8.0)
+        g = _gutter_columns(els, min_gutter=8.0)
         if g and len(g) > 1:
             cols, multi = g, True
 
-    line_sizes = sorted(e[2].size for e in els if e[1] == "line")
-    med_size = line_sizes[len(line_sizes) // 2] if line_sizes else 0
-    text_top = min((e[0][1] for e in els if e[1] == "line" and e[2].size < 1.4 * med_size), default=1e9)
-
     def is_spanner(e):
         x0, x1 = e[0][0], e[0][2]
-        if e[1] == "line" and med_size and e[2].size >= 1.6 * med_size and e[0][3] <= text_top + 2:
-            return True     # page title set above the columns (e.g. 'Prólogo' over the right column)
         if multi:
             # on a multi-column page a spanner is what crosses a gutter, not what is merely wide:
             # a column of a 2-column page is wider than 0.62 * half the page
@@ -415,14 +411,13 @@ def order_items(page: PageInfo, lines: list[Line], regions: list[Region]) -> lis
             out.extend(zl)
             continue
         zcols = _gutter_columns(zl)
-        if multi and len(zcols or []) != len(page_cols) and len(zl) >= 6:
+        if multi and not zcols:
             # the page-level columns are known: a figure/strip in the margin must not hide the gutter
             zcols = [(c0, c1) for c0, c1 in page_cols]
             zcols[0] = (min(zcols[0][0], min(e[0][0] for e in zl)), zcols[0][1])
             zcols[-1] = (zcols[-1][0], max(zcols[-1][1], max(e[0][2] for e in zl)))
         if not zcols:
-            zl.sort(key=lambda e: (round(e[0][3] if e[1] == "line" else e[0][1], 0), e[0][0]))
-            out.extend(zl)
+            out.extend(_xy_order(zl))
             continue
         placed = set()
         for c0, c1 in zcols:
@@ -433,16 +428,18 @@ def order_items(page: PageInfo, lines: list[Line], regions: list[Region]) -> lis
         rest = [e for e in zl if id(e) not in placed]      # nothing may be dropped: centre in a gutter
         rest.sort(key=lambda e: (round(e[0][3] if e[1] == "line" else e[0][1], 0), e[0][0]))
         out.extend(rest)
-        continue
-        for c0, c1 in zcols:
-            col_els = [e for e in zl if c0 - 1 <= (e[0][0] + e[0][2]) / 2 <= c1 + 1]
-            col_els.sort(key=lambda e: (round(e[0][3] if e[1] == "line" else e[0][1], 0), e[0][0]))
-            out.extend(col_els)
     result = []
     for i, e in enumerate(out):
         if e[1] == "line":
             e[2].order = i
+            e[2].column = column_of(e[0], cols)
+        else:
+            e[2].meta.update(order=i, column=column_of(e[0], cols))
         result.append((e[1], e[2]))
+    page.diagnostics.append({"action": "reading-order", "reason": "gutter columns and spanning bands",
+                             "columns": cols, "items": [
+                                 {"order": i, "kind": e[1], "bbox": e[0],
+                                  "predecessor": i - 1 if i else None} for i, e in enumerate(out)]})
     return result
 
 

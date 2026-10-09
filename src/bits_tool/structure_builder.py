@@ -14,7 +14,6 @@ from dataclasses import dataclass, field
 
 from .caption_detector import label_match
 from .document_tree import IssueLog, Line, Node, PageInfo, Region, T
-from .equation_detector import is_display_math, is_math_fragment, linearize, build_mathml_ast
 from .footnote_detector import mark_footnotes
 from .heading_detector import HeadingModel, caps_ratio, is_candidate, learn_headings, norm_title, style_key
 from .index_detector import TITLE_RE as INDEX_TITLE_RE
@@ -92,7 +91,7 @@ def clip_runs(runs: list[dict], start: int, end: int | None = None) -> list[dict
     """Sub-range of inline runs by character offsets (styles preserved)."""
     out, pos = [], 0
     for r in runs:
-        if r["k"] not in ("t",):
+        if r["k"] not in ("t", "math"):
             if end is None or pos < end:
                 if pos >= start:
                     out.append(r)
@@ -101,7 +100,10 @@ def clip_runs(runs: list[dict], start: int, end: int | None = None) -> list[dict
         a, b = pos, pos + len(t)
         lo, hi = max(a, start), min(b, end if end is not None else b)
         if lo < hi:
-            out.append({**r, "text": t[lo - a:hi - a]})
+            if r["k"] == "math" and (lo != a or hi != b):
+                out.append(T(t[lo - a:hi - a]))
+            else:
+                out.append({**r, "text": t[lo - a:hi - a]})
         pos = b
     return out
 
@@ -743,6 +745,8 @@ class BookBuilder:
                 idx += 1
                 continue
             if k == "region":
+                if o.kind == "equation":
+                    close_para()
                 node = self.region_node(o)
                 if node is None:
                     idx += 1
@@ -846,50 +850,6 @@ class BookBuilder:
             if refs_level is not None:
                 ref_lines.append(("line", l))
                 state["last"] = l
-                idx += 1
-                continue
-            # --------------------------------------------------- equations
-            if is_display_math(l, self.geo.column_left(l), em):
-                close_para()
-                eq_lines = [l]
-                j = idx + 1
-                # Equation pieces can be vertically spaced (subscript labels, arrow
-                # labels, numerator/denominator). Collect a compact local cluster,
-                # not only lines within one normal text line-height.
-                max_gap = max(7.0 * self.style.line_pitch, 8.0 * em)
-                while j < n_items and items[j][0] == "line":
-                    c = items[j][1]
-                    if c.page != l.page:
-                        break
-                    gap = c.y0 - eq_lines[-1].y1
-                    left = self.geo.column_left(c)
-                    nearby_math = is_display_math(c, left, em) or is_math_fragment(c)
-                    overlaps_vertically = gap < 0
-                    # Equations often have a large vertical gap between numerator and
-                    # denominator or between arrow labels and the reaction baseline.
-                    # Still stop immediately at ordinary prose.
-                    compact_math_cluster = gap <= max_gap and (nearby_math or overlaps_vertically) and not (len((c.text or "").split()) >= 5 and not is_math_fragment(c) and not is_display_math(c, left, em))
-                    # Stop before prose/headings: a nearby sentence must not be
-                    # swallowed merely because an equation precedes it.
-                    if compact_math_cluster and len((c.text or '').strip()) <= 180:
-                        eq_lines.append(c)
-                        skip.add(j)
-                        j += 1
-                    else:
-                        break
-                txt = linearize(eq_lines)
-                eq_ast = build_mathml_ast(eq_lines)
-                eq = Node("disp-formula", page=l.page, bbox=_bbox(eq_lines), conf=0.65, meta={"text": txt, "mathml": eq_ast, "_head_ln": [x.uid for x in eq_lines if x.uid]},
-                          flags=["EQUATION_NEEDS_REVIEW"])
-                if state["lists"]:
-                    # Display equations are block siblings of paragraphs inside a list item.
-                    item = state["lists"][-1]["item"]
-                    item.add(eq)
-                else:
-                    close_lists()
-                    emit(eq)
-                self.issues.add("EQUATION_NEEDS_REVIEW", "warning", f"display equation linearised: {txt[:60]}", page=l.page, conf=0.4)
-                state["last"] = eq_lines[-1]
                 idx += 1
                 continue
             # -------------------------------------------------------- lists
@@ -1026,10 +986,20 @@ class BookBuilder:
 
     # ============================================================ regions
     def region_node(self, r: Region) -> Node | None:
+        if r.kind == "equation":
+            lines = r.meta["lines"]
+            meta = {**r.meta, "_head_ln": [l.uid for l in lines if l.uid]}
+            meta.pop("lines", None)
+            flags = []
+            if not meta.get("mathml"):
+                flags.append("EQUATION_NEEDS_REVIEW")
+                self.issues.add("EQUATION_NEEDS_REVIEW", "warning", meta["reason"], page=r.page, conf=r.conf)
+            return Node("disp-formula", page=r.page, bbox=r.bbox, conf=r.conf, meta=meta, flags=flags)
         if r.kind == "figure":
             n = Node("fig", page=r.page, bbox=r.bbox, conf=r.conf)
             n.meta.update({"label": r.meta.get("label"), "key": r.meta.get("key"), "art": r.meta.get("art"),
-                           "unlabeled": r.meta.get("unlabeled", False), "direction": r.meta.get("direction")})
+                           "unlabeled": r.meta.get("unlabeled", False), "direction": r.meta.get("direction"),
+                           "diagram": r.meta.get("diagram"), "asset_format": r.meta.get("asset_format")})
             cap = r.meta.get("caption") or []
             if cap:
                 runs = []
@@ -1043,7 +1013,7 @@ class BookBuilder:
             if not r.meta.get("art"):
                 n.flags.append("FIGURE_ARTWORK_NOT_FOUND")
                 self.issues.add("FIGURE_ARTWORK_NOT_FOUND", "warning", f"no artwork found for {r.meta.get('label')}", page=r.page, conf=0.5)
-                n.meta["art"] = self._fallback_art(r)
+                # No inferred crop: keep the caption and report the missing artwork.
             if r.meta.get("absorbed"):
                 n.meta["art_text"] = " ".join(a.text.strip() for a in r.meta["absorbed"])
             return n
@@ -1072,12 +1042,12 @@ class BookBuilder:
                         if has_list or (grid.ncols == 1 and len(cl_sorted) > 1):
                             # block content inside the cell (lists / several paragraphs), as in the samples
                             inner = self.parse_blocks([("line", cl) for cl in cl_sorted], allow_secs=False, in_box=True)
-                            cells.append({"runs": [], "blocks": inner["body"], "colspan": c.colspan, "header": c.header})
+                            cells.append({"runs": [], "blocks": inner["body"], "colspan": c.colspan, "rowspan": c.rowspan, "header": c.header})
                             continue
                         runs = []
                         for cl in cl_sorted:
                             append_line(runs, cl, self.hyph)
-                        cells.append({"runs": finish_inlines(runs), "colspan": c.colspan, "header": c.header})
+                        cells.append({"runs": finish_inlines(runs), "colspan": c.colspan, "rowspan": c.rowspan, "header": c.header})
                     rows.append(cells)
                 n.meta["rows"] = rows
                 n.meta["header_rows"] = grid.header_rows
@@ -1149,19 +1119,6 @@ class BookBuilder:
             p.add(Node("inline-graphic", page=r.page, bbox=r.bbox, meta={"art": r.bbox}))
             return p
         return None
-
-    def _fallback_art(self, r: Region):
-        """Area between the previous text and the caption (figure drawn with text/vectors we could not cluster)."""
-        page = self.page_by_index[r.page]
-        cap = r.meta.get("caption") or []
-        if not cap:
-            return None
-        cb = _bbox(cap)
-        above = [l for l in page.lines if l.role in ("body",) and l.y1 <= cb[1] - 2 and l.x1 > cb[0] and l.x0 < cb[2]]
-        top = max((l.y1 for l in above), default=page.trim[1])
-        if cb[1] - top < 30:
-            return None
-        return (cb[0], top + 2, max(cb[2], page.trim[2] - (page.trim[2] - cb[2])), cb[1] - 2)
 
     # ========================================================= references
     def ref_list(self, ref_items, title_runs) -> list[Node]:

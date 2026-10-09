@@ -91,6 +91,16 @@ def table_lines_below(caption_bottom: float, page: PageInfo, lines: list[Line], 
     width = c1 - c0
     in_foot = False
     for l in cand:
+        if body:
+            table_size = sorted(o.size for o in body)[len(body) // 2]
+            previous_bottom = max(o.y1 for o in body)
+            # A separate heading after whitespace ends the table even when a
+            # later page banner contributes another horizontal rule.
+            if (l.y0 - previous_bottom > 1.5 * style.line_pitch and
+                    l.size > 1.1 * table_size and any(s.bold for s in l.spans)):
+                page.diagnostics.append({"action": "end-table", "bbox": l.bbox,
+                                         "reason": "separate larger heading after table whitespace"})
+                break
         if last_rule is not None and l.y0 > last_rule + 1:
             # below the closing rule: footnotes / sources, or the text resumes
             if FOOT_RE.match(l.text) or l.size < style.body_size - 0.4 or in_foot and abs(l.size - foot[-1].size) < 0.3:
@@ -137,7 +147,37 @@ def _gutters(lines: list[Line], x0: float, x1: float, size: float) -> list[tuple
     return gut
 
 
+def ruled_grid(lines, page, bounds):
+    """Use extracted cell boundaries (including spans), never text length."""
+    for table in getattr(page, "tables", []):
+        box = table["bbox"]
+        owned = [l for l in lines if box[0] - 2 <= (l.x0 + l.x1) / 2 <= box[2] + 2
+                 and box[1] - 2 <= (l.y0 + l.y1) / 2 <= box[3] + 2]
+        if len(owned) != len(lines) or not owned:
+            continue
+        cells = table["cells"]
+        xs = sorted({round(c[i], 1) for c in cells for i in (0, 2)})
+        ys = sorted({round(c[i], 1) for c in cells for i in (1, 3)})
+        rows = [[] for _ in ys[:-1]]
+        assigned = set()
+        for box in sorted(cells, key=lambda b: (b[1], b[0])):
+            x0, y0, x1, y1 = (round(v, 1) for v in box)
+            ls = [l for l in owned if id(l) not in assigned and x0 - 1 <= (l.x0 + l.x1) / 2 <= x1 + 1
+                  and y0 - 1 <= (l.y0 + l.y1) / 2 <= y1 + 1]
+            assigned.update(id(l) for l in ls)
+            row, col = ys.index(y0), xs.index(x0)
+            rows[row].append(Cell(lines=ls, row=row, col=col,
+                                  colspan=xs.index(x1) - col, rowspan=ys.index(y1) - row))
+        if len(assigned) != len(owned):
+            continue
+        return TableGrid(rows, len(xs) - 1, 0, 0.95)
+    return None
+
+
 def build_grid(lines: list[Line], page: PageInfo, style: BookStyle, bounds: tuple) -> TableGrid | None:
+    exact = ruled_grid(lines, page, bounds)
+    if exact:
+        return exact
     if len(lines) < 2:
         return None
     x0, y0, x1, y1 = bounds
@@ -272,12 +312,14 @@ def ruled_table_regions(page: PageInfo, style: BookStyle, taken: list[tuple]) ->
                 break
         else:
             groups.append([b])
-    out = []
+    out = [tuple(t["bbox"]) for t in getattr(page, "tables", [])
+           if not any(not (t["bbox"][2] < u[0] or u[2] < t["bbox"][0] or
+                           t["bbox"][3] < u[1] or u[3] < t["bbox"][1]) for u in taken)]
     for g in groups:
         if len(g) < 3:
             continue
         box = (g[0][0], g[0][1], g[0][2], g[-1][3])
-        if box[2] - box[0] < 80 or any(not (box[2] < t[0] or t[2] < box[0] or box[3] < t[1] or t[3] < box[1]) for t in taken):
+        if box[2] - box[0] < 80 or any(not (box[2] < t[0] or t[2] < box[0] or box[3] < t[1] or t[3] < box[1]) for t in taken + out):
             continue
         inside = [l for l in page.lines if l.role == "body" and box[1] - 2 <= (l.y0 + l.y1) / 2 <= box[3] + 2
                   and l.x0 >= box[0] - 4 and l.x1 <= box[2] + 4]

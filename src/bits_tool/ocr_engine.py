@@ -186,8 +186,17 @@ def ocr_page(doc, pno: int, page_info, engine: OcrEngine, cache: OcrCache, langs
                   "words": [{"t": w.text, "b": (w.bbox[0] + ox, w.bbox[1] + oy, w.bbox[2] + ox, w.bbox[3] + oy),
                              "c": w.conf, "k": list(w.line_key)} for w in words]}
         cache.put(pno, cached)
+    native = [line for line in page_info.lines if not line.ocr]
+    native_spans = [span for line in native for span in line.spans if span.text.strip()]
     groups: dict[tuple, list] = {}
     for w in cached["words"]:
+        b = w["b"]
+        area = max(1, (b[2] - b[0]) * (b[3] - b[1]))
+        if any(max(0, min(b[2], s.bbox[2]) - max(b[0], s.bbox[0])) *
+               max(0, min(b[3], s.bbox[3]) - max(b[1], s.bbox[1])) >= 0.6 * area for s in native_spans):
+            page_info.diagnostics.append({"action": "exclude-ocr-overlap", "bbox": b,
+                                          "reason": "native text already represents this source area"})
+            continue
         groups.setdefault(tuple(w["k"]), []).append(w)
     lines = []
     confs = []
@@ -201,7 +210,7 @@ def ocr_page(doc, pno: int, page_info, engine: OcrEngine, cache: OcrCache, langs
                                        max(w["b"][2] for w in ws), max(w["b"][3] for w in ws)),
                     page=page_info.index, conf=round(c, 3), ocr=True)
         lines.append(line)
-    page_info.lines = lines
+    page_info.lines = sorted(native + lines, key=lambda line: (line.y0, line.x0))
     page_info.is_ocr = True
     page_info.ocr_conf = round(sum(confs) / len(confs), 3) if confs else 0.0
     return page_info.ocr_conf

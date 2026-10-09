@@ -160,19 +160,46 @@ def merge_ln(a, b):
 
 
 def line_runs(line: Line) -> list[dict]:
+    from .equation_detector import MATH_FONT, RELATIONS, reconstruct_math, is_math_fragment
+    def math_span(span):
+        t = span.text.strip()
+        return bool(t) and len(t) < 80 and (span.italic or span.sub or span.sup or MATH_FONT.search(span.font)
+                    or not re.search(r"[^\W\d_]", t, re.U))
+
     runs = []
-    for s in line.spans:
-        text = re.sub(r"[ \t\r\n]*[\r\n][ \t\r\n]*", " ", s.text.replace(SOFT_HYPHEN, ""))
+    i = 0
+    while i < len(line.spans):
+        end = i
+        while end < len(line.spans) and math_span(line.spans[end]):
+            end += 1
+        group = line.spans[i:end]
+        text = "".join(s.text for s in group)
+        if group and any(c in RELATIONS for c in text) and any(s.italic or s.sub or s.sup or MATH_FONT.search(s.font) for s in group):
+            box = (min(s.bbox[0] for s in group), min(s.bbox[1] for s in group),
+                   max(s.bbox[2] for s in group), max(s.bbox[3] for s in group))
+            candidate = Line(group, box, line.page)
+            ast = reconstruct_math([candidate])[0] if is_math_fragment(candidate) else None
+            if ast:
+                if text[:1].isspace():
+                    runs.append(T(" "))
+                runs.append({"k": "math", "text": text.strip(), "mathml": ast, "st": [],
+                             "ln": [line.uid] if line.uid else []})
+                if text[-1:].isspace():
+                    runs.append(T(" "))
+                i = end
+                continue
+        span = line.spans[i]
+        text = re.sub(r"[ \t\r\n]*[\r\n][ \t\r\n]*", " ", span.text)
         text = re.sub(r"(?<=\S) {2,}(?=\S)", " ", text)
-        if not text:
-            continue
-        st = s.styles()
-        if runs and runs[-1]["k"] == "t" and set(runs[-1]["st"]) == set(st):
-            runs[-1]["text"] += text
-        else:
-            runs.append(T(text, st))
+        if text:
+            st = span.styles()
+            if runs and runs[-1]["k"] == "t" and set(runs[-1]["st"]) == set(st):
+                runs[-1]["text"] += text
+            else:
+                runs.append(T(text, st))
             if line.uid:
                 runs[-1]["ln"] = [line.uid]
+        i += 1
     return runs
 
 
@@ -184,12 +211,14 @@ def append_line(inlines: list[dict], line: Line, hyph: Hyphenation, pending_mark
     # strip leading whitespace of the new line
     runs[0]["text"] = runs[0]["text"].lstrip()
     if inlines:
-        last = next((i for i in reversed(inlines) if i["k"] in ("t", "cite")), None)
+        last = next((i for i in reversed(inlines) if i["k"] in ("t", "cite", "math")), None)
         if last is not None:
             txt = last["text"].rstrip()
             last["text"] = txt
             first_word = re.match(r"[^\W\d_]+", runs[0]["text"])
-            if txt.endswith("-") and not txt.endswith("--") and first_word:
+            if txt.endswith(SOFT_HYPHEN) and first_word:
+                last["text"] = txt[:-1]
+            elif txt.endswith("-") and not txt.endswith("--") and first_word:
                 left_word = re.search(r"([^\W\d_]+)-$", txt)
                 if left_word and hyph.join(left_word.group(1), first_word.group(0)):
                     last["text"] = txt[:-1]
@@ -198,11 +227,14 @@ def append_line(inlines: list[dict], line: Line, hyph: Hyphenation, pending_mark
             elif txt.endswith(("–", "—", "/")):
                 pass
             else:
-                last["text"] = txt + " "
+                if last["k"] == "math":
+                    inlines.append(T(" "))
+                else:
+                    last["text"] = txt + " "
     if pending_mark is not None:
         inlines.append(pending_mark)
     for r in runs:
-        if inlines and inlines[-1]["k"] == "t" and inlines[-1]["st"] == r["st"]:
+        if r["k"] == "t" and inlines and inlines[-1]["k"] == "t" and inlines[-1]["st"] == r["st"]:
             inlines[-1]["text"] += r["text"]
             if r.get("ln"):
                 inlines[-1]["ln"] = merge_ln(inlines[-1].get("ln"), r["ln"])
@@ -215,7 +247,7 @@ def finish_inlines(inlines: list[dict]) -> list[dict]:
     out = []
     for i in inlines:
         if i["k"] == "t":
-            i = {**i, "text": re.sub(r"[ \t ]{2,}", " ", i["text"].replace("\t", " "))}
+            i = {**i, "text": re.sub(r"[ \t ]{2,}", " ", i["text"].replace("\t", " ").replace(SOFT_HYPHEN, ""))}
             if not i["text"]:
                 continue
         out.append(i)

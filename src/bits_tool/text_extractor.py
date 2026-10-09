@@ -17,7 +17,7 @@ import pymupdf
 
 from .document_tree import Line, PageInfo, Span
 
-EXTRACT_VERSION = "10"
+EXTRACT_VERSION = "19"
 ZW_RE = re.compile("[\u200b\u200c\u200d\u2060\ufeff]")
 SLUG_RE = re.compile(r"\.indd\b|\b\d{1,2}[-/]\d{1,2}[-/]\d{4}\s+\d{1,2}:\d{2}(:\d{2})?\b|^\s*\d{10}\.indd", re.I)
 
@@ -83,7 +83,8 @@ def _make_span(s: dict) -> Span:
                 bold=bool(flags & 16) or bool(BOLD_RE.search(font)),
                 italic=bool(flags & 2) or bool(ITAL_RE.search(font)),
                 sup=bool(flags & 1), sc=bool(SC_RE.search(font)), mono=bool(flags & 8),
-                color=int(s.get("color", 0) or 0), bbox=tuple(round(v, 2) for v in s["bbox"]))
+                color=int(s.get("color", 0) or 0), bbox=tuple(round(v, 2) for v in s["bbox"]),
+                origin=tuple(s["origin"]) if s.get("origin") else None, glyphs=s.get("glyphs", []))
 
 
 def _finish_line(spans: list[Span], page: int) -> Line:
@@ -93,15 +94,24 @@ def _finish_line(spans: list[Span], page: int) -> Line:
     x1 = max(s.bbox[2] for s in spans)
     y1 = max(s.bbox[3] for s in spans)
     line = Line(spans=spans, bbox=(x0, y0, x1, y1), page=page)
-    main = line.main
-    base = main.bbox[3]
-    for s in spans:
-        if s is main or not s.text.strip():
+    main = max(spans, key=lambda s: (s.size if not s.sup else 0, len(s.text.strip())))
+    for i, s in enumerate(spans):
+        if not s.text.strip():
             continue
-        small = s.size <= main.size * 0.8
-        if small and s.bbox[3] < base - main.size * 0.18:
+        # A merged line may contain both a fraction numerator and its equals
+        # sign. A script belongs to the adjacent base, not the whole line.
+        bases = [b for b in spans[:i] if b.text.strip() and b.size >= s.size / 0.8
+                 and -1 <= s.bbox[0] - b.bbox[2] <= b.size * 0.6
+                 and min(s.bbox[3], b.bbox[3]) > max(s.bbox[1], b.bbox[1])]
+        base = min(bases, key=lambda b: abs(s.bbox[0] - b.bbox[2])) if bases else main
+        small = s.size <= base.size * 0.8
+        if small and s.origin and base.origin:
+            shift = s.origin[1] - base.origin[1]
+            if abs(shift) > 0.07 * base.size:
+                s.sub, s.sup = shift > 0, shift < 0
+        elif small and s.bbox[3] < base.bbox[3] - base.size * 0.18:
             s.sup, s.sub = True, False
-        elif small and s.bbox[1] > main.bbox[1] + main.size * 0.3:
+        elif small and s.bbox[1] > base.bbox[1] + base.size * 0.3:
             s.sub, s.sup = True, False
         elif not small:
             s.sup = s.sub = False
@@ -171,13 +181,14 @@ def _is_side_tab(l: dict, clip) -> bool:
     return x1 <= cx0 + 0.12 * w or x0 >= cx1 - 0.12 * w
 
 
-def build_lines(raw: dict, page_index: int, clip, rot: int = 0, W: float = 0, H: float = 0) -> tuple[list[Line], int]:
+def build_lines(raw: dict, page_index: int, clip, rot: int = 0, W: float = 0, H: float = 0, diagnostics=None) -> tuple[list[Line], int]:
     """Lines from PyMuPDF 'dict' output, merged across same-baseline fragments.
     With rot != 0 the rotated text is mapped to an upright frame first; horizontal
     text on such a page (running head, folio) is returned separately as margin lines."""
     frags: list[list[Span]] = []
     margin: list[Line] = []
     unmapped = 0
+    seen_spans = {}
     for b in raw["blocks"]:
         if b.get("type") != 0:
             continue
@@ -207,7 +218,24 @@ def build_lines(raw: dict, page_index: int, clip, rot: int = 0, W: float = 0, H:
                     continue
                 sp = _make_span(s)
                 if rot:
+                    if sp.origin:
+                        pt = rot_bbox((*sp.origin, *sp.origin), rot, W, H)
+                        sp.origin = (pt[0], pt[1])
+                    for glyph in sp.glyphs:
+                        glyph["bbox"] = rot_bbox(glyph["bbox"], rot, W, H)
+                        pt = rot_bbox((*glyph["origin"], *glyph["origin"]), rot, W, H)
+                        glyph["origin"] = pt[:2]
                     sp.bbox = tuple(round(v, 2) for v in rot_bbox(sp.bbox, rot, W, H))
+                # Remove overprinted text only at the same physical location.
+                # The same words at another position remain legitimate content.
+                key = sp.text.strip()
+                duplicates = seen_spans.setdefault(key, [])
+                if key and any(max(abs(a - b) for a, b in zip(old, sp.bbox)) <= 0.75 for old in duplicates):
+                    if diagnostics is not None:
+                        diagnostics.append({"action": "exclude-duplicate", "bbox": sp.bbox,
+                                            "reason": "identical text and coincident span bounds"})
+                    continue
+                duplicates.append(sp.bbox)
                 unmapped += sum(1 for ch in sp.text if 0xF000 <= ord(ch) <= 0xF0FF)
                 spans.append(sp)
             if spans and any(sp.text.strip() for sp in spans):
@@ -247,35 +275,88 @@ def build_lines(raw: dict, page_index: int, clip, rot: int = 0, W: float = 0, H:
 def page_drawings(page) -> list[dict]:
     out = []
     try:
-        drs = page.get_drawings()
+        drs = page.get_drawings(extended=True)
     except Exception:
         return out
+    clips = {}
     for d in drs:
+        level = d.get("level", 0)
+        clips = {depth: box for depth, box in clips.items() if depth < level}
+        if d.get("type") == "clip":
+            clips[level] = pymupdf.Rect(d["scissor"])
+            continue
         r = d.get("rect")
         if r is None:
+            continue
+        # Some compound paths report a rect that omits disconnected segment
+        # endpoints. Include every actual endpoint before applying PDF clips.
+        # Cubic control points are not extrema; retain MuPDF's curve bounds.
+        endpoints = [pt for item in d.get("items", []) if item[0] in ("l", "c")
+                     for pt in (item[1], item[-1])]
+        if endpoints:
+            r = pymupdf.Rect(min(r.x0, *(p.x for p in endpoints)),
+                             min(r.y0, *(p.y for p in endpoints)),
+                             max(r.x1, *(p.x for p in endpoints)),
+                             max(r.y1, *(p.y for p in endpoints)))
+        original = tuple(r)
+        r = pymupdf.Rect(r)
+        for clip in clips.values():
+            r = pymupdf.Rect(max(r.x0, clip.x0), max(r.y0, clip.y0),
+                             min(r.x1, clip.x1), min(r.y1, clip.y1))
+        if r.x1 < r.x0 or r.y1 < r.y0:
             continue
         items = d.get("items", [])
         kinds = "".join(sorted({it[0] for it in items}))
         w, h = r.width, r.height
+        paths = []
+        for item in items:
+            if item[0] in ("l", "c"):
+                paths.append([item[0]] + [tuple(pt) for pt in item[1:]])
+            elif item[0] == "re":
+                paths.append(["re", tuple(item[1])])
         out.append({"bbox": (round(r.x0, 1), round(r.y0, 1), round(r.x1, 1), round(r.y1, 1)),
+                    "paths": paths, "stroke_width": d.get("width", 0), "source_bbox": original, "clip_bounds": [tuple(c) for c in clips.values()],
                     "n": len(items), "kinds": kinds, "fill": d.get("fill") is not None,
                     "hline": h < 2.5 and w > 8, "vline": w < 2.5 and h > 8})
     return out
 
 
-def page_images(page, clip) -> list[dict]:
+def page_images(page, clip, diagnostics=None) -> list[dict]:
     out = []
     try:
         infos = page.get_image_info(xrefs=True)
     except Exception:
         return out
+    try:
+        from .pdf_geometry import image_paint_bounds
+        painted = image_paint_bounds(page)
+    except Exception as exc:
+        painted = []
+        if diagnostics is not None:
+            diagnostics.append({"action": "image-clip-unavailable", "reason": type(exc).__name__})
+    used = set()
     for i in infos:
         b = i["bbox"]
+        source = b
+        matches = [(j, bound) for j, (full, bound) in enumerate(painted) if j not in used
+                   and max(abs(a - c) for a, c in zip(full, b)) < .1]
+        clip_status = "unmatched"
+        effective_clip = None
+        if matches:
+            j, effective_clip = matches[0]
+            used.add(j)
+            clip_status = "verified"
+            if effective_clip is not None:
+                b = (max(b[0], effective_clip[0]), max(b[1], effective_clip[1]),
+                     min(b[2], effective_clip[2]), min(b[3], effective_clip[3]))
+            if diagnostics is not None and max(abs(a-c) for a,c in zip(b, source)) > .1:
+                diagnostics.append({"action": "apply-image-clip", "bbox": b, "source_bbox": source,
+                                    "reason": "active PDF clipping state at matched image paint occurrence"})
         bb = (max(b[0], clip[0]), max(b[1], clip[1]), min(b[2], clip[2]), min(b[3], clip[3]))
         if bb[2] - bb[0] < 2 or bb[3] - bb[1] < 2:
             continue
         out.append({"bbox": tuple(round(v, 1) for v in bb), "xref": i.get("xref", 0),
-                    "w": i.get("width"), "h": i.get("height"), "full": tuple(round(v, 1) for v in b)})
+                    "clip_status": clip_status, "clip_bounds": effective_clip, "digest": i.get("digest", b"").hex(), "w": i.get("width"), "h": i.get("height"), "full": tuple(round(v, 1) for v in source)})
     return out
 
 
@@ -329,7 +410,20 @@ def extract_page(doc, pno: int, gindex: int, pdf_name: str, cache_dir: Path | No
     clip = trim_clip(page)
     info = PageInfo(index=gindex, pdf=pdf_name, pdf_page=pno, width=page.rect.width, height=page.rect.height, trim=clip)
     try:
-        raw = page.get_text("dict", flags=pymupdf.TEXT_PRESERVE_WHITESPACE | pymupdf.TEXT_PRESERVE_LIGATURES)
+        raw = page.get_text("rawdict", flags=pymupdf.TEXT_PRESERVE_WHITESPACE | pymupdf.TEXT_PRESERVE_LIGATURES)
+        # Synthetic spaces generated by MuPDF can carry the previous span's
+        # origin. Use real glyph origins/bounds before classifying scripts.
+        for block in raw["blocks"]:
+            for raw_line in block.get("lines", []):
+                for span in raw_line["spans"]:
+                    chars = span.pop("chars", [])
+                    span["text"] = "".join(c["c"] for c in chars)
+                    span["glyphs"] = [{"text": c["c"], "bbox": c["bbox"], "origin": c["origin"]} for c in chars if c["c"].strip()]
+                    visible = [c for c in chars if c["c"].strip()]
+                    if visible:
+                        span["origin"] = visible[0]["origin"]
+                        span["bbox"] = (min(c["bbox"][0] for c in visible), min(c["bbox"][1] for c in visible),
+                                        max(c["bbox"][2] for c in visible), max(c["bbox"][3] for c in visible))
         rot = dominant_rotation(raw)
         W, H = page.rect.width, page.rect.height
         if rot:
@@ -337,7 +431,7 @@ def extract_page(doc, pno: int, gindex: int, pdf_name: str, cache_dir: Path | No
             clip = rot_bbox(clip, rot, W, H)
             info.trim = clip
             info.width, info.height = (H, W)
-        lines, unmapped = build_lines(raw, gindex, clip, rot, W, H)
+        lines, unmapped = build_lines(raw, gindex, clip, rot, W, H, info.diagnostics)
         kept = []
         for l in lines:
             if SLUG_RE.search(l.text):
@@ -346,7 +440,7 @@ def extract_page(doc, pno: int, gindex: int, pdf_name: str, cache_dir: Path | No
         info.lines = kept
         if unmapped:
             info.errors.append(f"UNMAPPED_PUA_GLYPHS:{unmapped}")
-        info.images = page_images(page, unrot_bbox(clip, rot, W, H) if rot else clip)
+        info.images = page_images(page, unrot_bbox(clip, rot, W, H) if rot else clip, info.diagnostics)
         if rot:
             for im in info.images:
                 im["bbox"] = tuple(round(v, 1) for v in rot_bbox(im["bbox"], rot, W, H))
@@ -357,9 +451,25 @@ def extract_page(doc, pno: int, gindex: int, pdf_name: str, cache_dir: Path | No
                 seen[x] = image_flatness(doc, x)
             im["std"] = seen.get(x)
         info.drawings = page_drawings(page)
+        # MuPDF's ruled-table geometry preserves merged cells. Avoid its text
+        # strategy: ordinary newspaper columns must not become a table.
+        if not rot and sum(d["hline"] or d["vline"] or d["kinds"] == "re" for d in info.drawings) >= 3:
+            try:
+                found = page.find_tables(strategy="lines_strict")
+                info.tables = [{"bbox": tuple(t.bbox), "cells": [tuple(c) for c in t.cells if c],
+                                "rows": t.row_count, "cols": t.col_count} for t in found.tables
+                               if t.row_count >= 2 and t.col_count >= 2]
+            except Exception as exc:
+                info.errors.append(f"TABLE_GEOMETRY_ERROR:{type(exc).__name__}:{exc}")
         if rot:
             for dr in info.drawings:
                 dr["bbox"] = tuple(round(v, 1) for v in rot_bbox(dr["bbox"], rot, W, H))
+                for path in dr.get("paths", []):
+                    if path[0] == "re":
+                        path[1] = rot_bbox(path[1], rot, W, H)
+                    else:
+                        for j in range(1, len(path)):
+                            x, y = path[j]; path[j] = rot_bbox((x, y, x, y), rot, W, H)[:2]
                 dr["hline"], dr["vline"] = dr["vline"], dr["hline"]
     except Exception as e:  # recorded, never fatal for the book
         info.errors.append(f"EXTRACTION_ERROR:{type(e).__name__}:{e}")
@@ -377,21 +487,22 @@ def extract_page(doc, pno: int, gindex: int, pdf_name: str, cache_dir: Path | No
 def page_to_json(p: PageInfo) -> dict:
     return {"v": EXTRACT_VERSION, "pdf": p.pdf, "pdf_page": p.pdf_page, "w": p.width, "h": p.height, "trim": p.trim,
             "rot": p.rot, "orig": p.orig_size,
-            "ocr": p.is_ocr, "ocr_conf": p.ocr_conf, "errors": p.errors, "images": p.images, "drawings": p.drawings,
+            "ocr": p.is_ocr, "ocr_conf": p.ocr_conf, "errors": p.errors, "diagnostics": p.diagnostics, "tables": p.tables, "images": p.images, "drawings": p.drawings,
             "lines": [{"b": l.bbox, "r": l.role, "c": l.conf, "o": l.ocr,
                        "s": [[s.text, s.font, s.size, int(s.bold), int(s.italic), int(s.sup), int(s.sub), int(s.sc),
-                              int(s.mono), s.color, s.bbox] for s in l.spans]} for l in p.lines]}
+                              int(s.mono), s.color, s.bbox, s.origin, s.glyphs] for s in l.spans]} for l in p.lines]}
 
 
 def page_from_json(d: dict, gindex: int) -> PageInfo:
     p = PageInfo(index=gindex, pdf=d["pdf"], pdf_page=d["pdf_page"], width=d["w"], height=d["h"], trim=tuple(d["trim"]),
                  is_ocr=d.get("ocr", False), ocr_conf=d.get("ocr_conf"), errors=d.get("errors", []),
+                 diagnostics=d.get("diagnostics", []), tables=d.get("tables", []),
                  images=[{**i, "bbox": tuple(i["bbox"])} for i in d.get("images", [])],
                  drawings=[{**x, "bbox": tuple(x["bbox"])} for x in d.get("drawings", [])],
                  rot=d.get("rot", 0), orig_size=tuple(d["orig"]) if d.get("orig") else None)
     for l in d["lines"]:
         spans = [Span(text=s[0], font=s[1], size=s[2], bold=bool(s[3]), italic=bool(s[4]), sup=bool(s[5]),
-                      sub=bool(s[6]), sc=bool(s[7]), mono=bool(s[8]), color=s[9], bbox=tuple(s[10])) for s in l["s"]]
+                      sub=bool(s[6]), sc=bool(s[7]), mono=bool(s[8]), color=s[9], bbox=tuple(s[10]), origin=tuple(s[11]) if len(s) > 11 and s[11] else None, glyphs=s[12] if len(s)>12 else []) for s in l["s"]]
         p.lines.append(Line(spans=spans, bbox=tuple(l["b"]), page=gindex, role=l.get("r", "body"),
                             conf=l.get("c", 1.0), ocr=l.get("o", False)))
     return p
